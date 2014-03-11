@@ -15,8 +15,7 @@ import messaggistica.GMessage;
 import java.util.ResourceBundle;
 
 /**
- * Main del sistema. Qui parte tutto, utilizzando {@link JustOneLock} si assicura che solo una
- * istanza di adisys parta
+ * Da qui parte tutto il programma
 */
 public class Main {
 
@@ -29,15 +28,8 @@ public class Main {
                 
         public static void main(String[] args) throws MainException {
 		
-		JustOneLock ua = new JustOneLock("ADISys");
-		if (ua.isAppActive()) {
-			//c'e' gia' un'altra istanza di questa stessa applicazione, esco
-			System.out.println(main.getString("APPLICAZIONE GIÀ IN ESECUZIONE."));
-			
-			GMessage.information(main.getString("ADISYS E' GIA' IN ESECUZIONE"));
-			
-			System.exit(0);
-		}else {
+		
+		
                     //prima istanza dell'applicazione
                     System.out.println(main.getString("APPLICAZIONE ESEGUITA"));
 		  
@@ -67,7 +59,7 @@ public class Main {
                         GMessage.message_error(message);
                     }
                     
-                } 
+                
         }       
         
     /**
