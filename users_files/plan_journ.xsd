@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="interventi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="intervento"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="intervento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="operatoreIntervento"/>
+        <xs:element ref="data"/>
+        <xs:element ref="luogo"/>
+        <xs:element ref="paziente"/>
+        <xs:element ref="tipiInterventi"/>
+        <xs:element ref="note"/>
+        <xs:element ref="log"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:integer"/>
+      <xs:attribute name="orafine" use="required"/>
+      <xs:attribute name="orainizio" use="required" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="operatoreIntervento">
+    <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="data" type="xs:NMTOKEN"/>
+  <xs:element name="luogo">
+    <xs:complexType>
+      <xs:attribute name="cap" use="required" type="xs:integer"/>
+      <xs:attribute name="citta" use="required" type="xs:NCName"/>
+      <xs:attribute name="indirizzo" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="paziente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="nome"/>
+        <xs:element ref="cognome"/>
+        <xs:element ref="cellulari"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="nome" type="xs:NCName"/>
+  <xs:element name="cognome" type="xs:NCName"/>
+  <xs:element name="cellulari">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="cellulare"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cellulare">
+    <xs:complexType>
+      <xs:attribute name="numero" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tipiInterventi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="tipoIntervento"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tipoIntervento">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="note"/>
+        <xs:element ref="valoreRilevato"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="valoreRilevato">
+    <xs:complexType>
+      <xs:attribute name="tempoIntervento" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="log">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rilevazioni"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rilevazioni">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rilevazione"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rilevazione">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="timestamp"/>
+        <xs:element ref="gps"/>
+        <xs:element ref="accelerometro"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="timestamp">
+    <xs:complexType>
+      <xs:attribute name="data" use="required"/>
+      <xs:attribute name="ora" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="gps">
+    <xs:complexType>
+      <xs:attribute name="accuratezza" use="required"/>
+      <xs:attribute name="altitudine" use="required"/>
+      <xs:attribute name="latitudine" use="required"/>
+      <xs:attribute name="longitudine" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="accelerometro">
+    <xs:complexType>
+      <xs:attribute name="valorex" use="required"/>
+      <xs:attribute name="valorey" use="required"/>
+      <xs:attribute name="valorez" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="note">
+    <xs:complexType/>
+  </xs:element>
+</xs:schema>

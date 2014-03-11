@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<dipendenti>
+
+	<infermiere id="1">
+		<nome>Roberto</nome>
+		<cognome>Storico</cognome>
+	</infermiere>
+
+	<infermiere id="2">
+		<nome>Pierluigi</nome>
+		<cognome>Ingrosso</cognome>
+	</infermiere>
+
+</dipendenti>

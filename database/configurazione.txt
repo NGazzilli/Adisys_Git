@@ -1,0 +1,4 @@
+dbPath=jdbc:hsqldb:file:database/
+dbName=ADISysData
+dbUsername=asl
+dbPassword=

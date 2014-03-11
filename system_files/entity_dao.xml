@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Questo file contiene i dati necessari alla navigazione dal nome della entity alla DAO associata.
+Viene usato dalle Entity per capire la DAO a cui sono associate.
+NB: il nome deve essere completo di tutti i package e sotto package
+-->
+<daoClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="entity_dao.xsd">
+
+	<entity name="Patologia">
+		<dao>integration.dao.PatologiaMySqlDAO</dao>
+	</entity>
+
+	<entity name="Paziente">
+		<dao>integration.dao.PazienteMySqlDAO</dao>
+	</entity>
+	
+	<entity name="Infermiere">
+		<dao>integration.dao.InfermiereMySqlDAO</dao>
+	</entity>
+	
+	<!-- Usato per la entity Intervento -->
+	<entity name="Intervento">
+		<dao>integration.dao.InterventoMySqlDAO</dao>
+	</entity>
+s
+</daoClass>

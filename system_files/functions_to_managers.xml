@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Questo file contiene i dati necessari alla navigazione dal nome della funzionalita' a chi la gestisce.
+Viene usato dal Front Controller per capire quale classe evocare per la funzionalita' richiesta
+NB: il nome deve essere completo di tutti i package e sotto package
+-->
+<functions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="functions_to_managers.xsd">
+
+	<action name="getDatiConfigurazione">
+		<call>business.configurazione.ASConfigurazione</call>
+	</action>
+	<action name="setDatiConfigurazione">
+		<call>business.configurazione.ASConfigurazione</call>
+	</action>
+	
+	<action name="creaInfermiere">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="cancellaInfermiere">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="cancellaTuttiInfermieri">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="modificaInfermiere">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="visualizzaInfermieri">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="visualizzaInfermiere">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="visualizzaElenco">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="visualizzaInfermieriConInterventi">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="infermiereEsistente">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	<action name="modificaTabellaInfermieri">
+		<call>business.infermiere.ASInfermieri</call>
+	</action>
+	
+	
+	<action name="creaPatologia">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="cancellaPatologia">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="cancellaTuttePatologie">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="modificaPatologia">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="visualizzaPatologie">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="visualizzaListaPatologie">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="visualizzaPatologieAssociate">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+	<action name="modificaTabellaPatologie">
+		<call>business.patologia.ASPatologie</call>
+	</action>
+
+	
+	<action name="creaPaziente">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="cancellaPaziente">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="cancellaTuttiPazienti">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="modificaPaziente">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="visualizzaPazienti">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="visualizzaNumeriTelefono">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="visualizzaPaziente">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="modificaTabellaPazienti">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="modificaTabellaCellulari">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	<action name="pazienteEsistente">
+		<call>business.paziente.ASPazienti</call>
+	</action>
+	
+
+	<action name="visualizzaInterventi">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="visualizzaTabellaInterventiInfermiere">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="visualizzaListaInterventiInfermiere">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="visualizzaTipiIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="visualizzaPatologieIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="cancellaIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="creaIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="cancellaTuttiInterventi">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="modificaIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="verificaValiditaIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="visualizzaIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="modificaTabellaPatologieIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="modificaTabellaTipiIntervento">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="modificaTabellaInterventi">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="aggiornaStorico">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	<action name="visualizzaStorico">
+		<call>business.intervento.ASInterventi</call>
+	</action>	
+	<action name="contaInterventi">
+		<call>business.intervento.ASInterventi</call>
+	</action>
+	
+	
+
+	<action name="esportaPianificazione">
+		<call>business.pianificazione.ASPianificazione</call>
+	</action>
+
+
+	<action name="visualizzaListaJournaling">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+	<action name="visualizzaListaInterventi">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+	<action name="visualizzaInterventoCompleto">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+	<action name="caricaFile">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+	
+
+	<action name="getJournalingInData">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+
+	<action name="getJournalingInData">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+
+	<action name="sincroFileJournalingConDB">
+		<call>business.journaling.ASJournaling</call>
+	</action>
+
+</functions>
