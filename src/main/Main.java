@@ -46,8 +46,6 @@ public class Main {
                         SplashScreen.start();
                         if(FC.processRequest(RequestManager.APRI_EDITOR_LANGUAGE)){
                             System.out.println("Finestra EditorLanguage aperta con successo");
-                            //util.Sound.riproduciAvvio();
-                             adisys.server.strumenti.Sound.riproduciAvvio();
                             ConfigurazioneTO configTO = null;
                             try {
                                 configTO = new ConfigurazioneTO();

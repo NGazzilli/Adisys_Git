@@ -88,7 +88,7 @@ public class GMessage {
 	}
       
 	public static void message_error(String message){
-          adisys.server.strumenti.Sound.riproduciErrorSound();
+         
           JOptionPane.showMessageDialog(null, message, "ERRORE", JOptionPane.ERROR_MESSAGE);
 	}
       
@@ -128,7 +128,7 @@ public class GMessage {
 	*/
 	public static void winNotFound(String window){
 		String message = NOT_FOUND.replaceAll("<win>", window);
-		adisys.server.strumenti.Sound.riproduciErrorSound();
+		
 		JOptionPane.showMessageDialog(null, message, "ERROR", JOptionPane.ERROR_MESSAGE);
               
 	}
