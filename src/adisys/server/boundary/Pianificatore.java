@@ -537,10 +537,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         request(RequestManager.APRI_EDITOR_LANGUAGE);
     }                                                 
 
-    private void pulsanteServerActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        this.dispose();
-        request(RequestManager.APRI_EDITOR_DATABASE);
-    }                                              
+                                                
 
     private void comboInfermieriActionPerformed(java.awt.event.ActionEvent evt) {                                                
         try {
