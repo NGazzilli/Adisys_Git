@@ -88,7 +88,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabellaInterventi = new javax.swing.JTable();
         pulsanteIndietro3 = new javax.swing.JButton();
-        pulsanteServer = new javax.swing.JButton();
+       
         comboInfermieri = new javax.swing.JComboBox();
         txRicDataDal = new com.toedter.calendar.JDateChooser();
         txRicDataAl = new com.toedter.calendar.JDateChooser();
@@ -256,13 +256,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
             }
         });
 
-        pulsanteServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/database_ico.png"))); // NOI18N
-        pulsanteServer.setText(pianificatore.getString("VAI AD ADISYSDATABASE")); // NOI18N
-        pulsanteServer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteServerActionPerformed(evt);
-            }
-        });
+      
 
         comboInfermieri.setToolTipText(pianificatore.getString("SELEZIONA L'INFERMIERE PER CUI FILTRARE GLI INTERVENTI")); // NOI18N
         comboInfermieri.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +315,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
                 .addContainerGap()
                 .addComponent(pulsanteEsci)
                 .addGap(350, 350, 350)
-                .addComponent(pulsanteServer, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 443, Short.MAX_VALUE)
                 .addComponent(pulsanteIndietro3))
             .addComponent(jScrollPane3)
@@ -371,8 +365,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(pulsanteEsci)
-                        .addComponent(pulsanteServer))
+                        .addComponent(pulsanteEsci))
                     .addComponent(pulsanteIndietro3))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -541,7 +534,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
 
     private void pulsanteIndietro3ActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         this.dispose();
-        request(RequestManager.APRI_EDITOR_SCELTA);
+        request(RequestManager.APRI_EDITOR_LANGUAGE);
     }                                                 
 
     private void pulsanteServerActionPerformed(java.awt.event.ActionEvent evt) {                                               
@@ -627,7 +620,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         if(GMessage.confirm(pianificatore.getString("SEI SICURO DI VOLER TORNARE INDIETRO?"))
                 == JOptionPane.YES_OPTION) {
         this.dispose();
-        request(RequestManager.APRI_EDITOR_SCELTA);
+        request(RequestManager.APRI_EDITOR_LANGUAGE);
         }
     }                                  
 
@@ -840,7 +833,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
     private javax.swing.JButton pulsanteEsci;
     private javax.swing.JButton pulsanteIndietro3;
     private javax.swing.JButton pulsanteResettaRicerca;
-    private javax.swing.JButton pulsanteServer;
+   
     private javax.swing.JTable tabellaInfermieri;
     private javax.swing.JTable tabellaInterventi;
     private javax.swing.JTable tabellaPatologie;
