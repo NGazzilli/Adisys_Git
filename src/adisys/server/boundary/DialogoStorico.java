@@ -30,33 +30,52 @@ import presentation.RequestManager;
 * @author Gianmarco Divittorio
 * @author Nicola Gazzilli
 */
+
 public class DialogoStorico extends javax.swing.JDialog implements Boundary {
     
     private FrontController FC;
     private static EditorInfermieri tmp;
-    private static String NOME_COLONNA_CODICE;
-    private static String NOME_COLONNA_NOME;
-    private static String NOME_COLONNA_GRAVITA;
+    private static String COLUMN_CODE_NAME;
+    private static String COLUMN_NAME;
+    private static String SEVERITY_COLUMN_NAME;
     
-    private static ResourceBundle dialogoStorico = ResourceBundle.getBundle("adisys/server/property/DialogoStorico");
-    public static void setResourceBundle(String path, Locale locale){
-             dialogoStorico = ResourceBundle.getBundle(path, locale);
+    // Variables declaration - do not modify                     
+    private javax.swing.JLabel headerRipPathologiesPic;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JLabel labelInterventi;
+    private javax.swing.JLabel labelPatologie;
+    private javax.swing.JLabel labelTipi;
+    private javax.swing.JButton pulsanteEsci;
+    private javax.swing.JButton pulsanteEsci1;
+    private javax.swing.JButton pulsanteHome;
+    private javax.swing.JTable tabellaInterventi;
+    private javax.swing.JTable tabellaPatologie;
+    private javax.swing.JTable tabellaTipi;
+    // End of variables declaration  
+    
+    private static ResourceBundle registerDialog = ResourceBundle.getBundle("adisys/server/property/DialogoStorico");
+    public static void setResourceBundle(String path, Locale local){
+    	registerDialog = ResourceBundle.getBundle(path, local);
     }
     
-    public static void setEditorInfermieri(EditorInfermieri editorInfermieri){
-        tmp = editorInfermieri;
+    public static void setNursesEditor(EditorInfermieri nursesEditor){
+        tmp = nursesEditor;
     }
 
 	/**
 	 * Creates new form dialogoPatologieTipoIntervento
 	 */
+    
 	public DialogoStorico(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
                 try {
                     initComponents();
-                    aggiornaTabella();
-                    getModelloTipiVuoto();
-                    getModelloPatologieVuoto();
+                    updateTable();
+                    getEmptyTypesModel();
+                    getEmptyPathologiesModel();
                 } catch (MainException ex) {
                     Logger.getLogger(DialogoStorico.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -75,7 +94,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        immagineTestataRipPatologie = new javax.swing.JLabel();
+		headerRipPathologiesPic = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tabellaInterventi = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -91,7 +110,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(dialogoStorico.getString("TITLE")); // NOI18N
+        setTitle(registerDialog.getString("TITLE")); // NOI18N
         setMinimumSize(null);
         setModal(true);
         setResizable(false);
@@ -101,7 +120,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
             }
         });
 
-        immagineTestataRipPatologie.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/decorazioniFinestre/DialogoStorico.png"))); // NOI18N
+        headerRipPathologiesPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/decorazioniFinestre/DialogoStorico.png"))); // NOI18N
 
         tabellaInterventi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,7 +136,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
         tabellaInterventi.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tabellaInterventi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabellaInterventiMouseClicked(evt);
+                interventionsTableMouseClicked(evt);
             }
         });
         jScrollPane8.setViewportView(tabellaInterventi);
@@ -132,7 +151,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
         ));
         tabellaTipi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabellaTipiMouseClicked(evt);
+            	typesTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tabellaTipi);
@@ -154,59 +173,59 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
         labelInterventi.setForeground(new java.awt.Color(255, 255, 255));
         labelInterventi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelInterventi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/Azzurra.png"))); // NOI18N
-        labelInterventi.setText(dialogoStorico.getString("DialogoStorico.labelInterventi.text")); // NOI18N
+        labelInterventi.setText(registerDialog.getString("DialogoStorico.labelInterventi.text")); // NOI18N
         labelInterventi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         labelTipi.setFont(labelTipi.getFont().deriveFont(labelTipi.getFont().getStyle() | java.awt.Font.BOLD, 14));
         labelTipi.setForeground(new java.awt.Color(255, 255, 255));
         labelTipi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTipi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/Verde.png"))); // NOI18N
-        labelTipi.setText(dialogoStorico.getString("DialogoStorico.labelTipi.text")); // NOI18N
+        labelTipi.setText(registerDialog.getString("DialogoStorico.labelTipi.text")); // NOI18N
         labelTipi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         labelPatologie.setFont(labelPatologie.getFont().deriveFont(labelPatologie.getFont().getStyle() | java.awt.Font.BOLD, 14));
         labelPatologie.setForeground(new java.awt.Color(255, 255, 255));
         labelPatologie.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelPatologie.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/arancione.png"))); // NOI18N
-        labelPatologie.setText(dialogoStorico.getString("DialogoStorico.labelPatologie.text")); // NOI18N
+        labelPatologie.setText(registerDialog.getString("DialogoStorico.labelPatologie.text")); // NOI18N
         labelPatologie.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         pulsanteEsci.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/arresta.png"))); // NOI18N
-        pulsanteEsci.setText(dialogoStorico.getString("DialogoStorico.pulsanteEsci.text")); // NOI18N
-        pulsanteEsci.setToolTipText(dialogoStorico.getString("DialogoStorico.pulsanteEsci.toolTipText")); // NOI18N
+        pulsanteEsci.setText(registerDialog.getString("DialogoStorico.pulsanteEsci.text")); // NOI18N
+        pulsanteEsci.setToolTipText(registerDialog.getString("DialogoStorico.pulsanteEsci.toolTipText")); // NOI18N
         pulsanteEsci.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         pulsanteEsci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteEsciActionPerformed(evt);
+            	quitActionPerformedButton(evt);
             }
         });
 
         pulsanteHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/home.png"))); // NOI18N
-        pulsanteHome.setText(dialogoStorico.getString("DialogoStorico.pulsanteHome.text")); // NOI18N
+        pulsanteHome.setText(registerDialog.getString("DialogoStorico.pulsanteHome.text")); // NOI18N
         pulsanteHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         pulsanteHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteHomeActionPerformed(evt);
+            	homeActionPerformedButton(evt);
             }
         });
 
         pulsanteEsci1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/indietro.png"))); // NOI18N
-        pulsanteEsci1.setText(dialogoStorico.getString("DialogoStorico.pulsanteEsci1.text")); // NOI18N
-        pulsanteEsci1.setToolTipText(dialogoStorico.getString("DialogoStorico.pulsanteEsci1.toolTipText")); // NOI18N
+        pulsanteEsci1.setText(registerDialog.getString("DialogoStorico.pulsanteEsci1.text")); // NOI18N
+        pulsanteEsci1.setToolTipText(registerDialog.getString("DialogoStorico.pulsanteEsci1.toolTipText")); // NOI18N
         pulsanteEsci1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteEsci1ActionPerformed(evt);
+            	quit1ActionPerformedButton(evt);
             }
         });
 
-        jLabel1.setText(dialogoStorico.getString("SPIEGAZIONE")); // NOI18N
+        jLabel1.setText(registerDialog.getString("SPIEGAZIONE")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(immagineTestataRipPatologie)
+                .addComponent(headerRipPathologiesPic)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -236,7 +255,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(immagineTestataRipPatologie)
+                .addComponent(headerRipPathologiesPic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,26 +282,25 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
     }// </editor-fold>                        
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-         String msg = dialogoStorico.getString("SEI SICURO DI VOLER USCIRE DAL PANNELLO?");
+         String msg = registerDialog.getString("SEI SICURO DI VOLER USCIRE DAL PANNELLO?");
         if(GMessage.confirm(msg) == JOptionPane.YES_OPTION) {
             this.dispose();
         }
     }                                  
 
-    private void tabellaInterventiMouseClicked(java.awt.event.MouseEvent evt) {                                               
+    private void interventionsTableMouseClicked(java.awt.event.MouseEvent evt) {                                               
        int rigaSel = tabellaInterventi.getSelectedRow();
        int colonnaID = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ID);
-                   //TODO caricamento tipi intervento
        int id = Integer.valueOf(tabellaInterventi.getValueAt(rigaSel, colonnaID).toString());
-       DefaultTableModel modelloTipiIntervento = getTipiIntervento(id);
+       DefaultTableModel modelloTipiIntervento = getInterventionTypes(id);
        tabellaTipi.setModel(modelloTipiIntervento);
                 
-       DefaultTableModel modelloPatologieTipoIntervento = getPatologieIntervento(Integer.valueOf(tabellaInterventi.getValueAt(rigaSel, colonnaID).toString()));
+       DefaultTableModel modelloPatologieTipoIntervento = getInterventionPathologies(Integer.valueOf(tabellaInterventi.getValueAt(rigaSel, colonnaID).toString()));
        tabellaPatologie.setModel(modelloPatologieTipoIntervento);
         
     }                                              
 
-    private void tabellaTipiMouseClicked(java.awt.event.MouseEvent evt) {                                         
+    private void typesTableMouseClicked(java.awt.event.MouseEvent evt) {                                         
          ArrayList<PatologiaTO> listaCorrente = new ArrayList<>();
          int rigaCorrente = tabellaTipi.getSelectedRow();
          FC = RequestManager.getFCInstance();
@@ -302,14 +320,14 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
          listaCorrente = tipoInterventoSelezionato.getListaPatologie();
          
         
-         int colonnaCodice = tabellaPatologie.getColumnModel().getColumnIndex(NOME_COLONNA_CODICE);
-         int colonnaNome = tabellaPatologie.getColumnModel().getColumnIndex(NOME_COLONNA_NOME);
-         int colonnaGravita = tabellaPatologie.getColumnModel().getColumnIndex(NOME_COLONNA_GRAVITA);
+         int colonnaCodice = tabellaPatologie.getColumnModel().getColumnIndex(COLUMN_CODE_NAME);
+         int colonnaNome = tabellaPatologie.getColumnModel().getColumnIndex(COLUMN_NAME);
+         int colonnaGravita = tabellaPatologie.getColumnModel().getColumnIndex(SEVERITY_COLUMN_NAME);
          
          DefaultTableModel modello = (DefaultTableModel) tabellaPatologie.getModel();
          modello.setRowCount(listaCorrente.size());
           
-         setModelTabellaPatologie(modello);
+         setModelPathologiesTable(modello);
             
          for(int i = 0; i < listaCorrente.size(); i++){
              tabellaPatologie.setValueAt(listaCorrente.get(i).getCodice(), i, 
@@ -320,35 +338,35 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
          }
     }                                        
 
-    private void pulsanteEsciActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(GMessage.confirm(dialogoStorico.getString("SEI SICURO DI VOLER ABBANDONARE ADISYS?"))
+    private void quitActionPerformedButton(java.awt.event.ActionEvent evt) {                                             
+        if(GMessage.confirm(registerDialog.getString("SEI SICURO DI VOLER ABBANDONARE ADISYS?"))
                 == JOptionPane.YES_OPTION) {
         System.exit(0);
         }
     }                                            
 
-    private void pulsanteHomeActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(GMessage.confirm(dialogoStorico.getString("SEI SICURO DI VOLER TORNARE ALLA HOME?"))
+    private void homeActionPerformedButton(java.awt.event.ActionEvent evt) {                                             
+        if(GMessage.confirm(registerDialog.getString("SEI SICURO DI VOLER TORNARE ALLA HOME?"))
         == JOptionPane.YES_OPTION) {
         this.dispose();
         tmp.dispose();
         }
     }                                            
 
-    private void pulsanteEsci1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void quit1ActionPerformedButton(java.awt.event.ActionEvent evt) {                                              
 
-        String msg = dialogoStorico.getString("SEI SICURO DI VOLER TORNARE ALL'EDITOR DEGLI INFERMIERI");
+        String msg = registerDialog.getString("SEI SICURO DI VOLER TORNARE ALL'EDITOR DEGLI INFERMIERI");
         if(GMessage.confirm(msg) == JOptionPane.YES_OPTION) {
             this.dispose();
         }
     }                                             
 
-    public void setModelTabellaPatologie(DefaultTableModel modello){
+    public void setModelPathologiesTable(DefaultTableModel modello){
         	tabellaPatologie.setModel(modello);
         }
         
             
-         private VariableTableModel getModelloPatologieVuoto() {
+         private VariableTableModel getEmptyPathologiesModel() {
             //Intestazioni
             VariableTableModel tabellaPatologieVuota = new VariableTableModel();
             tabellaPatologieVuota.addColumn(PatologiaMySqlDAO.NOME_COLONNA_CODICE);
@@ -359,8 +377,8 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
             return tabellaPatologieVuota;
        }
          
-        public DefaultTableModel getPatologieIntervento(int IDIntervento) {
-        DefaultTableModel modelloPatologie = getModelloPatologieVuoto();
+        public DefaultTableModel getInterventionPathologies(int IDIntervento) {
+        DefaultTableModel modelloPatologie = getEmptyPathologiesModel();
         //Recupero dati sui tipi di intervento
         InterventoTO to = new InterventoTO();
         to.setID(IDIntervento);
@@ -379,10 +397,10 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
         return modelloPatologie;            
      }
         
-        public DefaultTableModel getTipiIntervento(int IDIntervento)
+        public DefaultTableModel getInterventionTypes(int IDIntervento)
         {
             FC = RequestManager.getFCInstance();
-            DefaultTableModel modelloTipi = getModelloTipiVuoto();
+            DefaultTableModel modelloTipi = getEmptyTypesModel();
             //Recupero dati sui tipi di intervento
              //TODO Caricamento numeri di cellulare
              InterventoTO to = new InterventoTO();
@@ -405,10 +423,10 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
                     
     }
         
-            public static DefaultTableModel getModelloTipiVuoto(){
+            public static DefaultTableModel getEmptyTypesModel(){
             //Intestazioni
-            String NOME_COLONNA_NOME_TIPO_INTERVENTO = dialogoStorico.getString("TIPO");
-            String NOME_COLONNA_NOTE_TIPO_INTERVENTO = dialogoStorico.getString("NOTE");
+            String NOME_COLONNA_NOME_TIPO_INTERVENTO = registerDialog.getString("TIPO");
+            String NOME_COLONNA_NOTE_TIPO_INTERVENTO = registerDialog.getString("NOTE");
             String[] colonne= { NOME_COLONNA_NOME_TIPO_INTERVENTO, NOME_COLONNA_NOTE_TIPO_INTERVENTO};
             
             //Creazione modello
@@ -454,32 +472,17 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
 		});
 	}
 
-        public void aggiornaTabella() throws MainException{
+        public void updateTable() throws MainException{
 
-            NOME_COLONNA_CODICE = PatologiaMySqlDAO.NOME_COLONNA_CODICE;
-            NOME_COLONNA_NOME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
-            NOME_COLONNA_GRAVITA = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
+        	COLUMN_CODE_NAME = PatologiaMySqlDAO.NOME_COLONNA_CODICE;
+        	COLUMN_NAME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
+        	SEVERITY_COLUMN_NAME = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
             tabellaInterventi.setModel(tmp.getTabellaTipi());
                 
 	}//aggiorna tabella
         
  
-    // Variables declaration - do not modify                     
-    private javax.swing.JLabel immagineTestataRipPatologie;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JLabel labelInterventi;
-    private javax.swing.JLabel labelPatologie;
-    private javax.swing.JLabel labelTipi;
-    private javax.swing.JButton pulsanteEsci;
-    private javax.swing.JButton pulsanteEsci1;
-    private javax.swing.JButton pulsanteHome;
-    private javax.swing.JTable tabellaInterventi;
-    private javax.swing.JTable tabellaPatologie;
-    private javax.swing.JTable tabellaTipi;
-    // End of variables declaration                   
+                 
 
     @Override
     public void open() {

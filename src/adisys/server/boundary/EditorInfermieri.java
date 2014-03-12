@@ -589,7 +589,7 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
                         "NESSUN INTERVENTO PRESENTE NELLO STORICO"));
             }
             else {                 
-                DialogoStorico.setEditorInfermieri(this);
+                DialogoStorico.setNursesEditor(this);
                 tabellaTipi = new JTable(modelAdisys);
                 FC = RequestManager.getFCInstance();
                 String request = RequestManager.APRI_DIALOGO_STORICO;
