@@ -35,15 +35,29 @@ import javax.swing.table.TableColumnModel;
 public class DialogoEsportazione extends javax.swing.JDialog implements Boundary {
 
     private static DialogoEsportazione window;
-    private static ResourceBundle dialogoEsportazione = ResourceBundle.getBundle("adisys/server/property/DialogoEsportazione");
+    private static ResourceBundle exportDialog = ResourceBundle.getBundle("adisys/server/property/DialogoEsportazione");
     
-    public static void setResourceBundle(String path, Locale locale){
-        dialogoEsportazione = ResourceBundle.getBundle(path, locale);
+    // Variables declaration - do not modify                     
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton quitButton;
+    private javax.swing.JButton exportButton;
+    private javax.swing.JButton homeButton;
+    private javax.swing.JTable nursesTable;
+    
+    // End of variables declaration 
+    
+    public static void setResourceBundle(String path, Locale local){
+    	exportDialog = ResourceBundle.getBundle(path, local);
     }
-    private FrontController FC;
+    
+    private FrontController fController;
+    
     /**
      * Creates new form DialogoEsportazione
      */
+    
     public DialogoEsportazione(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -63,15 +77,15 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabellaInfermieri = new javax.swing.JTable();
-        pulsanteEsporta = new javax.swing.JButton();
+        nursesTable = new javax.swing.JTable();
+        exportButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        pulsanteHome = new javax.swing.JButton();
-        pulsanteEsci = new javax.swing.JButton();
+        homeButton = new javax.swing.JButton();
+        quitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(dialogoEsportazione.getString("ESPORTAZIONE PIANIFICAZIONE INFERMIERE")); // NOI18N
+        setTitle(exportDialog.getString("ESPORTAZIONE PIANIFICAZIONE INFERMIERE")); // NOI18N
         setModal(true);
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
@@ -84,13 +98,13 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
             }
         });
 
-        tabellaInfermieri.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabellaInfermieri);
+        nursesTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(nursesTable);
 
-        pulsanteEsporta.setText(dialogoEsportazione.getString("ESPORTA")); // NOI18N
-        pulsanteEsporta.addActionListener(new java.awt.event.ActionListener() {
+        exportButton.setText(exportDialog.getString("ESPORTA")); // NOI18N
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteEsportaActionPerformed(evt);
+            	exportActionPerformedbutton(evt);
             }
         });
 
@@ -98,22 +112,22 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/decorazioniFinestre/footerEsportazione.png"))); // NOI18N
 
-        pulsanteHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/home.png"))); // NOI18N
-        pulsanteHome.setText(dialogoEsportazione.getString("HOME")); // NOI18N
-        pulsanteHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pulsanteHome.addActionListener(new java.awt.event.ActionListener() {
+        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/home.png"))); // NOI18N
+        homeButton.setText(exportDialog.getString("HOME")); // NOI18N
+        homeButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteHomeActionPerformed(evt);
+            	homeActionPerformedButton(evt);
             }
         });
 
-        pulsanteEsci.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/arresta.png"))); // NOI18N
-        pulsanteEsci.setText(dialogoEsportazione.getString("ABBANDONA ADISYS")); // NOI18N
-        pulsanteEsci.setToolTipText(dialogoEsportazione.getString("ESCI DA ADISYS")); // NOI18N
-        pulsanteEsci.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pulsanteEsci.addActionListener(new java.awt.event.ActionListener() {
+        quitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/arresta.png"))); // NOI18N
+        quitButton.setText(exportDialog.getString("ABBANDONA ADISYS")); // NOI18N
+        quitButton.setToolTipText(exportDialog.getString("ESCI DA ADISYS")); // NOI18N
+        quitButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        quitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteEsciActionPerformed(evt);
+            	quitActionPerformedButton(evt);
             }
         });
 
@@ -131,11 +145,11 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pulsanteEsci)
+                        .addComponent(quitButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pulsanteHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(pulsanteEsporta, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(exportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,9 +160,9 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pulsanteEsporta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pulsanteEsci, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(pulsanteHome, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(exportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(quitButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
         );
@@ -158,52 +172,51 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
         try {
-            aggiornaTabella();
+        	updateTable();
         } catch (MainException ex) {
             Logger.getLogger(DialogoEsportazione.class.getName()).log(Level.SEVERE, null, ex);
         }
     }                                    
 
-    private void pulsanteEsportaActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void exportActionPerformedbutton(java.awt.event.ActionEvent evt) {                                                
         //Controllo selezione valida
-        if(tabellaInfermieri.getColumnCount() == 1)
+        if(nursesTable.getColumnCount() == 1)
             return;
-        if (tabellaInfermieri.getSelectedRow()!=-1 )
-        {
+        if (nursesTable.getSelectedRow()!=-1 ){
             //Selezione valida
             //Ricerca colonna id
-            int colonnaID=tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID);
+            int columnID = nursesTable.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID);
             
             //Identificazione riga selezionata
-            int rigaSelezionata = tabellaInfermieri.getSelectedRow();
+            int selectedRow = nursesTable.getSelectedRow();
             
             //Recupero ID dell'infermiere
-            int idInfermiere = Integer.valueOf(tabellaInfermieri.getValueAt(rigaSelezionata, colonnaID).toString() );
+            int nurseID = Integer.valueOf(nursesTable.getValueAt(selectedRow, columnID).toString() );
             
-            FC = RequestManager.getFCInstance();
+            fController = RequestManager.getFCInstance();
             InfermiereTO to = new InfermiereTO();
-            to.setID(idInfermiere);
+            to.setID(nurseID);
             ArrayList<Record<String, Object>> params = new ArrayList<Record<String, Object>>();
             params.add(new Record<String, Object>("business.infermiere.InfermiereTO", to));
             try {
-                boolean ok = (boolean) FC.processRequest("infermiereEsistente", params);
+                boolean ok = (boolean) fController.processRequest("infermiereEsistente", params);
                 if(ok){
                     //Recupero informazioni sugli interventi
-                    ArrayList<InterventoTO> listaInterventi = (ArrayList<InterventoTO>) 
-                            FC.processRequest("visualizzaListaInterventiInfermiere", params);
-                    if(listaInterventi.size() == 0)
-                        GMessage.message_error(dialogoEsportazione.getString("L'INFERMIERE NON HA INTERVENTI"));
+                    ArrayList<InterventoTO> interventionsList = (ArrayList<InterventoTO>) 
+                    		fController.processRequest("visualizzaListaInterventiInfermiere", params);
+                    if(interventionsList.size() == 0)
+                        GMessage.message_error(exportDialog.getString("L'INFERMIERE NON HA INTERVENTI"));
                     else {
-                        params.add(new Record<String,Object>("java.util.ArrayList", listaInterventi));
-                        String fileName = (String) FC.processRequest("esportaPianificazione", params);
+                        params.add(new Record<String,Object>("java.util.ArrayList", interventionsList));
+                        String fileName = (String) fController.processRequest("esportaPianificazione", params);
                         if(fileName !=null){
                             GMessage.information(fileName);
                         } else 
-                            GMessage.message_error(dialogoEsportazione.getString(
+                            GMessage.message_error(exportDialog.getString(
                                     "Errore nell'esportazione: controllare il formato del file XML e riprovare"));
                     }
                 } else {
-                    GMessage.message_error(dialogoEsportazione.getString("IMPOSSIBILE ESPORTARE: NESSUN INFERMIERE SELEZIONATO"));
+                    GMessage.message_error(exportDialog.getString("IMPOSSIBILE ESPORTARE: NESSUN INFERMIERE SELEZIONATO"));
                 }
                 
                 //Chiamata funzione di esportazione
@@ -214,23 +227,23 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
         }
     }                                               
 
-    private void pulsanteHomeActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(GMessage.confirm(dialogoEsportazione.getString("SEI SICURO DI VOLER USCIRE DAL ")
-                + dialogoEsportazione.getString("DIALOGO DELL'ESPORTAZIONE E TORNARE ALLA PIANIFICAZIONE?")) == JOptionPane.YES_OPTION){
+    private void homeActionPerformedButton(java.awt.event.ActionEvent evt) {                                             
+        if(GMessage.confirm(exportDialog.getString("SEI SICURO DI VOLER USCIRE DAL ")
+                + exportDialog.getString("DIALOGO DELL'ESPORTAZIONE E TORNARE ALLA PIANIFICAZIONE?")) == JOptionPane.YES_OPTION){
         this.dispose();
         }
     }                                            
 
-    private void pulsanteEsciActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(GMessage.confirm(dialogoEsportazione.getString("SEI SICURO DI VOLER ABBANDONARE")
-            + dialogoEsportazione.getString(" ADISYS?")) == JOptionPane.YES_OPTION){
+    private void quitActionPerformedButton(java.awt.event.ActionEvent evt) {                                             
+        if(GMessage.confirm(exportDialog.getString("SEI SICURO DI VOLER ABBANDONARE")
+            + exportDialog.getString(" ADISYS?")) == JOptionPane.YES_OPTION){
         System.exit(0);
         }
     }                                            
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
         if(GMessage.confirm( 
-                 dialogoEsportazione.getString("SEI SICURO DI VOLER USCIRE DAL DIALOGO DELL'ESPORTAZIONE?"))
+        		exportDialog.getString("SEI SICURO DI VOLER USCIRE DAL DIALOGO DELL'ESPORTAZIONE?"))
                 == JOptionPane.YES_OPTION) {
              this.dispose();
          }
@@ -247,7 +260,7 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if (dialogoEsportazione.getString("NIMBUS").equals(info.getName())) {
+                if (exportDialog.getString("NIMBUS").equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -267,45 +280,37 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 window = new DialogoEsportazione(new javax.swing.JFrame(), true);
-                Dimension risoluzioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
-                window.setLocation(new Point( (risoluzioneSchermo.width - window.getWidth()) /2, (risoluzioneSchermo.height - window.getHeight()) /2)  );
+                Dimension screenResolution = Toolkit.getDefaultToolkit().getScreenSize();
+                window.setLocation(new Point( (screenResolution.width - window.getWidth()) /2, (screenResolution.height - window.getHeight()) /2)  );
                 window.setVisible(true);
             }
         });
     }
-    // Variables declaration - do not modify                     
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton pulsanteEsci;
-    private javax.swing.JButton pulsanteEsporta;
-    private javax.swing.JButton pulsanteHome;
-    private javax.swing.JTable tabellaInfermieri;
-    // End of variables declaration                   
-    private void aggiornaTabella() throws MainException
-    {
-        FC = RequestManager.getFCInstance();
-        AbstractTableModel modelAdisys = (AbstractTableModel) FC.processRequest("visualizzaInfermieriConInterventi", null);
-        tabellaInfermieri.setModel(modelAdisys);
-        tabellaInfermieri = verificaTabellaPiena(tabellaInfermieri, dialogoEsportazione.getString("INFERMIERE"));
+    
+                  
+    private void updateTable() throws MainException{
+    	fController = RequestManager.getFCInstance();
+        AbstractTableModel modelAdisys = (AbstractTableModel) fController.processRequest("visualizzaInfermieriConInterventi", null);
+        nursesTable.setModel(modelAdisys);
+        nursesTable = checkFullTable(nursesTable, exportDialog.getString("INFERMIERE"));
     }
     
-    private JTable verificaTabellaPiena(JTable tabella, String label) throws MainException{
+    private JTable checkFullTable(JTable table, String label) throws MainException{
         
-            if(tabella.getRowCount() == 0){
+            if(table.getRowCount() == 0){
      
-                VariableTableModel modello = new VariableTableModel();
+                VariableTableModel model = new VariableTableModel();
                      String[] msg = new String[1];
                         msg[0] = java.text.MessageFormat.format(
-                                dialogoEsportazione.getString("NON È STATO TROVATO ALCUN {0} REGISTRATO NEL"), 
-                                new Object[] {label}) + dialogoEsportazione.getString(" SISTEMA.");
-                        modello.addColumn("");             
-                        modello.addRow(msg);
-                        tabella.setModel(modello);
+                        		exportDialog.getString("NON È STATO TROVATO ALCUN {0} REGISTRATO NEL"), 
+                                new Object[] {label}) + exportDialog.getString(" SISTEMA.");
+                        model.addColumn("");             
+                        model.addRow(msg);
+                        table.setModel(model);
                 } else {
              
                        
-                            TableColumnModel columnModel = tabella.getColumnModel();
+                            TableColumnModel columnModel = table.getColumnModel();
                             TableColumn[] column = new TableColumn[columnModel.getColumnCount()];
                             String[] header = new String[columnModel.getColumnCount()];
                             for(int i = 0; i < columnModel.getColumnCount(); i++){
@@ -316,31 +321,31 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
                             VariableTableModel newModel = new VariableTableModel();
                             newModel.setColumnIdentifiers(header);
                             
-                            for(int i = 0; i < tabella.getRowCount(); i++){
+                            for(int i = 0; i < table.getRowCount(); i++){
                                 newModel.addRow(column);
                                 int j;
                                 InfermiereTO to = null;
-                                for(j = 0; j < tabella.getColumnCount(); j++){
-                                    Object value = tabella.getValueAt(i, j);
+                                for(j = 0; j < table.getColumnCount(); j++){
+                                    Object value = table.getValueAt(i, j);
                                     newModel.setValueAt(value, i, j);
-                                    if(j == tabella.getColumn(InfermiereMySqlDAO.NOME_COLONNA_ID)
+                                    if(j == table.getColumn(InfermiereMySqlDAO.NOME_COLONNA_ID)
                                             .getModelIndex()){
                                         to = new InfermiereTO();
                                         to.setID(Integer.parseInt(value.toString()));
                                     }
-                                    if(j == tabella.getColumn("NUMINTERVENTI").getModelIndex()){
+                                    if(j == table.getColumn("NUMINTERVENTI").getModelIndex()){
                                         ArrayList<Record<String, Object>> params = new ArrayList<Record<String, Object>>();
                                          params.add(new Record<String, Object>("business.infermiere.InfermiereTO", to));
-                                        int numInt = (int) FC.processRequest("contaInterventi", params);
+                                        int numInt = (int) fController.processRequest("contaInterventi", params);
                                         newModel.setValueAt(numInt, i, j);
                                     }
                                 }
                                 
                             }
-                            tabella.setModel(newModel);
+                            table.setModel(newModel);
                
             }
-            return tabella;
+            return table;
         }
         
 
