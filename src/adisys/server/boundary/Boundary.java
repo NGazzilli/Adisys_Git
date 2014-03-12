@@ -5,9 +5,10 @@
 package adisys.server.boundary;
 
 /**
- *
- * @author Luca
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli 
  */
+
 public interface Boundary {
     
     public void open();

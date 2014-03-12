@@ -24,7 +24,11 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import main.Main;
+import messaggistica.MainException;
 import presentation.FrontController;
 import presentation.RequestManager;
 
@@ -142,14 +146,26 @@ public class EditorLanguage extends javax.swing.JFrame implements Boundary {
 
     
     private void pulsanteAvantiActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        this.dispose();
+    	 this.dispose();
+         try {
+             request(RequestManager.APRI_PIANIFICATORE);
+         } catch (MainException ex) {
+             Logger.getLogger(EditorScelta.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }           
+    
+    
+    
+    private void request(String request) throws MainException{
         FC = RequestManager.getFCInstance();
-        if(FC.processRequest(RequestManager.APRI_EDITOR_SCELTA)){
-            System.out.println("Finestra EditorScelta aperta con successo");
-        } else{
-            messaggistica.GMessage.winNotFound("EditorScelta");
+        RequestManager.getFCInstance().addService();
+        if(FC.processRequest(request)){
+            System.out.println("Finestra " + request + " aperta con successo.");
         }
-    }                                              
+        else{
+            messaggistica.GMessage.winNotFound(request);
+        }
+    }
        
     private void jLocaleChooser1ActionPerformed(java.awt.event.ActionEvent evt) {                                                
         RequestManager.setResourceBundle("adisys/server/property/RequestManager", jLocaleChooser1.getLocale());

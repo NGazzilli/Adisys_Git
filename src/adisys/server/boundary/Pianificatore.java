@@ -250,7 +250,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         jScrollPane3.setViewportView(tabellaInterventi);
 
         pulsanteIndietro3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/indietro.png"))); // NOI18N
-        pulsanteIndietro3.setText(pianificatore.getString("TORNA ALL'EDITOR SCELTA")); // NOI18N
+        pulsanteIndietro3.setText(pianificatore.getString("TORNA ALL'EDITOR LANGUAGE")); // NOI18N
         pulsanteIndietro3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pulsanteIndietro3ActionPerformed(evt);
@@ -536,11 +536,6 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         this.dispose();
         request(RequestManager.APRI_EDITOR_LANGUAGE);
     }                                                 
-
-    private void pulsanteServerActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        this.dispose();
-        request(RequestManager.APRI_EDITOR_DATABASE);
-    }                                              
 
     private void comboInfermieriActionPerformed(java.awt.event.ActionEvent evt) {                                                
         try {
