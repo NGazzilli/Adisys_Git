@@ -300,8 +300,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         pulsanteEsci.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         pulsanteEsci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteEsciActionPerformed(evt);
-            }
+            	pulsanteEsciActionPerformed(evt);            }
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -537,7 +536,10 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         request(RequestManager.APRI_EDITOR_LANGUAGE);
     }                                                 
 
-                                                
+    private void pulsanteServerActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        this.dispose();
+        request(RequestManager.APRI_EDITOR_DATABASE);
+    }                                              
 
     private void comboInfermieriActionPerformed(java.awt.event.ActionEvent evt) {                                                
         try {
@@ -609,7 +611,8 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
     private void pulsanteEsciActionPerformed(java.awt.event.ActionEvent evt) {                                             
         if(GMessage.confirm(pianificatore.getString("SEI SICURO DI VOLER ABBANDONARE")
             + pianificatore.getString(" ADISYS?")) == JOptionPane.YES_OPTION) {
-        System.exit(0);
+        	this.dispose();
+        	System.exit(0);
         }
     }                                            
 
@@ -617,7 +620,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
         if(GMessage.confirm(pianificatore.getString("SEI SICURO DI VOLER TORNARE INDIETRO?"))
                 == JOptionPane.YES_OPTION) {
         this.dispose();
-        request(RequestManager.APRI_EDITOR_LANGUAGE);
+        System.exit(0);
         }
     }                                  
 
