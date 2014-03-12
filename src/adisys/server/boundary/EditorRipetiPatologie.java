@@ -27,9 +27,10 @@ import javax.swing.table.TableModel;
 import presentation.FrontController;
 import presentation.RequestManager;
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorRipetiPatologie extends javax.swing.JDialog implements Boundary {
     
     private static EditorInterventi tmp = null;
@@ -446,7 +447,7 @@ public class EditorRipetiPatologie extends javax.swing.JDialog implements Bounda
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
  

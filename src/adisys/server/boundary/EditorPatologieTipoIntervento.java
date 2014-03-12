@@ -32,9 +32,10 @@ import messaggistica.GMessage;
 import javax.swing.JTable;
 
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorPatologieTipoIntervento extends javax.swing.JDialog implements Boundary{
     
     private static EditorInterventi tmp = null;
@@ -1078,7 +1079,7 @@ public class EditorPatologieTipoIntervento extends javax.swing.JDialog implement
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
     

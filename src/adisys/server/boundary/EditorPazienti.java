@@ -32,9 +32,10 @@ import messaggistica.GMessage;
 
     // Variables declaration - do not modify                     
 /**
- *
- * @author Luca
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorPazienti extends javax.swing.JDialog implements Boundary {
     
     private static ResourceBundle editorPazienti = ResourceBundle.getBundle("adisys/server/property/EditorPazienti");
@@ -1020,7 +1021,7 @@ public class EditorPazienti extends javax.swing.JDialog implements Boundary {
     private final String modModifica = editorPazienti.getString("MODIFICA N.");
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
    

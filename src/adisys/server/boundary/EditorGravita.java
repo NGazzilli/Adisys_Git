@@ -18,9 +18,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Luca
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorGravita extends javax.swing.JDialog implements Boundary {
     
     private static EditorInterventi tmp = null;
@@ -366,7 +367,7 @@ public class EditorGravita extends javax.swing.JDialog implements Boundary {
     }
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
     

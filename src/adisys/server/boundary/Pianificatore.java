@@ -32,9 +32,10 @@ import presentation.FrontController;
 import presentation.RequestManager;
 
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class Pianificatore extends javax.swing.JFrame implements Boundary {
     private static ResourceBundle pianificatore = ResourceBundle.getBundle("adisys/server/property/Pianificatore");
     FrontController FC;
@@ -843,7 +844,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
 

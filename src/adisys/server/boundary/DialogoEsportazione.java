@@ -29,7 +29,8 @@ import javax.swing.table.TableColumnModel;
 
 /**
  *
- * @author Francesco
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
  */
 public class DialogoEsportazione extends javax.swing.JDialog implements Boundary {
 
@@ -344,7 +345,7 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
         
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
 

@@ -29,13 +29,14 @@ import presentation.FrontController;
 import presentation.RequestManager;
 
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorLanguage extends javax.swing.JFrame implements Boundary {
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
 

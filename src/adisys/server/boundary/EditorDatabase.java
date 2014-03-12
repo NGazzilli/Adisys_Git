@@ -26,9 +26,10 @@ import adisys.server.strumenti.Record;
 import messaggistica.GMessage;
 
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorDatabase extends javax.swing.JFrame implements Boundary {
     private static ResourceBundle editorDatabase = ResourceBundle.getBundle("adisys/server/property/EditorDatabase");
     private FrontController FC;
@@ -894,7 +895,7 @@ public class EditorDatabase extends javax.swing.JFrame implements Boundary {
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
 

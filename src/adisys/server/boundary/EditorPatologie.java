@@ -29,10 +29,10 @@ import adisys.server.strumenti.Record;
 import messaggistica.GMessage;
 
 /**
-/**
- *
- * @author Luca
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorPatologie extends javax.swing.JDialog implements Boundary {
     private FrontController FC;
     private static ResourceBundle editorPatologie = ResourceBundle.getBundle("adisys/server/property/EditorPatologie");
@@ -775,7 +775,7 @@ public class EditorPatologie extends javax.swing.JDialog implements Boundary {
     private final String modModifica = editorPatologie.getString("MODIFICA N.");
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
      

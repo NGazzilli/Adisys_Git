@@ -166,7 +166,7 @@ public class RequestManager implements FrontController{
 		System.out.println("RequestManager, WindowNavigator : processRequest("+request+")");
 		try{
                         Boundary b = map.get(request);
-                        b.apri();
+                        b.open();
 			return true;
 		}catch(NullPointerException e){
                     String message = requestManager.getString("OPS... IL REQUESTMANAGER (FRONT CONTROLLER) NON HA TROVATO LA CLASSE") +

@@ -41,9 +41,10 @@ import adisys.server.strumenti.Record;
 import messaggistica.GMessage;
 
 /**
- *
- * @author Luca Massa
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorInterventi extends javax.swing.JDialog implements Boundary {
     private int MODIFICA_DATA = 0;
     
@@ -2319,7 +2320,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
     }
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
    

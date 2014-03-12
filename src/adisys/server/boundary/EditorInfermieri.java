@@ -30,9 +30,10 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 /**
- *
- * @author Luca
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
     
     private static EditorInterventi tmp = null;
@@ -828,7 +829,7 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
     private final String modModifica = editorInfermieri.getString("MODIFICA N.");
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
       

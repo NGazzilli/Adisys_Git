@@ -29,9 +29,10 @@ import adisys.server.strumenti.Record;
 import messaggistica.GMessage;
 
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
 
     private static DialogoVerifica window;
@@ -506,7 +507,7 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
 

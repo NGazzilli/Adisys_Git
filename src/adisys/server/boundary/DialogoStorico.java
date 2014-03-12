@@ -26,9 +26,10 @@ import javax.swing.table.DefaultTableModel;
 import presentation.FrontController;
 import presentation.RequestManager;
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class DialogoStorico extends javax.swing.JDialog implements Boundary {
     
     private FrontController FC;
@@ -481,7 +482,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
  

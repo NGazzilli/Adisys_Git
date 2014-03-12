@@ -18,9 +18,10 @@ import presentation.FrontController;
 import presentation.RequestManager;
 
 /**
- *
- * @author Francesco
- */
+*
+* @author Gianmarco Divittorio
+* @author Nicola Gazzilli
+*/
 public class EditorScelta extends javax.swing.JFrame implements Boundary {
     private static ResourceBundle editorScelta = ResourceBundle.getBundle("adisys/server/property/EditorScelta");
     private FrontController FC;
@@ -263,7 +264,7 @@ public class EditorScelta extends javax.swing.JFrame implements Boundary {
     // End of variables declaration                   
 
     @Override
-    public void apri() {
+    public void open() {
         start();
     }
 

@@ -10,6 +10,6 @@ package adisys.server.boundary;
  */
 public interface Boundary {
     
-    public void apri();
+    public void open();
     
 }
