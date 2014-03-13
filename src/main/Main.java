@@ -45,7 +45,7 @@ public class Main {
                             ArrayList<Record<String,Object>> params= new ArrayList<Record<String,Object>>();				
                             params.add(new Record<String,Object> ("business.configurazione.ConfigurazioneTO", configTO));
                             try {
-                                setConfigurazione(params);
+                            	setConfiguration(params);
                             } catch (MainException e1) {
                                 GMessage.message_error(main.getString("GENERALE"));
                             e1.printStackTrace();
@@ -65,7 +65,7 @@ public class Main {
      * then database is connected, and it is possible to interact with it and with the interfaces that
      * use the database.
     */
-    private static void setConfigurazione(ArrayList<Record<String,Object>> params) throws MainException{
+    private static void setConfiguration(ArrayList<Record<String,Object>> params) throws MainException{
         if(!(Boolean) frontController.processRequest("setDatiConfigurazione", params)){
             GMessage.message_error(main.getString("CONFIG"));
         }
