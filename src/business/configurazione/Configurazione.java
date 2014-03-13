@@ -16,25 +16,24 @@ import messaggistica.GMessage;
 import messaggistica.MainException;
 
 /**
- * Astrazione sul file di configurazione. Permette la memorizzazione
- * e la lettura sul file di configurazione.
- * Implementa l'interfaccia per la configurazione completa del sistema (getDati e setAllDati) e
- * l'interfaccia per l'accesso al database (getDBDates)
+ * Abstraction on configuration files. It allows storing and reading on configuration files.
+ * It implements the interface for the complete configuration of the system (getDati and setAllDati)
+ * and the interface for the access to the database (getDBDates).
 */
 public class Configurazione implements I_Configurazione, I_ConfigDB {
 	
 	private static File file;
 	private static final String FILENAME = "database/configurazione.txt";
-        private static ResourceBundle configurazione = ResourceBundle.getBundle("adisys/server/property/Configurazione");
+        private static ResourceBundle configuration = ResourceBundle.getBundle("adisys/server/property/Configurazione");
 	private FileReader fRead;
 	private BufferedReader fInput;
 	private FileWriter fWrite;
 	private PrintWriter fOutput;
 	
-	/**Sa' se le variabili d'istanza sono sincronizzate con i valori del file*/
+	/**It keeps trace of the synchronization between instance variables and files values. */
 	private boolean isSynchronized;
 	
-	//configurazione database
+	//database configuration
         private String dbPath; //= "jdbc:hsqldb:file:database/";
 	private String dbName; //= "ADISysData";
 	private String dbUsername; //= "asl";
@@ -54,14 +53,13 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	}
 	
         public static void setResourceBundle(String path, Locale locale){
-            configurazione = ResourceBundle.getBundle(path, locale);
+        	configuration = ResourceBundle.getBundle(path, locale);
         }
 	/**
-	 * Costruttore, controlla l'esistenza del file e la possibilità di lettura e scrittura.
-	 * Se il file non esiste lo crea e poi controlla se la creazione ha avuto successo.
+	 * This builder check for the existence of the file and the writing and reading possibility.
+	 * If the file doesn't exist it creates it and then it checks for the results of the operation.
 	 * 
-	 * @throws MainException la creazione del file di configurazione fallisce,
-	 * il file esiste ma non può essere letto oppure non può essere modificato
+	 * @throws MainException creation of the configuration file fails, the file exists but it couldn't be read or it couldn't be edited.
 	*/
 	public Configurazione() throws MainException{
                 this.isSynchronized = false;
@@ -92,72 +90,26 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 		
 		
 		if(!file.exists()){ 
-                    String message = configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON ESISTE.");
+                    String message = configuration.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON ESISTE.");
                     GMessage.message_error(message);
                     throw new MainException(message);
 		}
 		if(!file.canRead()){
-                    String message = configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON PUO' ESSERE LETTO.");
+                    String message = configuration.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON PUO' ESSERE LETTO.");
                     GMessage.message_error(message);
                     throw new MainException(message);
 		}
 		if(!file.canWrite()){
-                    String message = configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON PUO' ESSERE MODIFICATO.");
+                    String message = configuration.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON PUO' ESSERE MODIFICATO.");
                     GMessage.message_error(message);
                     throw new MainException(message);
 		}
 	}
-
-	/**
-	 * Costruttore, setta il nuovo percorso dove trovare il file di configurazione.<br>
-	 * Usa il metodo private {@link #readDatiFromFile()} per effettuare la sincronizzazione delle
-	 * variabili d'istanza con i valori nel file
-	 * @param path il percorso del file di configurazione
-	 * @throws MainException se il file non esiste, non puo' essere letto o non puo' essere modificato
-	*/
-	/*public Configurazione(String path) throws MainException{
-		file = new File(path);
-		this.isSynchronized = false;
-		
-		try{
-			this.readDatiFromFile();
-		}
-		catch(MainException e){
-			if(e.exception.equals(FileNotFoundException.class)){
-				System.out.println(configurazione.getString("CONFIGURAZIONE : ")+e.exception);
-				try {
-					fWrite = new FileWriter(file);
-					fOutput = new PrintWriter(fWrite);
-					fWrite.close();
-					fOutput.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				
-			}
-		}
-		
-                if(!file.exists()){ 
-                    String message = configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON ESISTE.");
-                    GMessage.message_error(message);
-                    throw new MainException(message);
-		}
-		if(!file.canRead()){
-                    String message = configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON PUO' ESSERE LETTO.");
-                    GMessage.message_error(message);
-                    throw new MainException(message);
-		}
-		if(!file.canWrite()){
-                    String message = configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON PUO' ESSERE MODIFICATO.");
-                    GMessage.message_error(message);
-                    throw new MainException(message);
-		}
-	}*/	
 	
 	/**
-	 * Effettua la sincronizzazione tra i dati contenuti nel file e le variabili
-	 * di istanza di questa classe.
-	 * @throws MainException errore di formato nel file o non esiste
+	 * Implements the synchronization between data in the configuration file and 
+	 * instance variables of this class.
+	 * @throws MainException formato error in file, or it doesn't exist
 	*/
 	private void readDatiFromFile() throws MainException{
 		try {
@@ -171,56 +123,45 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 			while (row != null){
 				//System.out.println("Stringa letta: "+row);
 				rowArray = row.split("=");
-                                String campo = rowArray[0];
-                                String valore = "";
-                                if(!campo.equals("dbPassword"))
-                                    valore = rowArray[1];
+                                String field = rowArray[0];
+                                String value = "";
+                                if(!field.equals("dbPassword"))
+                                	value = rowArray[1];
                                 else if(rowArray.length == 2)
-                                    valore = rowArray[1];
-				if(rowArray.length != 2 && !campo.equals("dbPassword")){//formato campo=valore non rispettato
-                                    String messaggio = configurazione.getString("ECCEZIONE CAMPO VALORE");
-                                    GMessage.message_error(messaggio);
-                                    throw new MainException(messaggio);
-				} else if(rowArray.length > 2 && campo.equals("dbPassword")){
-                                    String messaggio = configurazione.getString("ECCEZIONE CAMPO VALORE");
-                                    GMessage.message_error(messaggio);
-                                    throw new MainException(messaggio);
+                                	value = rowArray[1];
+				if(rowArray.length != 2 && !field.equals("dbPassword")){//formato campo=valore non rispettato
+                                    String message = configuration.getString("ECCEZIONE CAMPO VALORE");
+                                    GMessage.message_error(message);
+                                    throw new MainException(message);
+				} else if(rowArray.length > 2 && field.equals("dbPassword")){
+                                    String message2 = configuration.getString("ECCEZIONE CAMPO VALORE");
+                                    GMessage.message_error(message2);
+                                    throw new MainException(message2);
                                 }
 				
 				//deve controllare anche che ci siano tutti i campi
-				if(campo.equals("dbPath")){
-					this.dbPath = valore;
+				if(field.equals("dbPath")){
+					this.dbPath = value;
 					dbPath=true;
 				}
-				else if(campo.equals("dbName")){
-					this.dbName = valore;
+				else if(field.equals("dbName")){
+					this.dbName = value;
 					dbName=true;
 				}
-				else if(campo.equals("dbUsername")){
-					this.dbUsername = valore;
+				else if(field.equals("dbUsername")){
+					this.dbUsername = value;
 					dbUsername=true;
 				}
-				else if(campo.equals("dbPassword")){
-					this.dbPassword = valore;
+				else if(field.equals("dbPassword")){
+					this.dbPassword = value;
 					dbPassword=true;
 				}
-				/*else if(campo.equals("distanza")){
-					this.distanza = Integer.parseInt(valore);
-					distanza=true;
-				}
-				else if(campo.equals("inattivita")){
-					this.inattivita = Integer.parseInt(valore);
-					inattivita=true;
-				}
-				else if(campo.equals("sysPassword")){
-					this.sysPassword = valore;
-					sysPassword=true;
-				}*/
+				
 				else{//se c'e' un valore sconosciuto allora il formato e' sbagliato
-                                    String messaggio = configurazione.getString("ECCEZIONE, RISCONTRATO UN ERRORE DI FORMATO ") +
-							configurazione.getString("NEL FILE DI CONFIGURAZIONE");
-                                    GMessage.message_error(messaggio);
-                                    throw new MainException(messaggio);
+                                    String message3 = configuration.getString("ECCEZIONE, RISCONTRATO UN ERRORE DI FORMATO ") +
+                                    		configuration.getString("NEL FILE DI CONFIGURAZIONE");
+                                    GMessage.message_error(message3);
+                                    throw new MainException(message3);
 				}
 				
 				row = fInput.readLine();
@@ -232,14 +173,14 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 				this.isSynchronized = true;//sincronizzazione effettuata con successo
 			}
 			else{//non sono presenti tutti i campi nel file di configurazione
-				 String messaggio = configurazione.getString("ECCEZIONE CAMPI MANCANTI");
-                                 GMessage.message_error(messaggio);
-                                 throw new MainException(messaggio);
+				 String message4 = configuration.getString("ECCEZIONE CAMPI MANCANTI");
+                                 GMessage.message_error(message4);
+                                 throw new MainException(message4);
 			}
 			
 		} catch (FileNotFoundException e) {
 //			e.printStackTrace();
-			throw new MainException(configurazione.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON ESISTE.")+
+			throw new MainException(configuration.getString("ECCEZIONE, RISULTA CHE IL FILE DI CONFIGURAZIONE NON ESISTE.")+
 					e.getClass());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -248,9 +189,9 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	
 
 	/**
-	 * Restituisce le informazioni per accedere al database.<br>
-	 * Usa le variabili gi&agrave sincronizzate con i valori del database
-	 * @return l'array contenente nel'ordine dbPath, dbName, dbUsername, dbPassword
+	 * Returns the information needed to gain access to database. <br>
+	 * Uses the already synchronized variables with database values.
+	 * @return the array containing dbPath, dbName, dbUsername, dbPassword (ordered list)
 	*/
 	public String[] getDbDates(){
 		if(this.isSynchronized){
@@ -267,11 +208,11 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 
 	
 	/**
-	 * Restituisce il Transfer Object di Configurazione che incapsula tutti i dati.
-	 * Il metodo sovrascrive le variabili d'istanza relative ai campi.
-	 * Potrebbe essere usata quando si vuole cambiare la configurazione
-	 * @return il transfer object con tutti i dati contenuti nel file di configurazione 
-	 * o null se c'&egrave un errore di formato nel file o non esiste
+	 * Returns the Configuration Transfer Object that wraps all the data.
+	 * The method overrides the instance variables realated to the fields.
+	 * It could be used where there is need for a change in configuration
+	 * @return the transfer object with all the data contained in the configuration file or
+	 * <i>null</i> if there is a format error or it doesn't exist 
 	*/
 	public ConfigurazioneTO getDati(){
 		if(this.isSynchronized){
@@ -284,10 +225,10 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	}
 	
 	/**
-	 * Controlla se i dati di configurazione memorizzati nel transfer object siano tutti e che non ci siano
-	 * valori nulli.
-	 * @param to il transfer object con i dati da controllare
-	 * @return true se non ci sono campi nulli, false altrimenti 
+	 * Checks for absence of some configuration data stored in transfer objects. It also check for 
+	 * null values.
+	 * @param to the trasnfer objects with data to check
+	 * @return true if there is no null value, false otherwise 
 	*/
 	private boolean checkDatiTO(ConfigurazioneTO to){
 		if(to.getDbPath()==null || to.getDbName()==null || to.getDbUsername()==null || 
@@ -319,32 +260,18 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 		this.isSynchronized = true;
 	}
 	
-	/*
-	 * La funzione di creazione dl database era prima fatta nel metodo di qua sotto,
-	 * quando si settavano i dati di configurazione. Ora quella classe sta in integration.dao
-	 * ed e' MySqlDAOFactory che puo' invocarla se gli giunge la richiesta dall'alto
-	 * di reset del db
-	 * 
-	 * Se reset=true allora si suppone vengano cambiati anche i valori del database
-	 * {@link#dbPath} {@link#dbName} {@link#dbUsername} {@link#dbPassword}
-	 * quindi rieffettua la costruzione del database (i dati precendentemente inseriti
-	 * verranno cancellati) un reset.
-	*/
-	
-	
 	
 	/**
-	 * Setta i valori contenuti nel transfer object nelle variabili d'istanza e li memorizza
-	 * nel file di configurazione (se non esiste, lo crea).
+	 * Sets values contained in the transfer object in the instance variables and then stores them in the configuration file, creating it if it doesn't exist yet
 	 * 
-	 * @param to il transfer object dove prelevare i valori
-	 * @return true se la memorizzazione ha successo, false se fallisce
-	 * @throws MainException Valori incompleti nel to
+	 * @param to the trasnfer object from which fetching the values
+	 * @return true if the storing process succeeds, false otherwise
+	 * @throws MainException Incomplete values in the transfer object
 	*/
 	public boolean setAllDati(ConfigurazioneTO to) throws MainException{
 		if(!checkDatiTO(to)){
-			throw new MainException(configurazione.getString("IMPOSSIBILE ESEGUIRE LA MEMORIZZAZIONE DEI VALORI ") +
-					configurazione.getString("NEL FILE DI CONFIGURAZIONE. VALORI INCOMPLETI"));
+			throw new MainException(configuration.getString("IMPOSSIBILE ESEGUIRE LA MEMORIZZAZIONE DEI VALORI ") +
+					configuration.getString("NEL FILE DI CONFIGURAZIONE. VALORI INCOMPLETI"));
 		}
 		
 		//copio i valori del transfer object nelle variabili d'istanza(sovrascrivendo quelle
@@ -374,21 +301,6 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 			return false;
 		}
 	}
-	
-	/**
-	 * Crea il database da zero tramite lo script sql
-	 * @return true se la creazione ha successo, false altrimenti
-	*/
-	/*@Override
-	public boolean createDatabase(ConfigurazioneTO to){
-		try {
-			CreateDBFromScript db = new CreateDBFromScript(to);
-			return db.createDBMS();
-		} catch (MainException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}*/
 
     @Override
     public void createDatabaseEsistente(ConfigurazioneTO to) {

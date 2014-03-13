@@ -4,8 +4,8 @@ import business.TO;
 import messaggistica.MainException;
 
 /**
- * Transfer Object dell'entita' configurazione. Incapsula tutti i dati della configurazione.
- * Funzionalità coincidenti con il pattern Transfer Object
+ * Transfer Object of the configuration entity. It wraps all the configuration data.
+ * Same functionalities as for the Transfer Object pattern
 */
 public class ConfigurazioneTO implements java.io.Serializable, TO{
 	private static final long serialVersionUID = 1L;
@@ -24,8 +24,8 @@ public class ConfigurazioneTO implements java.io.Serializable, TO{
 	private String sysPassword;*/
 	
 	/**
-	 * Prende in input i valori per creare un transfer object di invio.
-	 * @param sysPassword la password di sistema in chiaro
+	 * Acquires values to create a pushing transfer object
+	 * @param sysPassword clear system password
 	*/
 	public ConfigurazioneTO(String dbPath, String dbName, String dbUsername, String dbPassword/*, 
 			int distanza, int inattivita, String sysPassword*/){

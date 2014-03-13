@@ -4,19 +4,14 @@ import messaggistica.MainException;
 
 
 /**
- * Gestore per la configurazione. Permette la lettura e l'inserimento dei 
- * dati relativi alla configurazione.
+ * Setting manager. It allows reading and insertion of settings-related data.
 */
 public class ASConfigurazione extends business.ServiceHandler{
 	
 	
 	
-	/**
-	 * Inizializza la {@code #map} con le corrispondenze nome funzionalit&agrave -> metodo.<br>
-	 * 
-	 * @throws MainException il file di configurazione non esiste, non può essere
-	 * letto oppure non può essere modificato
-	*/
+	/**Initializes the {@code #map} with correspondences functionalityName -> method <br>
+	 * @throws MainException configuration file doesn't exist, cannot be read or cannot be edited	*/
 	public ASConfigurazione() throws MainException{
 		System.out.println("Costruttore di ASConfigurazione");
 		config = new Configurazione();
@@ -29,7 +24,7 @@ public class ASConfigurazione extends business.ServiceHandler{
 	
 	
 	/**
-	 * Istanza della classe entity {@link Configurazione} su cui ASConfigurazione lavora
+	 * Instance of entity class {@link Configurazione} on which ASConfigurazione works
 	*/
 	private I_Configurazione config;
 	
@@ -39,13 +34,10 @@ public class ASConfigurazione extends business.ServiceHandler{
 	
 	
 	/**
-	 * Restituisce tutti i dati di configurazione nel Transfer Object {@link ConfigurazioneTO}.
-	 * Utile quando si vuole modificare la configurazione e si vogliono mostrare i valori
-	 * attualmente memorizzati sul file di configurazione
-	 * 
-	 * @return il transfer object contenente tutti i dati di configurazione, <i>null</i> se &egrave
-	 * stata lanciata un eccezione a livello di entity (errore di formato nel file o non esiste)
-	*/
+	 * Returns all configuration data in the Transfer Object {@link ConfigurazioneTO}.
+	 * Useful when there is need to edit configuration and to show vales stored in the configuration file.
+	 * @return the transfer object containing all the configuration data, <i>null</i> if it
+	 * has been thrown an entity-level exception. (format error in file or it doesn't exist)*/
 	public ConfigurazioneTO getDati(){
 		System.out.println("ASConfigurazione.getDati()");
 		ConfigurazioneTO to = config.getDati();
@@ -60,10 +52,9 @@ public class ASConfigurazione extends business.ServiceHandler{
 	
 	
 	/**
-	 * Setta i nuovi dati prelevati dal to passato per parametro
-	 * @param to il transfer object con i dati da inserire
-	 * @return true se l'inserimento ha avuto successo, false altrimenti
-	 * (lanciata un eccezione a livello di entity: dati nel to incompleti)
+	 * Sets the new data fetched from the Transfer Object passed by parameter
+	 * @param to the TO with data to transfer
+	 * @return true if insertion has been successful, false otherwise
 	*/
 	public boolean setDati(ConfigurazioneTO to){
 		System.out.println("ASConfigurazione.setDati("+to+")");
