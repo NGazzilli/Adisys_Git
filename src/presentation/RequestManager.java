@@ -44,7 +44,7 @@ public class RequestManager implements FrontController{
         private static ResourceBundle requestManager = ResourceBundle.getBundle("adisys/server/property/RequestManager");
         
         private EditorLanguage editorLanguage = new EditorLanguage();
-               private EditorDatabase editorDatabase = new EditorDatabase();
+        
         /*private EditorInterventi editorInterventi = new EditorInterventi();
         private EditorPatologie editorPatologie = new EditorPatologie();
         private EditorInfermieri editorInfermieri = new EditorInfermieri();
@@ -68,7 +68,7 @@ public class RequestManager implements FrontController{
 	private RequestManager(){
 		map.put(APRI_EDITOR_LANGUAGE, editorLanguage);
               
-                map.put(APRI_EDITOR_DATABASE, editorDatabase);
+               
                 /*map.put(APRI_EDITOR_INTERVENTI, editorInterventi);
                 map.put(APRI_EDITOR_INFERMIERI, editorInfermieri);
                 map.put(APRI_EDITOR_PATOLOGIE, editorPatologie);

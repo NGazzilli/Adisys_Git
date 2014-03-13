@@ -189,7 +189,6 @@ public class EditorLanguage extends javax.swing.JFrame implements Boundary {
         DialogoVerifica.setResourceBundle("adisys/server/property/DialogoVerifica", jLocaleChooser1.getLocale());
        
         Pianificatore.setResourceBundle("adisys/server/property/Pianificatore", jLocaleChooser1.getLocale());
-        EditorDatabase.setResourceBundle("adisys/server/property/EditorDatabase", jLocaleChooser1.getLocale());
         EditorPazienti.setResourceBundle("adisys/server/property/EditorPazienti", jLocaleChooser1.getLocale());
         EditorPatologieTipoIntervento.setResourceBundle("adisys/server/property/EditorPatologieTipoIntervento", 
                 jLocaleChooser1.getLocale());
