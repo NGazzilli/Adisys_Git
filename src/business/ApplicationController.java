@@ -130,7 +130,7 @@ public class ApplicationController implements Int_ApplicationController{
 	private String getASName(String request) throws ClassNotFoundException{
 		
 		String handlerName = XMLfile.getNameHandler(request);
-		if(handlerName==null){
+		if(handlerName == null){
 			throw new ClassNotFoundException();
 		}
 		else{

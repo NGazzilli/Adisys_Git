@@ -9,20 +9,19 @@ import java.util.Iterator;
 import adisys.server.strumenti.Record;
 
 /**
- * Classe astratta delle classi di servizio del sistema.
- * Effettua il lookup sulla richiesta, cattura la classe che offre il servizio
- * richiesto(che sar&agrave quella adesso in esecuzione che estende questa stessa)
- *  e invoca il metodo appropriato.<br>
- * Tutte le classi di servizio del sistema a livello di business estendono questa classe.
+ * Abstract class of the service classes of the system.
+ * It does the lookup on the request, catching the class that provides the requested service and
+ * calls for the proper method.
+ * All the service classes of the system in the business tier extend this specific class.
 */
 public abstract class ServiceHandler {
 	
 	
 	/**
-	 * Ottiene il nome del metodo voluto grazie alla struttura dati che incapsula la corrispondeza
-	 * tra key e il nome del metodo
-	 * @param key chiave che identifica il metodo richiesto
-	 * @return il nome del metodo richiesto
+	 * It obtains the name of the wanted method thanks to the data structure that wraps the
+	 * correspondence between key and method name.
+	 * @param key it identifies the requested method
+	 * @return name of the requested method
 	*/
 	protected String getMethodName(String key){
 		return map.get(key);
@@ -30,32 +29,31 @@ public abstract class ServiceHandler {
 	
 	
 	
-	/**Mappa che associa il nome della funzionalit&agrave giunta dal front controller
-	 * col nome dell'effettivo metodo di questa classe che la implementa.*/
+	/**
+	 * Map that associates the name of the functionality coming from the front controller
+	 * with the name of the effective method of the class that implements it.
+	 * */
 	protected HashMap<String, String> map = new HashMap<String, String>();
 	
 	
 	
 	
 	/**
-	 * Attraverso la richiesta {@code key} proveniente dal Front Controller
-	 * capisce il metodo da invocare (appartenente alle classi che la estendono)
-	 * che è in grado di soddisfare la richiesta.<br>
-	 * Ovviamente il metodo richiesto pu&ograve avere dei parametri in input,
-	 * questi sono specificati dall'ArrayList di {@link Record} con chiave = tipo di parametro;
-	 *  valore = valori dei parametri di quel tipo
+	 * Through {@code key} request coming from Front Controlelr it understands the method to call
+	 * (belonging to the classes that extend it), able to satisfy the request. <br>
+	 * Requested method may have input params, that are specificied in the ArrayList of {@link Record} with
+	 * key = parameter type; value = values of the parameters of that type.
 	 * 
-	 * @param keyMethod la richiesta di funzionalit&agrave proveniente dal {@link RequestManager}
-	 * @param params &egrave un'ArrayList di {@link Record} che hanno una sola coppia <chiave, valore>
-	 * @throws NoSuchMethodException se il metodo non viene trovato
-	 * @throws SecurityException pu&ograve essere causato dal metodo getDeclaredMethod della classe Class
-	 * @throws InvocationTargetException se il metodo trovato lancia un eccezione
-	 * @throws IllegalAccessException se la classe o il suo costruttore non sono accessibili
-	 * @throws IllegalArgumentException se il metodo trovato non ottiene i giusti parametri in input
-	 * @throws InstantiationException se la classe non ha un costruttore, quindi non pu&ograve essere 
-	 * istanziata
-	 * @throws ClassNotFoundException se la classe richiesta non viene trovata
-	 * @return qualsiasi valore ritornato dal metodo invocato
+	 * @param keyMethod functionality request coming from {@link RequestManager}
+	 * @param params ArrayList of {@link Record} that have one couple <key, value>
+	 * @throws NoSuchMethodException if no method has been found
+	 * @throws SecurityException may be caused by getDeclaredMethod of Class class
+	 * @throws InvocationTargetException if found method throws an exception
+	 * @throws IllegalAccessException if the class or its builder are not accessible
+	 * @throws IllegalArgumentException if found method doesn't have right input parameters
+	 * @throws InstantiationException if the class has no builder, and therefore cannot be instantiated
+	 * @throws ClassNotFoundException if the requested class cannot be found
+	 * @return whatever value returned bu the called method
 	*/
 	public Object handleRequest(String keyMethod, ArrayList<Record<String, Object>> params)
 	throws SecurityException, NoSuchMethodException, IllegalArgumentException,
@@ -63,7 +61,6 @@ public abstract class ServiceHandler {
 		
 		
 		System.out.println("ServiceHandler.handleRequest("+keyMethod+");");
-		//ottiene la classe in esecuzione che sta estendendo queswta stessa
 		Class<? extends ServiceHandler> myselfClass = this.getClass();
 		Object myselfObj = myselfClass.newInstance();
 		System.out.println("ServiceHandler : Nome classe AS catturato: "+myselfClass.getSimpleName()+" "
@@ -76,12 +73,12 @@ public abstract class ServiceHandler {
 		Method m;
 		Object result = null;
 		
-		if(params==null || params.isEmpty()){//il metodo non ha parametri
+		if(params==null || params.isEmpty()){//no parameters
 			m = myselfClass.getDeclaredMethod(methodName);
 			result = m.invoke(myselfObj);
 			
 		}
-		else{//il metodo non ha parametri
+		else{//no parameters
 			Iterator< Record<String, Object> > iterParam = params.iterator();
 			
 			Class<?>[] classArr = new Class<?>[params.size()];
@@ -100,13 +97,9 @@ public abstract class ServiceHandler {
 				index++;
 			}
 			
-			//prendo il metodo con quel nome e quei tipi di parametri
+			//got method with that name and those parameter's types
 			m = myselfClass.getDeclaredMethod(methodName, classArr);
-			//invoco il metodo definito e i valori dei parametri, acquisisco
-			//il valore di ritorno (null se e' void)
 			result = m.invoke(myselfObj, valueArr);
-			
-//			System.out.println(result);
 		}
 		
 		

@@ -4,19 +4,20 @@ import adisys.server.strumenti.ReadXML;
 
 
 /**
- * Legge dal file xml le associazioni funzionalità -> classe di servizio associata. Utilizza
- * la classe {@link ReadXML} per la lettura dal file XML<br>
- * Permette quindi il crossing (da qui il nome) tra richiesta e handler.
+ * It reads from the XML file the matchings functionality -> associated service class.
+ * It uses the {@link ReadXML} class for reading from XML file.
+ * It allows crossing between request and handler.
 */
 public class ReadCrossing {
 	
-	/**Nome e path del file XML*/
+	/**Name and path of file XML*/
 	private static final String XML_CROSSING_PATH = "system_files/functions_to_managers.xml";
 	
-	/**Nome degli elementi del file XML che identificano una funzionalit&agrave*/
+	/**Name of the items of the XML file that identify a functionality*/
 	private static final String NAME_ELEMENT_FUNCTIONS = "action";
 	
-	/**Istanza di classe che si occupa della lettura sul file XML*/
+	/**
+	 * Class instance that reads XML file*/
 	private ReadXML fileXML;
 	
 	
@@ -34,10 +35,9 @@ public class ReadCrossing {
 	
 	
 	/**
-	 * Restituisce il request handler appropriato secondo la request function in input
-	 * @param requestFunction un stringa che identifica il nome della funzionalita' richiesta
-	 * @return il nome della request handler associata alla request in input, null se non
-	 * trova nessuna corrispondenza
+	 * Returns the proper request handler according to the request function passed as input.
+	 * @param requestFunction a string that identifies the name of the requested functionality
+	 * @return the name of the request handler associated to the request passed as input, null if there is no correspondence
 	*/
 	public String getNameHandler(String requestFunction){
 		System.out.println("ReadCrossing.getNameHandler("+requestFunction+")");

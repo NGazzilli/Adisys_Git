@@ -3,10 +3,10 @@ package business;
 import integration.dao.AbstractDAO;
 
 /**
- * Interfaccia del Transfer Object.<br>
- * E' necessaria per la struttura DAO. {@link AbstractDAO} non può sapere quale è
- * il transfer object associato alla DAO in esecuzione, è necessaria quindi un'interfaccia
- * anche vuota per permettere la dichiarazione dei metodi CRUD.
+ * Interface of Transfer Object.<br>
+ * It is need for DAO structure. {@link AbstractDAO} It cannot know which
+ * of the trasnfer objects associated to DAO is being processed, there is need for
+ * an interface to allow declaration of CRUD methods.
 */
 public interface TO {
 
