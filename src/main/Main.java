@@ -14,16 +14,14 @@ import java.util.Locale;
 import messaggistica.GMessage;
 import java.util.ResourceBundle;
 
-/**
- * Da qui parte tutto il programma
-*/
+
 public class Main {
 
-        private static FrontController FC;
+        private static FrontController frontController;
         private static ResourceBundle main = ResourceBundle.getBundle("adisys/server/property/Main");
 	
-        public static void setResourceBundle(String path, Locale locale){
-            main = ResourceBundle.getBundle(path, locale);
+        public static void setResourceBundle(String path, Locale local){
+            main = ResourceBundle.getBundle(path, local);
         }
                 
         public static void main(String[] args) throws MainException {
@@ -34,9 +32,9 @@ public class Main {
                     System.out.println(main.getString("APPLICAZIONE ESEGUITA"));
 		  
                     if(business.configurazione.Configurazione.checkConfigurazioneExists()){
-                        FC = RequestManager.getFCInstance();
+                    	frontController = RequestManager.getFCInstance();
                         SplashScreen.start();
-                        if(FC.processRequest(RequestManager.APRI_EDITOR_LANGUAGE)){
+                        if(frontController.processRequest(RequestManager.APRI_EDITOR_LANGUAGE)){
                             System.out.println("Finestra EditorLanguage aperta con successo");
                             ConfigurazioneTO configTO = null;
                             try {
@@ -63,12 +61,12 @@ public class Main {
         }       
         
     /**
-     * Setta la configurazione chiamando il front controller. Se il settaggio ha esito positivo, 
-     * allora il database è connesso, ed è possibile interagire con esso e con le interfacce 
-     * che lo utilizzano
+     * Sets the configuration calling the front controller. If setting is successful, 
+     * then database is connected, and it is possible to interact with it and with the interfaces that
+     * use the database.
     */
     private static void setConfigurazione(ArrayList<Record<String,Object>> params) throws MainException{
-        if(!(Boolean) FC.processRequest("setDatiConfigurazione", params)){
+        if(!(Boolean) frontController.processRequest("setDatiConfigurazione", params)){
             GMessage.message_error(main.getString("CONFIG"));
         }
         else{
