@@ -116,15 +116,7 @@ public class EditorDatabase extends javax.swing.JFrame implements Boundary {
         txNomeCampo10 = new javax.swing.JTextField();
         barraDeiMenu = new javax.swing.JMenuBar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(editorDatabase.getString("ADISYS - STRUTTURA DATABASE")); // NOI18N
-        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setMinimumSize(null);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+       
 
         intestazione.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/decorazioniFinestre/EditorDatabase.png"))); // NOI18N
 
@@ -198,23 +190,9 @@ public class EditorDatabase extends javax.swing.JFrame implements Boundary {
             }
         });
 
-        pulsanteIndietro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/indietro.png"))); // NOI18N
-        pulsanteIndietro.setText(editorDatabase.getString("TORNA INDIETRO")); // NOI18N
-        pulsanteIndietro.setToolTipText(editorDatabase.getString("TORNA AL MENU DI SCELTA")); // NOI18N
-        pulsanteIndietro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteIndietroActionPerformed(evt);
-            }
-        });
+      
 
-        pulsanteServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/ico_farmacia.png"))); // NOI18N
-        pulsanteServer.setText(editorDatabase.getString("VAI AD ADISYSSERVER2")); // NOI18N
-        pulsanteServer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteServerActionPerformed(evt);
-            }
-        });
-
+      
         pulsanteResetta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/reset.png"))); // NOI18N
         pulsanteResetta.setText(editorDatabase.getString("RESETTA")); // NOI18N
         pulsanteResetta.setToolTipText(editorDatabase.getString("RESETTA LE MODIFICHE NEL FORM")); // NOI18N
@@ -584,33 +562,8 @@ public class EditorDatabase extends javax.swing.JFrame implements Boundary {
         }
     }                                             
 
-    private void pulsanteServerActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        if(txNomeTabella.isVisible() == false){
-             this.dispose();
-             request(RequestManager.APRI_EDITOR_SCELTA);
-        } else {
-            if(GMessage.confirm(editorDatabase.getString("SEI SICURO DI VOLER TORNARE INDIETRO?")
-                + editorDatabase.getString("PERDERAI TUTTE LE MODIFICHE EFFETTUATE SE NON CONFERMATE.")) == JOptionPane.YES_OPTION) {
-                this.dispose();
-                request(RequestManager.APRI_EDITOR_SCELTA);
-            }
-        }
-    }                                              
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-         if(txNomeTabella.isVisible() == false){
-             this.dispose();
-             request(RequestManager.APRI_EDITOR_SCELTA);
-        } else {
-            if(GMessage.confirm(editorDatabase.getString("SEI SICURO DI VOLER USCIRE DA")
-                    + editorDatabase.getString(" ADISYSDATABASE?")
-                    + editorDatabase.getString("PERDERAI TUTTE LE MODIFICHE EFFETTUATE SE NON CONFERMATE."))   
-                    == JOptionPane.YES_OPTION) {
-                this.dispose();
-                request(RequestManager.APRI_EDITOR_SCELTA);
-            }
-         }
-    }                                  
+  
+                    
 
     private void buttonTabPatologieActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         tabella = tabella.patologie;
@@ -786,18 +739,7 @@ public class EditorDatabase extends javax.swing.JFrame implements Boundary {
        }
     }                                          
 
-    private void pulsanteIndietroActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        if(txNomeTabella.isVisible() == false){
-             this.dispose();
-             request(RequestManager.APRI_EDITOR_SCELTA);
-        } else {
-            if(GMessage.confirm(editorDatabase.getString("SEI SICURO DI VOLER TORNARE INDIETRO?")
-                + editorDatabase.getString("PERDERAI TUTTE LE MODIFICHE EFFETTUATE SE NON CONFERMATE.")) == JOptionPane.YES_OPTION) {
-                this.dispose();
-                request(RequestManager.APRI_EDITOR_SCELTA);
-            }
-        }
-    }                                                
+                                          
 
     private void txNomeCampo9ActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:

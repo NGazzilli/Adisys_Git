@@ -150,7 +150,7 @@ public class EditorLanguage extends javax.swing.JFrame implements Boundary {
          try {
              request(RequestManager.APRI_PIANIFICATORE);
          } catch (MainException ex) {
-             Logger.getLogger(EditorScelta.class.getName()).log(Level.SEVERE, null, ex);
+             
          }
     }           
     
@@ -187,7 +187,7 @@ public class EditorLanguage extends javax.swing.JFrame implements Boundary {
         EditorRipetiPatologie.setResourceBundle("adisys/server/property/EditorRipetiPatologie", jLocaleChooser1.getLocale());
         DialogoEsportazione.setResourceBundle("adisys/server/property/DialogoEsportazione", jLocaleChooser1.getLocale());
         DialogoVerifica.setResourceBundle("adisys/server/property/DialogoVerifica", jLocaleChooser1.getLocale());
-        EditorScelta.setResourceBundle("adisys/server/property/EditorScelta", jLocaleChooser1.getLocale());
+       
         Pianificatore.setResourceBundle("adisys/server/property/Pianificatore", jLocaleChooser1.getLocale());
         EditorDatabase.setResourceBundle("adisys/server/property/EditorDatabase", jLocaleChooser1.getLocale());
         EditorPazienti.setResourceBundle("adisys/server/property/EditorPazienti", jLocaleChooser1.getLocale());
