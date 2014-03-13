@@ -36,14 +36,31 @@ import messaggistica.GMessage;
 public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
 
     private static DialogoVerifica window;
-    private static ResourceBundle dialogoVerifica = ResourceBundle.getBundle("adisys/server/property/DialogoVerifica");
-    private FrontController FC;
-    private static final String FORMATO_DATA_GUI = DateFormatConverter.getFormatData();
-    private static final String FORMATO_ORA_GUI ="HH:mm:ss";
+    private static ResourceBundle checkDialog = ResourceBundle.getBundle("adisys/server/property/DialogoVerifica");
+    private FrontController frontController;
+    private static final String DATE_FORMAT_GUI = DateFormatConverter.getFormatData();
+    private static final String TIME_FORMAT_GUI ="HH:mm:ss";
+    
+    // Variables declaration - do not modify                     
+    private javax.swing.JComboBox cbFileJournaling;
+    private javax.swing.JLabel checkHeaderPicture;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JScrollPane activityTablePanel;
+    private javax.swing.JScrollPane logTablePanel;
+    private javax.swing.JButton updateListButton;
+    private javax.swing.JButton loadButton;
+    private javax.swing.JButton quitButton;
+    private javax.swing.JButton homeButton;
+    private javax.swing.JTable activityTable;
+    private javax.swing.JTable logTable;
+    private javax.swing.JLabel nurseTx;
+    private javax.swing.JLabel surveyTx;
+    // End of variables declaration 
     
     
-     public static void setResourceBundle(String path, Locale locale){
-        dialogoVerifica = ResourceBundle.getBundle(path, locale);
+     public static void setResourceBundle(String path, Locale local){
+    	 checkDialog = ResourceBundle.getBundle(path, local);
     }
 	/**
 	 * Creates new form DialogoVerifica
@@ -51,7 +68,7 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
 	public DialogoVerifica(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
 		initComponents();
-                setListaJournaling();
+		setJournalingList();
 	}
 
         public DialogoVerifica(){
@@ -66,23 +83,23 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        immagineTestataVerifica = new javax.swing.JLabel();
-        pannelloTabellaAttivita = new javax.swing.JScrollPane();
-        tabellaAttivita = new javax.swing.JTable();
-        pannelloTabellaLog = new javax.swing.JScrollPane();
-        tabellaLog = new javax.swing.JTable();
-        txInfermiere = new javax.swing.JLabel();
-        txRilevazioni = new javax.swing.JLabel();
+		checkHeaderPicture = new javax.swing.JLabel();
+		activityTablePanel = new javax.swing.JScrollPane();
+		activityTable = new javax.swing.JTable();
+        logTablePanel = new javax.swing.JScrollPane();
+        logTable = new javax.swing.JTable();
+        nurseTx = new javax.swing.JLabel();
+        surveyTx = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
-        pulsanteAggiornaLista = new javax.swing.JButton();
+        updateListButton = new javax.swing.JButton();
         cbFileJournaling = new javax.swing.JComboBox();
-        pulsanteCarica = new javax.swing.JButton();
+        loadButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        pulsanteEsci = new javax.swing.JButton();
-        pulsanteHome = new javax.swing.JButton();
+        quitButton = new javax.swing.JButton();
+        homeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(dialogoVerifica.getString("TITLE VERIFICA")); // NOI18N
+        setTitle(checkDialog.getString("TITLE VERIFICA")); // NOI18N
         setIconImage(null);
         setMinimumSize(null);
         setModal(true);
@@ -92,81 +109,81 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
             }
         });
 
-        immagineTestataVerifica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/decorazioniFinestre/Verifica.png"))); // NOI18N
+        checkHeaderPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/decorazioniFinestre/Verifica.png"))); // NOI18N
 
-        tabellaAttivita.setRowHeight(25);
-        tabellaAttivita.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabellaAttivita.addMouseListener(new java.awt.event.MouseAdapter() {
+        activityTable.setRowHeight(25);
+        activityTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        activityTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabellaAttivitaMouseClicked(evt);
+            	activityTableMouseClicked(evt);
             }
         });
-        tabellaAttivita.addKeyListener(new java.awt.event.KeyAdapter() {
+        activityTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabellaAttivitaKeyPressed(evt);
+            	activityTableKeyPressed(evt);
             }
         });
-        pannelloTabellaAttivita.setViewportView(tabellaAttivita);
+        activityTablePanel.setViewportView(activityTable);
 
-        tabellaLog.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabellaLog.getTableHeader().setReorderingAllowed(false);
-        pannelloTabellaLog.setViewportView(tabellaLog);
+        logTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        logTable.getTableHeader().setReorderingAllowed(false);
+        logTablePanel.setViewportView(logTable);
 
-        txInfermiere.setFont(txInfermiere.getFont().deriveFont(txInfermiere.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        txInfermiere.setForeground(new java.awt.Color(255, 255, 255));
-        txInfermiere.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txInfermiere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/Viola.png"))); // NOI18N
-        txInfermiere.setText(dialogoVerifica.getString("INFERMERE: -")); // NOI18N
-        txInfermiere.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nurseTx.setFont(nurseTx.getFont().deriveFont(nurseTx.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        nurseTx.setForeground(new java.awt.Color(255, 255, 255));
+        nurseTx.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nurseTx.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/Viola.png"))); // NOI18N
+        nurseTx.setText(checkDialog.getString("INFERMERE: -")); // NOI18N
+        nurseTx.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        txRilevazioni.setFont(txRilevazioni.getFont().deriveFont(txRilevazioni.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        txRilevazioni.setForeground(new java.awt.Color(255, 255, 255));
-        txRilevazioni.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txRilevazioni.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/Grigia.png"))); // NOI18N
-        txRilevazioni.setText(dialogoVerifica.getString("LISTA RILEVAZIONI")); // NOI18N
-        txRilevazioni.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        surveyTx.setFont(surveyTx.getFont().deriveFont(surveyTx.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        surveyTx.setForeground(new java.awt.Color(255, 255, 255));
+        surveyTx.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        surveyTx.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/barre/Grigia.png"))); // NOI18N
+        surveyTx.setText(checkDialog.getString("LISTA RILEVAZIONI")); // NOI18N
+        surveyTx.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        pulsanteAggiornaLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/IconaAggiorna.png"))); // NOI18N
-        pulsanteAggiornaLista.setText(dialogoVerifica.getString("AGGIORNA LISTA")); // NOI18N
-        pulsanteAggiornaLista.addActionListener(new java.awt.event.ActionListener() {
+        updateListButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/IconaAggiorna.png"))); // NOI18N
+        updateListButton.setText(checkDialog.getString("AGGIORNA LISTA")); // NOI18N
+        updateListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteAggiornaListaActionPerformed(evt);
+            	updateListActionPerformedButton(evt);
             }
         });
-        jToolBar1.add(pulsanteAggiornaLista);
+        jToolBar1.add(updateListButton);
 
         jToolBar1.add(cbFileJournaling);
 
-        pulsanteCarica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/IconaImportazione.png"))); // NOI18N
-        pulsanteCarica.setText(dialogoVerifica.getString("CARICA E VERIFICA")); // NOI18N
-        pulsanteCarica.addActionListener(new java.awt.event.ActionListener() {
+        loadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/IconaImportazione.png"))); // NOI18N
+        loadButton.setText(checkDialog.getString("CARICA E VERIFICA")); // NOI18N
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteCaricaActionPerformed(evt);
+            	loadActionPerformedButton(evt);
             }
         });
-        jToolBar1.add(pulsanteCarica);
+        jToolBar1.add(loadButton);
 
-        jLabel1.setText(dialogoVerifica.getString("CLICCARE SU UNA SINGOLA ATTIVITA' PER LEGGERE LE RILEVAZIONI, PREMERE 'I' PER INFORMAZIONI SULL'ATTIVITÀ.")); // NOI18N
+        jLabel1.setText(checkDialog.getString("CLICCARE SU UNA SINGOLA ATTIVITA' PER LEGGERE LE RILEVAZIONI, PREMERE 'I' PER INFORMAZIONI SULL'ATTIVITÀ.")); // NOI18N
 
-        pulsanteEsci.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/arresta.png"))); // NOI18N
-        pulsanteEsci.setText(dialogoVerifica.getString("ABBANDONA ADISYS")); // NOI18N
-        pulsanteEsci.setToolTipText(dialogoVerifica.getString("ESCI DA ADISYS")); // NOI18N
-        pulsanteEsci.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pulsanteEsci.addActionListener(new java.awt.event.ActionListener() {
+        quitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/arresta.png"))); // NOI18N
+        quitButton.setText(checkDialog.getString("ABBANDONA ADISYS")); // NOI18N
+        quitButton.setToolTipText(checkDialog.getString("ESCI DA ADISYS")); // NOI18N
+        quitButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        quitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteEsciActionPerformed(evt);
+            	quitActionPerformedButton(evt);
             }
         });
 
-        pulsanteHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/home.png"))); // NOI18N
-        pulsanteHome.setText(dialogoVerifica.getString("HOME")); // NOI18N
-        pulsanteHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pulsanteHome.addActionListener(new java.awt.event.ActionListener() {
+        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/pulsanti/home.png"))); // NOI18N
+        homeButton.setText(checkDialog.getString("HOME")); // NOI18N
+        homeButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulsanteHomeActionPerformed(evt);
+            	homeActionPerformedButton(evt);
             }
         });
 
@@ -174,23 +191,23 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pannelloTabellaLog)
+            .addComponent(logTablePanel)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pulsanteEsci)
+                        .addComponent(quitButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pulsanteHome)
+                        .addComponent(homeButton)
                         .addContainerGap())
-                    .addComponent(pannelloTabellaAttivita)
+                    .addComponent(activityTablePanel)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(immagineTestataVerifica)
-                            .addComponent(txRilevazioni)
+                            .addComponent(checkHeaderPicture)
+                            .addComponent(surveyTx)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txInfermiere)
+                                .addComponent(nurseTx)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)))
                         .addGap(0, 135, Short.MAX_VALUE))))
@@ -198,199 +215,199 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(immagineTestataVerifica)
+                .addComponent(checkHeaderPicture)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txInfermiere)
+                    .addComponent(nurseTx)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pannelloTabellaAttivita, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(activityTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txRilevazioni)
+                .addComponent(surveyTx)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pannelloTabellaLog, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pulsanteEsci)
-                    .addComponent(pulsanteHome))
+                    .addComponent(quitButton)
+                    .addComponent(homeButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>                        
 
-    private void pulsanteAggiornaListaActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        setListaJournaling();
+    private void updateListActionPerformedButton(java.awt.event.ActionEvent evt) {                                                      
+    	setJournalingList();
     }                                                     
 
-    private void pulsanteCaricaActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void loadActionPerformedButton(java.awt.event.ActionEvent evt) {                                               
         if(cbFileJournaling.getModel().getSelectedItem() != 
                 cbFileJournaling.getModel().getElementAt(0)){
-            FC = RequestManager.getFCInstance();
-            boolean infTrovato = true;
+        	frontController = RequestManager.getFCInstance();
+            boolean infFound = true;
             ArrayList<Record<String, Object>> params = new ArrayList<Record<String, Object>>();
             params.add(new Record<String, Object>("java.lang.String", 
                 String.valueOf(cbFileJournaling.getSelectedItem())));      
             try {
-                String messaggio = (String) FC.processRequest("caricaFile", params);
-                if(messaggio.contains(dialogoVerifica.getString("INFERMIERE"))){
-                    infTrovato = false;
-                    GMessage.message_error(messaggio);
-                } else if(messaggio.contains(dialogoVerifica.getString("ANNULLATO"))){
-                    infTrovato = false;
-                    GMessage.information(messaggio);
+                String message = (String) frontController.processRequest("caricaFile", params);
+                if(message.contains(checkDialog.getString("INFERMIERE"))){
+                	infFound = false;
+                    GMessage.message_error(message);
+                } else if(message.contains(checkDialog.getString("ANNULLATO"))){
+                	infFound = false;
+                    GMessage.information(message);
                 } else {
-                    GMessage.information(messaggio);
+                    GMessage.information(message);
                 }
             } catch (MainException ex) {
                 Logger.getLogger(DialogoVerifica.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if(infTrovato == true){
-                String stringaInfermiere ="Infermiere: ";
+            if(infFound == true){
+                String nurseString ="Infermiere: ";
                 InfermiereTO toInf = new InfermiereTO();
-                FC = RequestManager.getFCInstance();
-                ArrayList<InterventoCompletoTO> listaInterventi = null;
+                frontController = RequestManager.getFCInstance();
+                ArrayList<InterventoCompletoTO> interventionsList = null;
                 try {
-                    listaInterventi = (ArrayList<InterventoCompletoTO>) FC.processRequest("visualizzaListaInterventi", null);
+                	interventionsList = (ArrayList<InterventoCompletoTO>) frontController.processRequest("visualizzaListaInterventi", null);
                 } catch (MainException ex) {
                     Logger.getLogger(DialogoVerifica.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                toInf.setID(listaInterventi.get(0).getIDInfermiere());
+                toInf.setID(interventionsList.get(0).getIDInfermiere());
                 params.clear();
                 params.add(new Record<String, Object>("business.infermiere.InfermiereTO", toInf));   
      
                 try {
-                    toInf = (InfermiereTO) FC.processRequest("visualizzaInfermiere", params);
+                    toInf = (InfermiereTO) frontController.processRequest("visualizzaInfermiere", params);
                 } catch (MainException ex) {
                     Logger.getLogger(EditorInterventi.class.getName()).log(Level.SEVERE, null, ex);
                 }
         
-                stringaInfermiere += toInf.getNome();
-                stringaInfermiere += " " + toInf.getCognome();
+                nurseString += toInf.getNome();
+                nurseString += " " + toInf.getCognome();
         
-                txInfermiere.setText(stringaInfermiere);
+                nurseTx.setText(nurseString);
         
                 //TableModel per popolamento tabella
-                DefaultTableModel modello = new DefaultTableModel() {
+                DefaultTableModel model = new DefaultTableModel() {
                     @Override
                     public boolean isCellEditable(int row, int column)
                     {return false;}
                 };
         
-                //Settaggio colonne
-                String titoli[] = {"IL", "DALLE","ALLE", "LUOGO","PAZIENTE","GPS","ACCEL."};
+                //Setting columns
+                String titles[] = {"IL", "DALLE","ALLE", "LUOGO","PAZIENTE","GPS","ACCEL."};
         
-                modello.setColumnCount(titoli.length);
-                modello.setColumnIdentifiers(titoli);
+                model.setColumnCount(titles.length);
+                model.setColumnIdentifiers(titles);
         
-                if(!listaInterventi.isEmpty()) {
-                    for (InterventoCompletoTO i:listaInterventi){
+                if(!interventionsList.isEmpty()) {
+                    for (InterventoCompletoTO i:interventionsList){
                         params.clear();
                         params.add(new Record<String, Object>("business.intervento.InterventoCompletoTO", i));
                         try {
-                            FC.processRequest("aggiornaStorico", params);
+                        	frontController.processRequest("aggiornaStorico", params);
                         } catch (MainException ex) {
                             Logger.getLogger(DialogoVerifica.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         String riga[]={
-                            i.getDataDaFormato(FORMATO_DATA_GUI),
-                            i.getOraInizioDaFormato(FORMATO_ORA_GUI),
-                            i.getOraFineDaFormato(FORMATO_ORA_GUI),
+                            i.getDataDaFormato(DATE_FORMAT_GUI),
+                            i.getOraInizioDaFormato(TIME_FORMAT_GUI),
+                            i.getOraFineDaFormato(TIME_FORMAT_GUI),
                             i.getCivico() + "- " +i.getCitta(),
                             i.getPaziente().getNome() + " " + i.getPaziente().getCognome(),
                             i.getStatoVerificaGPS().toString(),
                             i.getStatoVerificaAccelerometro().toString()
         		};
         		
-        		modello.addRow(riga);
+                        model.addRow(riga);
                     }
                 }
         
-                tabellaAttivita.setModel(modello);
+                activityTable.setModel(model);
         
-                int colonnaGraficaGPS =5;
-                int colonnaGraficaACC =6;
+                int graphicColumnGPS = 5;
+                int graphicColumnACC = 6;
         
         
-                ADISysTableRendererVerifica renderer = new ADISysTableRendererVerifica(colonnaGraficaGPS,colonnaGraficaACC);
-                tabellaAttivita.setDefaultRenderer(tabellaAttivita.getColumnClass(0), renderer);
+                ADISysTableRendererVerifica renderer = new ADISysTableRendererVerifica(graphicColumnGPS,graphicColumnACC);
+                activityTable.setDefaultRenderer(activityTable.getColumnClass(0), renderer);
         
         
                 ///Svuota la tabella dei log
-                tabellaLog.setModel(new DefaultTableModel());
+                logTable.setModel(new DefaultTableModel());
             }
         }
     }                                              
 
-    private void setListaJournaling(){
-        FC = RequestManager.getFCInstance();
-        String[] listaFile = null;
+    private void setJournalingList(){
+    	frontController = RequestManager.getFCInstance();
+        String[] filesList = null;
         try {
-            listaFile = (String[]) FC.processRequest("visualizzaListaJournaling", null);
+        	filesList = (String[]) frontController.processRequest("visualizzaListaJournaling", null);
         } catch (MainException ex) {
             Logger.getLogger(DialogoVerifica.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DefaultComboBoxModel<String> modello= new DefaultComboBoxModel<>();
-        modello.addElement(dialogoVerifica.getString("SCEGLI FILE"));
-        cbFileJournaling.setModel(modello);
-        if (listaFile==null) 
-            GMessage.message_error(dialogoVerifica.getString("ERRORE CARICA LISTA"));
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        model.addElement(checkDialog.getString("SCEGLI FILE"));
+        cbFileJournaling.setModel(model);
+        if (filesList==null) 
+            GMessage.message_error(checkDialog.getString("ERRORE CARICA LISTA"));
         else{
-            for(String s:listaFile) modello.addElement(s);
-            cbFileJournaling.setModel(modello);
+            for(String s:filesList) model.addElement(s);
+            cbFileJournaling.setModel(model);
         }
     }
-    private void pulsanteEsciActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(GMessage.confirm(dialogoVerifica.getString("SEI SICURO DI VOLER ABBANDONARE")
-            + dialogoVerifica.getString(" ADISYS?")) == JOptionPane.YES_OPTION) {
+    private void quitActionPerformedButton(java.awt.event.ActionEvent evt) {                                             
+        if(GMessage.confirm(checkDialog.getString("SEI SICURO DI VOLER ABBANDONARE")
+            + checkDialog.getString(" ADISYS?")) == JOptionPane.YES_OPTION) {
         System.exit(0);
         }
     }                                            
 
-    private void tabellaAttivitaKeyPressed(java.awt.event.KeyEvent evt) {                                           
-        // TODO add your handling code here:
-        if(evt.getKeyChar()== 'i' || evt.getKeyChar()== 'I'){
-            FC = RequestManager.getFCInstance();
-            int valoreSelezionato = tabellaAttivita.getSelectedRow();
-            if (valoreSelezionato !=-1){
-                System.out.println("ControllerVerifica - Prelievo elemento " + valoreSelezionato);
+    private void activityTableKeyPressed(java.awt.event.KeyEvent evt) {                                           
+      
+        if(evt.getKeyChar() == 'i' || evt.getKeyChar()== 'I'){
+        	frontController = RequestManager.getFCInstance();
+            int selectedValue = activityTable.getSelectedRow();
+            if (selectedValue !=-1){
+                System.out.println("ControllerVerifica - Prelievo elemento " + selectedValue);
                 InterventoTO to = new InterventoTO();
-                to.setID(valoreSelezionato);
+                to.setID(selectedValue);
                 ArrayList<Record<String, Object>> params = new ArrayList<Record<String, Object>>();
                 params.add(new Record<String, Object>("business.intervento.InterventoTO", to));
-                InterventoCompletoTO toCompleto = null;
+                InterventoCompletoTO completeTO = null;
                 try {
-                    toCompleto = (InterventoCompletoTO) 
-                    FC.processRequest("visualizzaInterventoCompleto", params);
+                	completeTO = (InterventoCompletoTO) 
+                    		frontController.processRequest("visualizzaInterventoCompleto", params);
                 } catch (MainException ex) {
                     Logger.getLogger(DialogoVerifica.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            GMessage.information(toCompleto.toString());
+            GMessage.information(completeTO.toString());
             }
         }
 
     }                                          
 
-    private void tabellaAttivitaMouseClicked(java.awt.event.MouseEvent evt) {                                             
-        int valoreSelezionato = tabellaAttivita.getSelectedRow();
-        if (valoreSelezionato !=-1)
-            popolaTabellaLog(valoreSelezionato);
+    private void activityTableMouseClicked(java.awt.event.MouseEvent evt) {                                             
+        int selectedValue = activityTable.getSelectedRow();
+        if (selectedValue !=-1)
+        	populateLogTable(selectedValue);
 
     }                                            
 
-    public void popolaTabellaLog(int indiceIntervento)
+    public void populateLogTable(int interventionIndex)
     {
-        FC = RequestManager.getFCInstance();
-        ArrayList<InterventoCompletoTO> listaInterventi = null;
+    	frontController = RequestManager.getFCInstance();
+        ArrayList<InterventoCompletoTO> interventionsList = null;
         try {
-            listaInterventi = (ArrayList<InterventoCompletoTO>) FC.processRequest("visualizzaListaInterventi", null);
+        	interventionsList = (ArrayList<InterventoCompletoTO>) frontController.processRequest("visualizzaListaInterventi", null);
         } catch (MainException ex) {
             Logger.getLogger(DialogoVerifica.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DefaultTableModel modelloLog = new DefaultTableModel()
+        DefaultTableModel logModel = new DefaultTableModel()
         {
         
         @Override
@@ -400,23 +417,23 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
             }
         };
 
-        modelloLog.addColumn("Timestamp");
-        modelloLog.addColumn("Latitude");
-        modelloLog.addColumn("Longitude");
-        modelloLog.addColumn("Altitude");
-        modelloLog.addColumn("Accuracy");
-        modelloLog.addColumn("Accel X");
-        modelloLog.addColumn("Accel Y");
-        modelloLog.addColumn("Accel Z");
+        logModel.addColumn("Timestamp");
+        logModel.addColumn("Latitude");
+        logModel.addColumn("Longitude");
+        logModel.addColumn("Altitude");
+        logModel.addColumn("Accuracy");
+        logModel.addColumn("Accel X");
+        logModel.addColumn("Accel Y");
+        logModel.addColumn("Accel Z");
         
-        int i=0;
-        while(listaInterventi.get(indiceIntervento).getLog(i)!=null)
+        int i = 0;
+        while(interventionsList.get(interventionIndex).getLog(i)!=null)
         {
-            Rilevazione u =  listaInterventi.get(indiceIntervento).getLog(i);
-            Object[] nuovaRiga=
+            Rilevazione u =  interventionsList.get(interventionIndex).getLog(i);
+            Object[] newRow=
             {
                 DateFormatConverter.long2dateString(u.getTimestamp().getTime(), 
-                    FORMATO_DATA_GUI + "-" + FORMATO_ORA_GUI),
+                		DATE_FORMAT_GUI + "-" + TIME_FORMAT_GUI),
                 u.getGpsLatitude(),
                 u.getGpsLongitude(),
                 u.getGpsAltitude(),
@@ -425,22 +442,22 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
                 u.getAccY(),
                 u.getAccZ() 
             };
-            modelloLog.addRow(nuovaRiga);
+            logModel.addRow(newRow);
             i++;
         }    
-        tabellaLog.setModel(modelloLog);
+        logTable.setModel(logModel);
     }
     
-    private void pulsanteHomeActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(GMessage.confirm(dialogoVerifica.getString("SEI SICURO DI VOLER USCIRE DAL ")
-            + dialogoVerifica.getString("DIALOGO DELLA VERIFICA E TORNARE ALLA PIANIFICAZIONE?"))
+    private void homeActionPerformedButton(java.awt.event.ActionEvent evt) {                                             
+        if(GMessage.confirm(checkDialog.getString("SEI SICURO DI VOLER USCIRE DAL ")
+            + checkDialog.getString("DIALOGO DELLA VERIFICA E TORNARE ALLA PIANIFICAZIONE?"))
         == JOptionPane.YES_OPTION) {
         this.dispose();
         }
     }                                            
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-         if(GMessage.confirm(dialogoVerifica.getString("SEI SICURO DI VOLER USCIRE DAL DIALOGO DELLA VERIFICA?")
+         if(GMessage.confirm(checkDialog.getString("SEI SICURO DI VOLER USCIRE DAL DIALOGO DELLA VERIFICA?")
                  ) == JOptionPane.YES_OPTION) {
              this.dispose();
          }
@@ -457,7 +474,7 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
 		 */
 		try {
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if (dialogoVerifica.getString("NIMBUS").equals(info.getName())) {
+				if (checkDialog.getString("NIMBUS").equals(info.getName())) {
 					javax.swing.UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
@@ -477,8 +494,8 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				window = new DialogoVerifica(new javax.swing.JFrame(), true);
-				Dimension risoluzioneSchermo = Toolkit.getDefaultToolkit().getScreenSize();
-				window.setLocation(new Point( (risoluzioneSchermo.width - window.getWidth()) /2, (risoluzioneSchermo.height - window.getHeight()) /2)  );
+				Dimension screenResolution = Toolkit.getDefaultToolkit().getScreenSize();
+				window.setLocation(new Point( (screenResolution.width - window.getWidth()) /2, (screenResolution.height - window.getHeight()) /2)  );
 				window.setVisible(true);
 				
 			}
@@ -489,22 +506,7 @@ public class DialogoVerifica extends javax.swing.JDialog implements Boundary {
 	{
 		if (window!=null) window.dispose();
 	}
-    // Variables declaration - do not modify                     
-    private javax.swing.JComboBox cbFileJournaling;
-    private javax.swing.JLabel immagineTestataVerifica;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JScrollPane pannelloTabellaAttivita;
-    private javax.swing.JScrollPane pannelloTabellaLog;
-    private javax.swing.JButton pulsanteAggiornaLista;
-    private javax.swing.JButton pulsanteCarica;
-    private javax.swing.JButton pulsanteEsci;
-    private javax.swing.JButton pulsanteHome;
-    private javax.swing.JTable tabellaAttivita;
-    private javax.swing.JTable tabellaLog;
-    private javax.swing.JLabel txInfermiere;
-    private javax.swing.JLabel txRilevazioni;
-    // End of variables declaration                   
+                  
 
     @Override
     public void open() {
