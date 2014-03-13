@@ -9,47 +9,49 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Application Controller del sistema.
- * L'utente richiede un servizio inviando una stringa che identifica il servizio di business voluto,
- * la richiesta viene filtrata dal FrontController che la passa all'AC il quale trova la corrispondente
- *  classe che si occupa di quel servizio cercandola con l'ausilio di {@link ReadCrossing} in un file XML.
- * Una volta trovata evoca il metodo che si occupa della funzionalità richiesta usando 
+ * System's Application Controller.
+ * The user requests a service by sending a string that identifies the desired business service,
+ * this request is filtered by the Front Controller that dispatches it to the Application Controller.
+ * This one finds the related class linked to the requested service, with the help of {@link ReadCrossing} in an XML file.
+ * One it has been found, it calls for the method that handles the requested functionality using
  * {@link ServiceHandler}
  * 
- * @author Luca Massa
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
 */
+
 public class ApplicationController implements Int_ApplicationController{
 	
     /**
-     * Astrazione sul file XML dove sono contenute le corrispondenze richiesta->classe di servizio
+     * Abstraction on the XML file that contains the matching request -> service class
      */
-    private static ReadCrossing fileXML;
+    private static ReadCrossing XMLfile;
     private static ResourceBundle applicationController = ResourceBundle.getBundle("adisys/server/property/ApplicationController");
 	
-    public static void setResourceBundle(String path, Locale locale){
-        applicationController = ResourceBundle.getBundle(path, locale);
+    public static void setResourceBundle(String path, Locale local){
+        applicationController = ResourceBundle.getBundle(path, local);
     }
 	/**
-	 * ServiceHandler che si occupa di capire il metodo da eseguire
-	 * avendo in input il nome del metodo e i parametri
+	 * This Service Handler finds the method to execute using the name of the method as
+	 * the input and its parameters.
 	*/
 	private ServiceHandler ASAbstract;
 	
 	/**
-	 * Costruttore, inizializza la {@link ReadCrossing} ed esegue il metodo 
-	 * {@link #getInstance(String request)}
+	 * Builder, it starts the {@link ReadCrossing} and processes the method {@link #getInstance(String request)}
+	 * 
 	*/
 	public ApplicationController(String requestMethod){
-		fileXML = new ReadCrossing();
+		XMLfile = new ReadCrossing();
 		ASAbstract = (ServiceHandler) getInstance(requestMethod);
 	}
 	
 	
 	/**
-	 * Ottiene l'istanza della classe di business associata alla richiesta {@code request}
-	 * così inizializza {@link #ASAbstract}
-	 * @param request la stringa che identifica 
-	 * @throws ClassNotFoundException se non esiste una classe con quel nome
+	 * It obtains the instance of the business class associated to the request {@code request}
+	 * and then it starts {@link #ASAbstract}
+	 * @param request the string it identifies 
+	 * @throws ClassNotFoundException if there is no class with that name
 	*/
 	private Object getInstance(String request){
 		System.out.println("ApplicationController : getInstance("+request+")");
@@ -60,12 +62,12 @@ public class ApplicationController implements Int_ApplicationController{
 		String rHandlerName = "<null>";
 		
 		try{
-			//preleva il nome della classe che fornisce il servizio richiesto
+			//fetches the class name that handles the requested service
 			rHandlerName = getASName(request);
                         
-			//ottiene il Class del nome della classe trovata
+			//name Class of found class
 			classBusiness =  Class.forName(rHandlerName);
-                        //ottiene l'istanza del Class ottenuto prima (evoca il costruttore)
+                        //instance of the Class obtained before
 			objBusiness = classBusiness.newInstance();
 			
 		} catch(ClassNotFoundException e){
@@ -89,26 +91,24 @@ public class ApplicationController implements Int_ApplicationController{
 	
 	
 	/**
-	 * Attraverso la richiesta {@code key} proveniente dal Front Controller
-	 * capisce il metodo da invocare (appartenente alle classi che la estendono)
-	 * che è in grado di soddisfare la richiesta.<br>
-	 * Ovviamente il metodo richiesto può avere dei parametri in input,
-	 * questi sono specificati dall'ArrayList di {@link Record} con chiave = tipo di parametro;
-	 *  valore = valori dei parametri di quel tipo
+	 * Through {@code key} request coming from Front Controller, it
+	 * understands the method to call (belonging to the classes that extend it) to
+	 * satisfy the request.
+	 * Requested method may have input parameters, these are specified in the ArrayList of {@link Record}
+	 * with key = parameter type; value = values of the parameter of that type
 	 * 
 	 * @see ServiceHandler#handleRequest(String, ArrayList)
 	 * 
-	 * @param key la richiesta di funzionalit&agrave proveniente dal {@link presentation.RequestManager}
-	 * @param params &egrave un'ArrayList di {@link Record} che hanno una sola coppia <chiave, valore>
-	 * @throws NoSuchMethodException se il metodo non viene trovato
-	 * @throws SecurityException pu&ograve essere causato dal metodo getDeclaredMethod della classe Class
-	 * @throws InvocationTargetException se il metodo trovato lancia un eccezione
-	 * @throws IllegalAccessException se la classe o il suo costruttore non sono accessibili
-	 * @throws IllegalArgumentException se il metodo trovato non ottiene i giusti parametri in input
-	 * @throws InstantiationException se la classe non ha un costruttore, quindi non può essere 
-	 * istanziata
-	 * @throws ClassNotFoundException se la classe richiesta non viene trovata
-	 * @return qualsiasi valore ritornato dal metodo invocato
+	 * @param key functionality request coming from {@link presentation.RequestManager}
+	 * @param params ArrayList of {@link Record} that have one couple <key, value>
+	 * @throws NoSuchMethodException if no method has been found
+	 * @throws SecurityException could be caused by getDeclaredMethod method of the class Class
+	 * @throws InvocationTargetException if found method throws an exception
+	 * @throws IllegalAccessException if the class or its builder are not accessible
+	 * @throws IllegalArgumentException if found method doesn't have correct input parameters
+	 * @throws InstantiationException if class has not a builder and therefore cannot be instantiated
+	 * @throws ClassNotFoundException if requested class cannot be found
+	 * @return whatever value returned from the called method
 	*/
 	public Object handleRequest(String keyMethod, ArrayList<Record<String, Object>> params)
 	throws SecurityException, NoSuchMethodException, IllegalArgumentException,
@@ -123,13 +123,13 @@ public class ApplicationController implements Int_ApplicationController{
 	
 	
 	/**
-	 * Restituisce il nome della classe che fornisce il servizio voluto,
-	 * usa il metodo {@link ReadCrossing#getNameHandler(String)}
-	 * @throws ClassNotFoundException se non &egrave associata nessuna classe alla richiesta
+	 * Returns the name of the class that provides the requested service, using 
+	 * {@link ReadCrossing#getNameHandler(String)}
+	 * @throws ClassNotFoundException if no class has been associated
 	*/
 	private String getASName(String request) throws ClassNotFoundException{
 		
-		String handlerName = fileXML.getNameHandler(request);
+		String handlerName = XMLfile.getNameHandler(request);
 		if(handlerName==null){
 			throw new ClassNotFoundException();
 		}
