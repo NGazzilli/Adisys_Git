@@ -8,6 +8,9 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  * Gestisce le funzionalità sugli infermieri: la visualizzazione(che ritorna una
  * struttura dati di {@link InfermiereTO})
 */

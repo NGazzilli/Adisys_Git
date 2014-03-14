@@ -12,6 +12,9 @@ import integration.dao.InterventoMySqlDAO;
 import javax.swing.table.AbstractTableModel;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Classe entity che incapsula i dati relativi al singolo intervento, compresi i dati
  * del paziente che riceve l'intervento.
  * Tramite il {@link DAOFactory} si collega a {@link integration.dao.InterventoMySqlDAO}.

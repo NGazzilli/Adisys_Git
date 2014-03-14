@@ -6,6 +6,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Transfer Object dell'entita' infermiere. Incapsula tutti i dati dell'infermiere.
  * Funzionalit&agrave coincidenti con il pattern Transfer Object
 */

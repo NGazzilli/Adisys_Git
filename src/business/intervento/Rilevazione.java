@@ -3,6 +3,11 @@ package business.intervento;
 import java.util.Date;
 import adisys.server.strumenti.DateFormatConverter;
 
+/**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ *
+ */
 public class Rilevazione {
 	//Costanti
 

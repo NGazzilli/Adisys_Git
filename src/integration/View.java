@@ -11,7 +11,9 @@ import integration.dao.PazienteMySqlDAO;
 
 /**
  *
- * @author Luca
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  */
 public class View {
     

@@ -16,9 +16,13 @@ import messaggistica.GMessage;
 import messaggistica.MainException;
 
 /**
- * Abstraction on configuration files. It allows storing and reading on configuration files.
- * It implements the interface for the complete configuration of the system (getDati and setAllDati)
- * and the interface for the access to the database (getDBDates).
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
+ * Astrazione sul file di configurazione. Permette la memorizzazione
+ * e la lettura sul file di configurazione.
+ * Implementa l'interfaccia per la configurazione completa del sistema (getDati e setAllDati) e
+ * l'interfaccia per l'accesso al database (getDBDates)
 */
 public class Configurazione implements I_Configurazione, I_ConfigDB {
 	
@@ -30,7 +34,7 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	private FileWriter fWrite;
 	private PrintWriter fOutput;
 	
-	/**It keeps trace of the synchronization between instance variables and files values. */
+	/**Sa' se le variabili d'istanza sono sincronizzate con i valori del file*/
 	private boolean isSynchronized;
 	
 	//database configuration
@@ -55,12 +59,14 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
         public static void setResourceBundle(String path, Locale locale){
         	configuration = ResourceBundle.getBundle(path, locale);
         }
-	/**
-	 * This builder check for the existence of the file and the writing and reading possibility.
-	 * If the file doesn't exist it creates it and then it checks for the results of the operation.
-	 * 
-	 * @throws MainException creation of the configuration file fails, the file exists but it couldn't be read or it couldn't be edited.
-	*/
+        
+        /**
+    	 * Costruttore, controlla l'esistenza del file e la possibilità di lettura e scrittura.
+    	 * Se il file non esiste lo crea e poi controlla se la creazione ha avuto successo.
+    	 * 
+    	 * @throws MainException la creazione del file di configurazione fallisce,
+    	 * il file esiste ma non può essere letto oppure non può essere modificato
+    	*/
 	public Configurazione() throws MainException{
                 this.isSynchronized = false;
 		if(file==null){
@@ -107,9 +113,9 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	}
 	
 	/**
-	 * Implements the synchronization between data in the configuration file and 
-	 * instance variables of this class.
-	 * @throws MainException formato error in file, or it doesn't exist
+	 * Effettua la sincronizzazione tra i dati contenuti nel file e le variabili
+	 * di istanza di questa classe.
+	 * @throws MainException errore di formato nel file o non esiste
 	*/
 	private void readDatiFromFile() throws MainException{
 		try {
@@ -189,9 +195,9 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	
 
 	/**
-	 * Returns the information needed to gain access to database. <br>
-	 * Uses the already synchronized variables with database values.
-	 * @return the array containing dbPath, dbName, dbUsername, dbPassword (ordered list)
+	 * Restituisce le informazioni per accedere al database.<br>
+	 * Usa le variabili gi&agrave sincronizzate con i valori del database
+	 * @return l'array contenente nel'ordine dbPath, dbName, dbUsername, dbPassword
 	*/
 	public String[] getDbDates(){
 		if(this.isSynchronized){
@@ -208,11 +214,11 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 
 	
 	/**
-	 * Returns the Configuration Transfer Object that wraps all the data.
-	 * The method overrides the instance variables realated to the fields.
-	 * It could be used where there is need for a change in configuration
-	 * @return the transfer object with all the data contained in the configuration file or
-	 * <i>null</i> if there is a format error or it doesn't exist 
+	 * Restituisce il Transfer Object di Configurazione che incapsula tutti i dati.
+	 * Il metodo sovrascrive le variabili d'istanza relative ai campi.
+	 * Potrebbe essere usata quando si vuole cambiare la configurazione
+	 * @return il transfer object con tutti i dati contenuti nel file di configurazione 
+	 * o null se c'&egrave un errore di formato nel file o non esiste
 	*/
 	public ConfigurazioneTO getDati(){
 		if(this.isSynchronized){
@@ -225,10 +231,10 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	}
 	
 	/**
-	 * Checks for absence of some configuration data stored in transfer objects. It also check for 
-	 * null values.
-	 * @param to the trasnfer objects with data to check
-	 * @return true if there is no null value, false otherwise 
+	 * Controlla se i dati di configurazione memorizzati nel transfer object siano tutti e che non ci siano
+	 * valori nulli.
+	 * @param to il transfer object con i dati da controllare
+	 * @return true se non ci sono campi nulli, false altrimenti 
 	*/
 	private boolean checkDatiTO(ConfigurazioneTO to){
 		if(to.getDbPath()==null || to.getDbName()==null || to.getDbUsername()==null || 
@@ -262,11 +268,12 @@ public class Configurazione implements I_Configurazione, I_ConfigDB {
 	
 	
 	/**
-	 * Sets values contained in the transfer object in the instance variables and then stores them in the configuration file, creating it if it doesn't exist yet
+	 * Imposta i valori contenuti nel transfer object nelle variabili d'istanza e li memorizza
+	 * nel file di configurazione (se non esiste, lo crea).
 	 * 
-	 * @param to the trasnfer object from which fetching the values
-	 * @return true if the storing process succeeds, false otherwise
-	 * @throws MainException Incomplete values in the transfer object
+	 * @param to il transfer object dove prelevare i valori
+	 * @return true se la memorizzazione ha successo, false se fallisce
+	 * @throws MainException Valori incompleti nel transfer object
 	*/
 	public boolean setAllDati(ConfigurazioneTO to) throws MainException{
 		if(!checkDatiTO(to)){

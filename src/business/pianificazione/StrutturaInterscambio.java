@@ -25,6 +25,11 @@ import org.xml.sax.SAXException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ *
+ */
 public class StrutturaInterscambio {
     private static ResourceBundle strutturaInterscambio = ResourceBundle.getBundle("adisys/server/property/StrutturaInterscambio");
 	private final String FORMATO_DATA_XML = "yyyy-MM-dd";

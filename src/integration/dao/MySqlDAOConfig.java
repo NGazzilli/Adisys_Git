@@ -3,10 +3,12 @@ package integration.dao;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Classe per la configurazione della sintassi sql.<br>
  * Incapsula il formato delle 4 query possibili sul database: insert, select, update, delete.<br>
  * Con i suoi metodi restituisce la sintassi completa delle interrogazioni.
- * @author Luca Massa
 */
 public class MySqlDAOConfig {
 	

@@ -1,5 +1,10 @@
 package adisys.server.strumenti;
 
+/**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ *
+ */
 public class ComboItem{
 	   private String name;
 	   private String value;

@@ -6,7 +6,8 @@ import javax.swing.table.TableModel;
 
 
 /**
- * @author Luca
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
  *
  */
 public class ADISysTableModel extends AbstractTableModel implements TableModel {

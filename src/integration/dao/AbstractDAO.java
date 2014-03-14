@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import business.TO;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Il CRUD di tutte le DAO.<br>
  * Ogni dao estende questa classe. Il cliente della struttura usa questa interfaccia
  * per "dialogare" con le dao, deve comunque conoscere il Tranfer Object associato

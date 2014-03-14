@@ -31,6 +31,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Il DAO per mysql che si occupa delle operazioni sulla tabella paziente presente nel database.
 */
 public class PazienteMySqlDAO extends AbstractDAO{

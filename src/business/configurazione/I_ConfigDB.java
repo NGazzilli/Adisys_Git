@@ -3,16 +3,19 @@ package business.configurazione;
 
 
 /**
- * Interface of {@link Configurazione} for database's access data.
- * Used by the related database link class {@link integration.LinkingDb}
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
+ * Interfaccia di {@link Configurazione} per i dati d'accesso al database.
+ * Usata dalla classe di collegamento al database {@link integration.LinkingDb}
 */
 public interface I_ConfigDB {
 
 	
 	/**
-	 * Returns the information in order to gain access to the database. <br>
-	 * Uses the already synchronized variables with values fetched directly from the database.
-	 * @return the array containing dbPath, dbName, dbUsername, dbPassword (ordered list)
+	 * Restituisce le informazioni per accedere al database.<br>
+	 * Usa le variabili già sincronizzate con i valori del database
+	 * @return l'array contenente nel'ordine dbPath, dbName, dbUsername, dbPassword
 	*/
 	public String[] getDbDates();
 	

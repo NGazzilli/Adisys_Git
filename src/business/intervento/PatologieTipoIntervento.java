@@ -9,8 +9,9 @@ import java.util.ArrayList;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
  *
- * @author Luca
  */
 public class PatologieTipoIntervento extends InterventoTO {
     

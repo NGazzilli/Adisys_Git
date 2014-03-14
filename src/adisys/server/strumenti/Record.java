@@ -1,6 +1,9 @@
 package adisys.server.strumenti;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Classe di utility che associa una chiave {@code T1} al valore {@code T2}
 */
 public class Record <T1, T2> {

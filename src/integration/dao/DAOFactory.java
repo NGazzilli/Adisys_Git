@@ -1,6 +1,9 @@
 package integration.dao;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * DAOFactory, funzionamento coincidente con il pattern <i>Abstract Factory</i>.<br>
  * Delega la creazione dei prodotti (le classi DAO) alla Concrete Factory.<br>
  * L'utente richiede la Concrete Factory al metodo static {@link #getDAOFactory(int)} specificando 
@@ -12,7 +15,6 @@ package integration.dao;
  * Può essere estesa da un altra Concrete Factory aggiungendo un'altra costante intera come
  * fatto per MYSQL.
  * 
- * @author Luca Massa
 */
 public abstract class DAOFactory {
 	public final static int MYSQL = 0;

@@ -4,30 +4,33 @@ import messaggistica.MainException;
 
 
 /**
- * Interface of {@link Configurazione} for complete configuration, used by the configuration manager.
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
+ * Interfaccia di {@link Configurazione} per la configurazione completa,
+ * usata dal gestore di configurazione
 */
 public interface I_Configurazione {
 	
 	/**
-	 * Returns the COnfiguration Transfer Object that wraps all the data.
-	 * The method overrides the instance variables related to the fields.
-	 * It could be used when there is need for a configuration change.
-	 * @return the transfer object with all the data contained in the configuration file, or <i>null</i>
-	 * if there is a format error in the file or it doesn't exist. 
+	 * Restituisce il Transfer Object di Configurazione che incapsula tutti i dati.
+	 * Il metodo sovrascrive le variabili d'istanza relative ai campi.
+	 * Potrebbe essere usata quando si vuole cambiare la configurazione
+	 * @return il transfer object con tutti i dati contenuti nel file di configurazione 
+	 * o null se c'&egrave un errore di formato nel file o non esiste
 	*/
 	public ConfigurazioneTO getDati();
 	
 	/**
-	 * Sets values contained in the transfer object in the instance variables and stores them in the configuration file, 
-	 * creating a new one if there is no existing configuration file yet.
+	 * Imposta i valori contenuti nel tranfer object nelle variabili d'istanza e li memorizza
+	 * nel file di configurazione (se non esiste, lo crea).
 	 * 
-	 * @param to the transfer object from which fetching the values
-	 * @return true if the storing process is successful, false otherwise
-	 * @throws MainException Incomplete values in the transfer object
+	 * @param to il transfer object dove prelevare i valori
+	 * @return true se la memorizzazione ha successo, false se fallisce
+	 * @throws MainException Valori incompleti nel transfer object
 	*/
 	public boolean setAllDati(ConfigurazioneTO to) throws MainException;
 
-	
-        /**Creates the environment used to connect to the already existing database */
+	/**Crea l'ambiente necessario per la connessione al database se già esitente*/
         public void createDatabaseEsistente(ConfigurazioneTO to);
 }

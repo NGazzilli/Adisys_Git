@@ -8,8 +8,9 @@ package adisys.server.strumenti;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
  *
- * @author Luca
  */
 public class VariableTableModel extends DefaultTableModel
 

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Interfaccia per la entity {@link Patologia}, offre i metodi di creazione di un infermiere
  * e la cancellazione di tutti gli infermieri
 */

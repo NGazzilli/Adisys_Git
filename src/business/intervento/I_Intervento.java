@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Interfaccia della entity {@link Intervento} offre i metodi di creazione e cancellazione
  * di un singolo intervento e restituzione di tutti gli interventi memorizzati.
 */

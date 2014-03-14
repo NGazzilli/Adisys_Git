@@ -19,6 +19,9 @@ import presentation.FrontController;
 import presentation.RequestManager;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Transfer object dei dati singoli di intervento, non comprende i dati del paziente
  * ad esso associato.
 */

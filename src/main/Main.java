@@ -14,7 +14,12 @@ import java.util.Locale;
 import messaggistica.GMessage;
 import java.util.ResourceBundle;
 
-
+/**
+ * 
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ *
+ */
 public class Main {
 
         private static FrontController frontController;

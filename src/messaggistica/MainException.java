@@ -2,6 +2,9 @@ package messaggistica;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Eccezione di basso livello, può essere lanciata a qualsiasi livello, verrà
  * catturata al livello di gui
 */

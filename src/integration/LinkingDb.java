@@ -5,9 +5,9 @@
 package integration;
 
 /**
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
  *
- * @author Luca
-/*
  * Classe dedicata alla gestione del Database.
  * Gestisce l'apertura e la chiusura della connessione col Database
  * Fornisce i metodi per l'esecuzione delle query sul Database

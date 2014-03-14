@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Luca
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
  */
 public class Pianificazione {
     

@@ -7,7 +7,10 @@ import adisys.server.strumenti.Record;
 
 
 /**
- * Interface of {@link ApplicationController}
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
+ * Interfaccia di {@link ApplicationController}
 */
 public interface Int_ApplicationController {
 	

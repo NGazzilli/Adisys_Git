@@ -17,6 +17,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Classe di utility che fornisce metodi per la lettura di un file XML.
  * @version 1.0
 */

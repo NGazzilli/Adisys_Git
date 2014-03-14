@@ -2,6 +2,9 @@ package business.intervento;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Interfaccia della entity {@link Intervento} offre il metodo di restituzione
  * di un singolo intervento.
 */

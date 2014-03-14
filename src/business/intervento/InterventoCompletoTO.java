@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ *
+ */
 public class InterventoCompletoTO extends InterventoTO {
     private static ResourceBundle interventoCompleto = ResourceBundle.getBundle("adisys/server/property/InterventoCompleto");
     

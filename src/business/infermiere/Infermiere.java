@@ -18,6 +18,9 @@ import presentation.RequestManager;
 
 
 /**
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  * Entità degli infermieri, incapsula i dati relativi all'infermiere
  * id, nome e cognome.<br>
  * Tramite il {@link DAOFactory} si collega al dao relativo all'infermiere

@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TipoIntervento
-{
+/**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ *
+ */
+public class TipoIntervento{
     private static ResourceBundle tipoIntervento = ResourceBundle.getBundle("adisys/server/property/TipoIntervento");
        
     private int ID;	

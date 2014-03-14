@@ -11,6 +11,9 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Gestisce le funzionalità sugli interventi
  *  
  * Tutte le funzionalità avvengono mediante trasferimento dei tranfer object 

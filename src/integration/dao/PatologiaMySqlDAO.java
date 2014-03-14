@@ -23,6 +23,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Il DAO per mysql che si occupa delle operazioni sulla tabella patologia presente nel database.
 */
 public class PatologiaMySqlDAO extends AbstractDAO{

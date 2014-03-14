@@ -9,6 +9,9 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Gestisce le funzionalità sulle patologie: la visualizzazione(che ritorna una
  * struttura dati di {@link PatologiaTO})
 */

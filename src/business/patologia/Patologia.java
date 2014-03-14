@@ -11,6 +11,9 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Entit&agrave degli patologie, incapsula i dati relativi all'patologia
  * id, codice e nome.<br>
  * Tramite il {@link DAOFactory} si collega al dao relativo all'patologia

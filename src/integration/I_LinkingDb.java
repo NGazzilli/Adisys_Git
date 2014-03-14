@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  * Interfaccia della classe di collegamento al database {@link LinkingDb}
 */
 public interface I_LinkingDb {

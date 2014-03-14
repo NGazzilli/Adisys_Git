@@ -12,14 +12,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Hashtable;
 
+
 /**
- *
- * @author Luca
- */
-/**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Factory per la creazione/modifica/lettura 
  * e verifica di risorse su filesystem.
-
  */
 public class FileFactory { 
   

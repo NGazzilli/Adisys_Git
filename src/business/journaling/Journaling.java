@@ -26,7 +26,9 @@ import presentation.RequestManager;
 
 /**
  *
- * @author Luca
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  */
 public class Journaling implements I_Journaling {
         

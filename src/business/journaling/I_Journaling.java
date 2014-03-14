@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Luca
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  */
 public interface I_Journaling {
     

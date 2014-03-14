@@ -1,6 +1,9 @@
 package integration.dao;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Concrete Factory, si occupa dell'istanziazione e restituzione della dao richiesta
  * tramite reflection.
 */

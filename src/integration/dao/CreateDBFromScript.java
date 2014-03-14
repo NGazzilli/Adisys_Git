@@ -18,6 +18,9 @@ import messaggistica.MainException;
 
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Legge il file che contiene lo script SQL da eseguire sul database mysql
  * per creare il database stesso e le tabelle.<br>
  * Si connette al database usando {@link LinkingDb}.<br>

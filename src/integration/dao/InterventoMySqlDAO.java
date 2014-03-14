@@ -31,6 +31,9 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Il DAO per mysql che si occupa delle operazioni sulla tabella infermiere presente nel database.
 */
 public class InterventoMySqlDAO extends AbstractDAO{

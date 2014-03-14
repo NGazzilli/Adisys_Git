@@ -7,6 +7,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ *
+ */
 public class DateFormatConverter {
 	
 	private final static String ora = "HH.mm";

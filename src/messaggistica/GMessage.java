@@ -4,6 +4,9 @@ package messaggistica;
 import javax.swing.JOptionPane;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
 * Messaggistica di alto livello (GUI), con i suoi metodi mostra all'utente un messaggio 
 * riassuntivo standard a seconda dell'evento generato (errore, informazioni, conferme).
 */

@@ -11,9 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
  *
- * @author Luca
  */
 public class ADISysTableRendererVerifica extends DefaultTableCellRenderer  {
 	private static int IND_COLONNA_GPS;

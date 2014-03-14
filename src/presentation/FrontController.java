@@ -7,6 +7,9 @@ import messaggistica.MainException;
 import adisys.server.strumenti.Record;
 
 /**
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  * Interfaccia di {@link RequestManager}
 */
 public interface FrontController {

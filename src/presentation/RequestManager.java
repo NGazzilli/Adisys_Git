@@ -15,6 +15,9 @@ import java.util.ResourceBundle;
 import messaggistica.GMessage;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Gestore di richiesta, si occupa di gestire tutte le richieste provenienti direttamente
  * dall'utente (attraverso le diverse interfacce grafiche).<br>
  * Gestisce anche la navigabilità tra le interfacce grafiche.

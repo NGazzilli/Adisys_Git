@@ -11,6 +11,9 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  * Entit&agrave degli pazienti, incapsula i dati relativi all'paziente
  * id, nome e cognome.<br>
  * Tramite il {@link DAOFactory} si collega al dao relativo all'paziente

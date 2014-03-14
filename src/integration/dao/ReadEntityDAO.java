@@ -3,6 +3,9 @@ package integration.dao;
 import adisys.server.strumenti.ReadXML;
 
 /**
+ * @author Nicola Gazzilli
+ * @author Gianmarco Divittorio
+ * 
  * Classe che astrae sul file xml di sistema dove sono presenti le corrispondenze tra 
  * classi entity (solo nome) e classi dao (nome comprendente i package)
 */

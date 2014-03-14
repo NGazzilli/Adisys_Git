@@ -13,7 +13,9 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Luca
+ * @author Gianmarco Divittorio
+ * @author Nicola Gazzilli
+ * 
  */
 public class ASJournaling extends business.ServiceHandler {
     	
