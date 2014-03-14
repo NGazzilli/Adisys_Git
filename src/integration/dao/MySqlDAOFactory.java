@@ -85,30 +85,4 @@ public class MySqlDAOFactory extends DAOFactory{
 	private String getDAOName(String entityName){
 		return fileXML.getDAOName(entityName);
 	}
-		
-	
-	/*
-	public static void main (String args[]){
-		MySqlDAOFactory mysqldao = (MySqlDAOFactory) DAOFactory.getDAOFactory(0);
-		AbstractDAO intDAO = (AbstractDAO) mysqldao.createDAO("Infermiere");
-		
-		ArrayList<TO> infermieri = intDAO.read();
-		for(TO interfaceInf : infermieri){
-			InfermiereTO inf = (InfermiereTO) interfaceInf;
-			System.out.println(inf.getId()+"  "+inf.getNome()+"  "+inf.getCognome());
-		}
-		
-		intDAO = mysqldao.createDAO("Paziente");
-		
-		ArrayList<TO> pazienti = intDAO.read();
-		for(TO interfaceInf : pazienti){
-			PazienteTO paz = (PazienteTO) interfaceInf;
-			System.out.println(paz.getId()+"  "+paz.getNome()+"  "+paz.getCognome()+"  "+paz.getCitta());
-		}
-	}
-	*/
-
-
-
-
 }

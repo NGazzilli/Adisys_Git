@@ -290,7 +290,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
 
 	private void interventionsTableMouseClicked(java.awt.event.MouseEvent evt) {                                               
 		int selectRow = interventionsTable.getSelectedRow();
-		int columnID = interventionsTable.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ID);
+		int columnID = interventionsTable.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_ID_NAME);
 		int id = Integer.valueOf(interventionsTable.getValueAt(selectRow, columnID).toString());
 		DefaultTableModel typesInterventionsModel = getInterventionTypes(id);
 		typesTable.setModel(typesInterventionsModel);
@@ -304,7 +304,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
 		ArrayList<PatologiaTO> currentList = new ArrayList<>();
 		int currentRow = typesTable.getSelectedRow();
 		FC = RequestManager.getFCInstance();
-		int columnID = interventionsTable.getColumn(InterventoMySqlDAO.NOME_COLONNA_ID).getModelIndex();
+		int columnID = interventionsTable.getColumn(InterventoMySqlDAO.COLUMN_ID_NAME).getModelIndex();
 		int idInt = Integer.parseInt(interventionsTable.getValueAt(interventionsTable.getSelectedRow(), columnID).toString());
 
 		InterventoTO to = new InterventoTO();

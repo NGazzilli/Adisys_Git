@@ -185,7 +185,7 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
         if (nursesTable.getSelectedRow()!=-1 ){
             //Selezione valida
             //Ricerca colonna id
-            int columnID = nursesTable.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID);
+            int columnID = nursesTable.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_ID_NAME);
             
             //Identificazione riga selezionata
             int selectedRow = nursesTable.getSelectedRow();
@@ -328,7 +328,7 @@ public class DialogoEsportazione extends javax.swing.JDialog implements Boundary
                                 for(j = 0; j < table.getColumnCount(); j++){
                                     Object value = table.getValueAt(i, j);
                                     newModel.setValueAt(value, i, j);
-                                    if(j == table.getColumn(InfermiereMySqlDAO.NOME_COLONNA_ID)
+                                    if(j == table.getColumn(InfermiereMySqlDAO.COLUMN_ID_NAME)
                                             .getModelIndex()){
                                         to = new InfermiereTO();
                                         to.setID(Integer.parseInt(value.toString()));

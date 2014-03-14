@@ -133,7 +133,7 @@ public class Infermiere implements I_InfermiereMod, I_InfermieriGet{
             } catch (MainException ex) {
                 Logger.getLogger(Infermiere.class.getName()).log(Level.SEVERE, null, ex);
             }
-	int colonnaID = v.findColumn(InfermiereMySqlDAO.NOME_COLONNA_ID);
+	int colonnaID = v.findColumn(InfermiereMySqlDAO.COLUMN_ID_NAME);
         int numRows = v.getRowCount();
         int columnRows = v.getColumnCount();
         String id = "";
@@ -165,7 +165,7 @@ public class Infermiere implements I_InfermiereMod, I_InfermieriGet{
 
     @Override
     public boolean exists(int idInfermiere) {
-        return ((InfermiereMySqlDAO) daoInf).idEsistente(idInfermiere);
+        return ((InfermiereMySqlDAO) daoInf).existingID(idInfermiere);
     }
 
     @Override

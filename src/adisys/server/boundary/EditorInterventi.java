@@ -1423,7 +1423,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
         
         if(modelloTipiIntervento.getRowCount() != 1){
             EditorRipetiPatologie.setEditorInterventi(this);
-            request(RequestManager.APRI_EDITOR_RIPETI_PATOLOGIE);
+            request(RequestManager.OPEN_REPEAT_PATHOLOGIES_EDITOR);
         }
         
         else {  
@@ -1432,7 +1432,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
             EditorPatologieTipoIntervento.setEditorInterventi(this);
             EditorPatologieTipoIntervento.setModifica(0);
         
-            request(RequestManager.APRI_EDITOR_PATOLOGIE_TIPO_INTERVENTO);
+            request(RequestManager.OPEN_P_INTERVENTION_TYPE_EDITOR);
         }
        
     }                                                    
@@ -1549,9 +1549,9 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
             //Caso selezione valida
 
             //recupero dei numeri di colonna
-            int colonnaID = tabellaInfermieri.getColumn(InfermiereMySqlDAO.NOME_COLONNA_ID).getModelIndex();
-            int colonnaNome = tabellaInfermieri.getColumn(InfermiereMySqlDAO.NOME_COLONNA_NOME).getModelIndex();
-            int colonnaCognome = tabellaInfermieri.getColumn(InfermiereMySqlDAO.NOME_COLONNA_COGNOME).getModelIndex();
+            int colonnaID = tabellaInfermieri.getColumn(InfermiereMySqlDAO.COLUMN_ID_NAME).getModelIndex();
+            int colonnaNome = tabellaInfermieri.getColumn(InfermiereMySqlDAO.COLUMN_NAME_NAME).getModelIndex();
+            int colonnaCognome = tabellaInfermieri.getColumn(InfermiereMySqlDAO.COLUMN_SURNAME_NAME).getModelIndex();
 
             //Set della variabile relativa all'infermiere selezionato
             txInfermiereSelezionato.setValue(tabellaInfermieri.getValueAt(riga, colonnaID));
@@ -1577,7 +1577,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
          if (txModalita.getText().equals(modAggiungi)  || MODIFICA_DATA == 1) {
             listaCorrente = listaPatologieTipoIntervento.getListaPatologieTipoIntervento(rigaCorrente);
          } else if (txModalita.getText().equals(modModifica)) {
-             int colonnaID = tabellaInterventi.getColumn(InterventoMySqlDAO.NOME_COLONNA_ID).getModelIndex();
+             int colonnaID = tabellaInterventi.getColumn(InterventoMySqlDAO.COLUMN_ID_NAME).getModelIndex();
              int idInt = Integer.parseInt(tabellaInterventi.getValueAt(tabellaInterventi.getSelectedRow(), colonnaID).toString());
              
              InterventoTO to = new InterventoTO();
@@ -1620,7 +1620,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
             EditorPatologieTipoIntervento.setModifica(1);
             EditorPatologieTipoIntervento.setEditorInterventi(this);
      
-        request(RequestManager.APRI_EDITOR_PATOLOGIE_TIPO_INTERVENTO);
+        request(RequestManager.OPEN_P_INTERVENTION_TYPE_EDITOR);
         
     }                                                         
 
@@ -1667,7 +1667,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
                tabellaPatologieTipoIntervento.getSelectedRow(), 
                tabellaPatologieTipoIntervento.getColumnModel().getColumnIndex(NOME_COLONNA_GRAVITA)).toString()));
        EditorGravita.setEditorInterventi(this);
-       request(RequestManager.APRI_EDITOR_GRAVITA);
+       request(RequestManager.OPEN_SEVERITY_EDITOR);
        EditorPatologieTipoIntervento.setEditorInterventi(this);
     }                                                       
 
@@ -1735,12 +1735,12 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
     private void pulsanteEditorInfermieriActionPerformed(java.awt.event.ActionEvent evt) {                                                         
         // PRESSIONE DEL PULSANTE "AGGIONGI INFERMIERE" nella finestra di dialogo Intervento
         EditorInfermieri.setEditorInterventi(this);
-        request(RequestManager.APRI_EDITOR_INFERMIERI);
+        request(RequestManager.OPEN_NURSES_EDITOR);
     }                                                        
 
     private void pulsanteEditorPazientiActionPerformed(java.awt.event.ActionEvent evt) {                                                       
         EditorPazienti.setEditorInterventi(this);
-        request(RequestManager.APRI_EDITOR_PAZIENTI);
+        request(RequestManager.OPEN_PATIENTS_EDITOR);
     }                                                      
 
     private void pulsanteCancellaTuttiActionPerformed(java.awt.event.ActionEvent evt) {                                                      
@@ -1801,7 +1801,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
                 InterventoTO to = new InterventoTO();
                 int idInt = Integer.parseInt(String.valueOf
                     (tabellaInterventi.getValueAt(tabellaInterventi.getSelectedRow(), 
-                    tabellaInterventi.getColumn(InterventoMySqlDAO.NOME_COLONNA_ID).getModelIndex())));
+                    tabellaInterventi.getColumn(InterventoMySqlDAO.COLUMN_ID_NAME).getModelIndex())));
                 to.setID(idInt);
                 System.out.println("Evento pulsante CancellaIntervento : "+ to);
                 ArrayList<Record<String, Object>> params = new ArrayList<>();
@@ -1883,7 +1883,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
                     to.setID(Integer.parseInt(tabellaInterventi.getValueAt(
                             tabellaInterventi.getSelectedRow(), 
                             tabellaInterventi.getColumnModel().getColumnIndex(
-                            InterventoMySqlDAO.NOME_COLONNA_ID)).toString()));
+                            InterventoMySqlDAO.COLUMN_ID_NAME)).toString()));
                     ArrayList<Record<String, Object>> params = new ArrayList<>();
                     params.add(new Record<String, Object>("business.intervento.InterventoTO", to));
                     try {
@@ -2209,14 +2209,14 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
         } else {
 
             //RECUPERO INFO COLONNE
-            int colonnaID = tabellaInterventi.getColumn(InterventoMySqlDAO.NOME_COLONNA_ID).getModelIndex();
-            int colonnaIDPaziente = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ID_PAZIENTE);
-            int colonnaIDInfermiere = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ID_INFERMIERE);
+            int colonnaID = tabellaInterventi.getColumn(InterventoMySqlDAO.COLUMN_ID_NAME).getModelIndex();
+            int colonnaIDPaziente = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.PATIENT_COLUMN_ID_NAME);
+            int colonnaIDInfermiere = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NURSE_COLUMN_ID_NAME);
 
             int colonnaData = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_DATA);
             int colonnaOraInizio = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ORA_INIZIO);
 
-            int colonnaCitta = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_CITTA);
+            int colonnaCitta = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_CITY_NAME);
             int colonnaCivico = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_CIVICO);
             int colonnaCAP = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_CAP);
 

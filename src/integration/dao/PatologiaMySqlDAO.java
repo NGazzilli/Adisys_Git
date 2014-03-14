@@ -240,7 +240,7 @@ public class PatologiaMySqlDAO extends AbstractDAO{
                 //leggiFiles();
                 try {
                     String query = mysqlConfig.getSelectSQL("true");
-                    return linkDb.getTabella(query);
+                    return linkDb.getTable(query);
 		} catch (NumberFormatException e){
 			System.err.println("Ops... Il database e la DAO non sono compatibili");
 			e.printStackTrace();
@@ -349,21 +349,21 @@ public class PatologiaMySqlDAO extends AbstractDAO{
                 || !campo2.equals(NOME_COLONNA_CODICE) || !campo3.equals(NOME_COLONNA_NOME)) {
             change = true;
             if(!campo1.equals(NOME_COLONNA_ID)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_ID + " RENAME TO " + campo1);
             }
             if(!campo2.equals(NOME_COLONNA_CODICE)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_CODICE + " RENAME TO " + campo2);
             }
             if(!campo3.equals(NOME_COLONNA_NOME)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_NOME + " RENAME TO " + campo3);
             }
         }
         if(!nomeTabella.equals(NOME_TABELLA)){
             change = true;
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA
                         + " RENAME TO " + nomeTabella + ";");
         }
         if(change != false && ok == true){

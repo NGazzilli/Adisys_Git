@@ -345,7 +345,7 @@ public class PazienteMySqlDAO extends AbstractDAO{
                 //leggiFiles();
                 try {
                     String query = mysqlConfig.getSelectSQL("true");
-                    return linkDb.getTabella(query);
+                    return linkDb.getTable(query);
 		} catch (NumberFormatException e){
 			System.err.println("Ops... Il database e la DAO non sono compatibili");
 			e.printStackTrace();
@@ -498,26 +498,26 @@ public class PazienteMySqlDAO extends AbstractDAO{
             change = true;
             viste.destroyView();
             if(!campo1.equals(NOME_COLONNA_ID)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_ID + " RENAME TO " + campo1);
             }
             if(!campo2.equals(NOME_COLONNA_NOME)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_NOME + " RENAME TO " + campo2);
             }
             if(!campo3.equals(NOME_COLONNA_COGNOME)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_COGNOME + " RENAME TO " + campo3);
             }
             if(!campo4.equals(NOME_COLONNA_DATA_NASCITA)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA 
                         + " ALTER COLUMN " + NOME_COLONNA_DATA_NASCITA + " RENAME TO " + campo4);
             }
         }
         if(!nomeTabella.equals(NOME_TABELLA)){
             change = true;
             viste.destroyView();
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA
                         + " RENAME TO " + nomeTabella);
         }
         if(change != false && ok == true){
@@ -552,17 +552,17 @@ public class PazienteMySqlDAO extends AbstractDAO{
                 || !campo2.equals(NOME_COLONNA_NUMERO_CELLULARI)) {
             change = true;
             if(!campo1.equals(NOME_COLONNA_PAZIENTE_CELLULARI)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA_CELLULARI 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_CELLULARI 
                         + " ALTER COLUMN " + NOME_COLONNA_PAZIENTE_CELLULARI + " RENAME TO " + campo1);
             }
             if(!campo2.equals(NOME_COLONNA_NUMERO_CELLULARI)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA_CELLULARI 
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_CELLULARI 
                         + " ALTER COLUMN " + NOME_COLONNA_NUMERO_CELLULARI + " RENAME TO " + campo2);
             }
         }
         if(!nomeTabella.equals(NOME_TABELLA_CELLULARI)){
             change = true;
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA_CELLULARI
+                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_CELLULARI
                         + " RENAME TO " + nomeTabella);
         }
         if(change != false && ok == true){
@@ -639,9 +639,9 @@ public class PazienteMySqlDAO extends AbstractDAO{
                                 + PatologiaMySqlDAO.NOME_TABELLA + "." + PatologiaMySqlDAO.NOME_COLONNA_CODICE + ","
                                 + PatologiaMySqlDAO.NOME_TABELLA + "." + PatologiaMySqlDAO.NOME_COLONNA_NOME
                                 + " FROM " 
-                                + InterventoMySqlDAO.NOME_TABELLA_INTERVENTI + " JOIN " 
+                                + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + " JOIN " 
                                 + InterventoMySqlDAO.NOME_TABELLA_TIPI_INTERVENTI + " ON " 
-                                + InterventoMySqlDAO.NOME_TABELLA_INTERVENTI + "." + NOME_COLONNA_ID 
+                                + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + NOME_COLONNA_ID 
                                 + " = " +  InterventoMySqlDAO.NOME_TABELLA_TIPI_INTERVENTI + "."
                                 + InterventoMySqlDAO.NOME_COLONNA_IDINT_TIPO + " JOIN " 
                                 + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI 
@@ -653,7 +653,7 @@ public class PazienteMySqlDAO extends AbstractDAO{
                                 + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI 
                                 + "." + InterventoMySqlDAO.NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI + " = " + 
                                 PatologiaMySqlDAO.NOME_TABELLA + "." + PatologiaMySqlDAO.NOME_COLONNA_ID + " WHERE " +
-                                InterventoMySqlDAO.NOME_TABELLA_INTERVENTI + "." + InterventoMySqlDAO.NOME_COLONNA_ID_PAZIENTE + " = " + id;
+                                InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.PATIENT_COLUMN_ID_NAME + " = " + id;
 			//Restituzione oggetto
                         
                         ResultSet risultato = linkDb.getResultSet(queryPat);

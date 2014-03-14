@@ -194,7 +194,7 @@ public class EditorRipetiPatologie extends javax.swing.JDialog implements Bounda
          String msg = editorRipetiPatologie.getString(
                 "SEI SICURO DI VOLER USCIRE DAL PANNELLO?VERRAI INDIRIZZATO ALL'EDITOR PER L'IMPOSTAZIONE DI NUOVE PATOLOGIE.");
         if(GMessage.confirm(msg) == JOptionPane.YES_OPTION) {
-            request(RequestManager.APRI_EDITOR_PATOLOGIE_TIPO_INTERVENTO);
+            request(RequestManager.OPEN_P_INTERVENTION_TYPE_EDITOR);
             this.dispose();
         }
     }                                  
@@ -299,12 +299,12 @@ public class EditorRipetiPatologie extends javax.swing.JDialog implements Bounda
                 tmp.setPatologieTipoIntervento(listaPatologieTipoIntervento);
                 EditorPatologieTipoIntervento.setModifica(1);
                 EditorPatologieTipoIntervento.setEditorInterventi(tmp);
-                request(RequestManager.APRI_EDITOR_PATOLOGIE_TIPO_INTERVENTO);
+                request(RequestManager.OPEN_P_INTERVENTION_TYPE_EDITOR);
                 this.dispose();
                
             } else if(conferma == JOptionPane.NO_OPTION){
                 this.dispose();
-                request(RequestManager.APRI_EDITOR_PATOLOGIE_TIPO_INTERVENTO);
+                request(RequestManager.OPEN_P_INTERVENTION_TYPE_EDITOR);
             }
         } else {
             String msg = editorRipetiPatologie.getString("SEI SICURO DI VOLER LASCIARE L'EDITOR PER L'INSERIMENTO DI PATOLOGIE GIÀ")
@@ -312,7 +312,7 @@ public class EditorRipetiPatologie extends javax.swing.JDialog implements Bounda
             int conferma = GMessage.confirm(msg);
             if(conferma == JOptionPane.YES_OPTION){
             	EditorPatologieTipoIntervento.setModifica(0);
-                request(RequestManager.APRI_EDITOR_PATOLOGIE_TIPO_INTERVENTO);
+                request(RequestManager.OPEN_P_INTERVENTION_TYPE_EDITOR);
                 this.dispose();
             }
         }

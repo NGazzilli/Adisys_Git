@@ -487,19 +487,19 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
 
 	private void menuAggiungiInterventoActionPerformed(java.awt.event.ActionEvent evt) {                                                       
             EditorInterventi.setPianificatore(this);
-            request(RequestManager.APRI_EDITOR_INTERVENTI);
+            request(RequestManager.OPEN_INTERVENTIONS_EDITOR);
 	}                                                      
 
 	private void menuAggiungiPazienteActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-            request(RequestManager.APRI_EDITOR_PAZIENTI);
+            request(RequestManager.OPEN_PATIENTS_EDITOR);
 	}                                                    
 
 	private void menuAggiungiInfermiereActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-            request(RequestManager.APRI_EDITOR_INFERMIERI);
+            request(RequestManager.OPEN_NURSES_EDITOR);
 	}                                                      
 
 	private void menuVerificaDatiActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-            request(RequestManager.APRI_DIALOGO_VERIFICA);
+            request(RequestManager.OPEN_CHECK_DIALOG);
 	}                                                
 
         private void request(String request){
@@ -525,16 +525,16 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
 	}                                    
 
     private void menuEsportazioneActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        request(RequestManager.APRI_DIALOGO_ESPORTAZIONE);
+        request(RequestManager.OPEN_EXPORT_DIALOG);
     }                                                
 
     private void menuAggiungiPatologieActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-       request(RequestManager.APRI_EDITOR_PATOLOGIE);
+       request(RequestManager.OPEN_PATHOLOGIES_EDITOR);
     }                                                     
 
     private void pulsanteIndietro3ActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         this.dispose();
-        request(RequestManager.APRI_EDITOR_LANGUAGE);
+        request(RequestManager.OPEN_LANGUAGE_EDITOR);
     }                                                 
 
     private void comboInfermieriActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -748,7 +748,7 @@ public class Pianificatore extends javax.swing.JFrame implements Boundary {
                                 for(j = 0; j < tabella.getColumnCount(); j++){
                                     Object value = tabella.getValueAt(i, j);
                                     newModel.setValueAt(value, i, j);
-                                    if(j == tabella.getColumn(InfermiereMySqlDAO.NOME_COLONNA_ID)
+                                    if(j == tabella.getColumn(InfermiereMySqlDAO.COLUMN_ID_NAME)
                                             .getModelIndex()){
                                         to = new InfermiereTO();
                                         to.setID(Integer.parseInt(value.toString()));

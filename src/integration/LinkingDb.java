@@ -28,19 +28,19 @@ import javax.swing.JOptionPane;
 import messaggistica.GMessage;
 
 public class LinkingDb implements I_LinkingDb {
-   private static String nomeDB; // = "ADISysData";       // Nome del Database a cui connettersi
-   private static String nomeUtente; //= "asl";   // Nome utente utilizzato per la connessione al
+   private static String nameDB; // = "ADISysData";       // Nome del Database a cui connettersi
+   private static String username; //= "asl";   // Nome utente utilizzato per la connessione al
    private static String dbPath; // = "jdbc:hsqldb:file:database/";
-   private static String pwdUtente; // = "";    // Password usata per la connessione al
+   private static String userPassword; // = "";    // Password usata per la connessione al
 
-   private static String errore;       // Raccoglie informazioni riguardo l'ultima
+   private static String error;       // Raccoglie informazioni riguardo l'ultima
 
-   private static Connection connessione;       // La connessione col Database
-   private static boolean connesso;    // Flag che indica se la connessione è attiva o meno
+   private static Connection connection;       // La connessione col Database
+   private static boolean connected;    // Flag che indica se la connessione è attiva o meno
    private static ResourceBundle linkingDb = ResourceBundle.getBundle("adisys/server/property/LinkingDb");
 
-   public static void setResourceBundle(String path, Locale locale){
-       linkingDb = ResourceBundle.getBundle(path, locale);
+   public static void setResourceBundle(String path, Locale local){
+       linkingDb = ResourceBundle.getBundle(path, local);
    }
            
    public LinkingDb(ConfigurazioneTO to) throws MainException{
@@ -48,24 +48,10 @@ public class LinkingDb implements I_LinkingDb {
 		try {
 			I_ConfigDB config = new Configurazione();
 			String[] dbDates = config.getDbDates();
-			/*if(!first){
 				dbPath = dbDates[0];
-				nomeDB = dbDates[1];
-				nomeUtente = dbDates[2];
-                                pwdUtente = dbDates[3];
-			}
-                        
-			/*else{primo avvio del sistema, il db non esiste: non previsto da adisys
-                               serve per configurazione dal database da parte dell'utente
-				dbPath = dbDates[0];
-				nomeDB = "mysql";
-				nomeUtente = dbDates[2];
-				pwdUtente = dbDates[3];
-			}*/
-				dbPath = dbDates[0];
-				nomeDB = dbDates[1];
-				nomeUtente = dbDates[2];
-                                pwdUtente = dbDates[3];
+				nameDB = dbDates[1];
+				username = dbDates[2];
+				userPassword = dbDates[3];
 		} catch (MainException e) {
 			System.err.println(e.getMessage());
                         String message = linkingDb.getString("COLLEGAMENTO AL DATABASE NON RIUSCITO.");
@@ -74,22 +60,12 @@ public class LinkingDb implements I_LinkingDb {
 		}
 		
 	}
-   
-   /*public Database(String nomeDB) { this(nomeDB, "", ""); }
-
-   public Database(String nomeDB, String nomeUtente, String pwdUtente) {
-      this.nomeDB = nomeDB;
-      this.nomeUtente = nomeUtente;
-      this.pwdUtente = pwdUtente;
-      connesso = false;
-      errore = "";
-   }*/
 
    // Apre la connessione con il Database
    @Override
    public Connection connect() {
       
-       connesso = false;
+	   connected = false;
        try {
           System.out.println(linkingDb.getString("CARICAMENTO DATABASE. ATTENDERE..."));
          
@@ -98,29 +74,29 @@ public class LinkingDb implements I_LinkingDb {
             //Class.forName("com.mysql.jdbc.Driver");
          
             // Controllo che il nome del Database non sia nulla
-            if (!nomeDB.equals("")) {
+            if (!nameDB.equals("")) {
 
                 // Controllo se il nome utente va usato o meno per la connessione
-                if (nomeUtente.equals("")) {
+                if (username.equals("")) {
 
                     // La connessione non richiede nome utente e password
-                    connessione = DriverManager.getConnection(dbPath + nomeDB);
+                	connection = DriverManager.getConnection(dbPath + nameDB);
                 } else {
 
                     // La connessione richiede nome utente, controllo se necessita anche della password
-                    if (pwdUtente.equals("")) {
+                    if (userPassword.equals("")) {
 
                     // La connessione non necessita di password
-                    connessione = DriverManager.getConnection(dbPath + nomeDB + "?user=" + nomeUtente);
+                    	connection = DriverManager.getConnection(dbPath + nameDB + "?user=" + username);
                     } else {
 
                         // La connessione necessita della password
-                        connessione = DriverManager.getConnection(dbPath + nomeDB + "?user=" + nomeUtente + "&password=" + pwdUtente);
+                    	connection = DriverManager.getConnection(dbPath + nameDB + "?user=" + username + "&password=" + userPassword);
                     }
                 }
 
                 // La connessione è avvenuta con successo
-                connesso = true;
+                connected = true;
                 //System.out.println("CONNESSIONE OK");
             } else {
                 GMessage.message_error(linkingDb.getString("MANCA IL NOME DEL DATABASE"));
@@ -132,33 +108,33 @@ public class LinkingDb implements I_LinkingDb {
              return null;
          }*/
       } catch (SQLException | HeadlessException e) { 
-          String messaggio = linkingDb.getString("ERRORE NEL TENTATIVO DI CONNESSIONE AL DATABASE CON I PARAMETRI SPECIFICATI");
-          GMessage.message_error(messaggio);
+          String message = linkingDb.getString("ERRORE NEL TENTATIVO DI CONNESSIONE AL DATABASE CON I PARAMETRI SPECIFICATI");
+          GMessage.message_error(message);
            try {
-               throw new MainException(messaggio);
+               throw new MainException(message);
            } catch (MainException ex) {
                Logger.getLogger(LinkingDb.class.getName()).log(Level.SEVERE, null, ex);
            }
       }
-      return connessione;
+      return connection;
       	
    }
 
    @Override
-   public boolean esegui(String SQLString)
+   public boolean execute(String SQLString)
 	{
 		//Crea un oggetto per le operazioni sul database
 		try {
 			//Connessione
-			Statement st = connessione.createStatement( );
+			Statement st = connection.createStatement( );
 			System.out.println("Database -> Esecuzione predicato SQL: "+ SQLString);		
 			st.executeUpdate(SQLString);
 			return true;
 		} catch (SQLException e) {
 			//ERRORE: restituisce falso
 			e.printStackTrace();
-                        String messaggio = linkingDb.getString("ERRORE: IMPOSSIBILE AGGIORNARE IL DATABASE.");
-                        GMessage.message_error(messaggio);
+                        String message = linkingDb.getString("ERRORE: IMPOSSIBILE AGGIORNARE IL DATABASE.");
+                        GMessage.message_error(message);
 			return false;
 		}
 	}
@@ -223,7 +199,7 @@ public class LinkingDb implements I_LinkingDb {
 	 * dati vuota se non trova niente
 	*/
         @Override
-	public ADISysTableModel getTabella(PreparedStatement stmt){
+	public ADISysTableModel getTable(PreparedStatement stmt){
             System.out.println("Query: "+stmt.toString());
 		try {
                     ResultSet result = stmt.executeQuery();
@@ -245,7 +221,7 @@ public class LinkingDb implements I_LinkingDb {
 	*/
 	@Override
 	public PreparedStatement prepareStatement(String sqlString) throws SQLException{
-		return connessione.prepareStatement(sqlString);
+		return connection.prepareStatement(sqlString);
 	}
 	
 	/**
@@ -255,22 +231,21 @@ public class LinkingDb implements I_LinkingDb {
 	 * 
 	 */
    @Override
-	public ADISysTableModel getTabella(String queryText)
-	{
+	public ADISysTableModel getTable(String queryText){
 	
 		Statement enunciato;
 		try {
 			
 			//Crea uno statement per l'interrogazione del database
                    
-			enunciato = connessione.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			enunciato = connection.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			//Trace
 			System.out.println("Database -> Interrogazione SQL: " + queryText);		
 			
 			//Crea un ResultSet eseguendo l'interrogazione desiderata
-			ResultSet tabellina = enunciato.executeQuery(queryText);
+			ResultSet resultTable = enunciato.executeQuery(queryText);
 			
-			return new ADISysTableModel(tabellina);
+			return new ADISysTableModel(resultTable);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,15 +268,15 @@ public class LinkingDb implements I_LinkingDb {
 		try {
 			
 			//Crea uno statement per l'interrogazione del database
-			enunciato = connessione.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			enunciato = connection.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	
 			//Trace
 			System.out.println("Database -> Interrogazione SQL: " + queryText);		
 			
 			//Crea un ResultSet eseguendo l'interrogazione desiderata
-			ResultSet tabellina = enunciato.executeQuery(queryText);
+			ResultSet resultSet = enunciato.executeQuery(queryText);
 			
-			return tabellina;
+			return resultSet;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -315,31 +290,31 @@ public class LinkingDb implements I_LinkingDb {
 	 * @param stringaInput
 	 */
    @Override
-	public String string2sqlstring(String stringaInput)
+	public String string2sqlstring(String inputString)
 	{
-		String stringaOutput;
+		String outputString;
 		
 		//Rimedio bug apostrofo
-		stringaOutput=stringaInput.replaceAll("'", "''");
+		outputString = inputString.replaceAll("'", "''");
 		
 		
-		return stringaOutput;
+		return outputString;
 	}
         
    // Chiude la connessione con il Database
    @Override
    public boolean disconnect() {
       try {
-         connessione.close();
-         connesso = false;
+    	  connection.close();
+    	  connected = false;
          return true;
       } catch (Exception e) { e.printStackTrace(); }
       return false;
    }
 
    @Override
-   public boolean isConnected() { return connesso; }   // Ritorna TRUE se la connessione con il Database è attiva
+   public boolean isConnected() { return connected; }   // Ritorna TRUE se la connessione con il Database è attiva
    @Override
-   public String getErrore() { return errore; }       // Ritorna il messaggio d'errore dell'ultima eccezione sollevata
+   public String getError() { return error; }       // Ritorna il messaggio d'errore dell'ultima eccezione sollevata
 
 }

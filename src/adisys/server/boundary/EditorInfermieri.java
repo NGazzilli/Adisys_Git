@@ -399,9 +399,9 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
         else
         {
             String nome = tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(),
-                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_NOME)).toString();
+                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_NAME_NAME)).toString();
             String cognome = tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(),
-                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_COGNOME)).toString();
+                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_SURNAME_NAME)).toString();
             String nominativo = nome + " " + cognome;
             String messaggio = editorInfermieri.getString("CANCELLARE L'INFERMIERE") + " " + nominativo + "?";
 	    messaggio += editorInfermieri.getString("SARANNO PERSI ANCHE TUTTI I DATI RELATIVI AGLI INTERVENTI");
@@ -411,7 +411,7 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
             if(GMessage.confirm(messaggio) == JOptionPane.YES_OPTION){
                    //Recupero ID
             Object id = tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), 
-                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID));
+                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_ID_NAME));
         
             //Casting ID
             int idInt=Integer.valueOf(String.valueOf(id));
@@ -514,10 +514,10 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
                             //Aggiunta al database
                             String messaggio = java.text.MessageFormat.format(editorInfermieri.getString("INFERMIERE: {0} "), new Object[] {
                                     tabellaInfermieri.getValueAt(rigaSelezionata,
-                                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_NOME)).
+                                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_NAME_NAME)).
                                     toString().toUpperCase()}) 
                                     + " " + tabellaInfermieri.getValueAt(rigaSelezionata,
-                                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_COGNOME)).
+                                    tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_SURNAME_NAME)).
                                     toString().toUpperCase(); 
                                     messaggio = messaggio + editorInfermieri.getString("MODIFICATO IN:") +
                                     to.getNome().toUpperCase() + " " + to.getCognome().toUpperCase() + editorInfermieri.getString("CON SUCCESSO!");
@@ -562,7 +562,7 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
             NOME_COLONNA_NOME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
             NOME_COLONNA_GRAVITA = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
             String dataDal = "01/01/1970";
-            int colonnaID = tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID);
+            int colonnaID = tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_ID_NAME);
             int id = Integer.parseInt(tabellaInfermieri.getValueAt(
                 tabellaInfermieri.getSelectedRow(), colonnaID).toString());
             /*
@@ -592,8 +592,8 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
                 DialogoStorico.setNursesEditor(this);
                 tabellaTipi = new JTable(modelAdisys);
                 FC = RequestManager.getFCInstance();
-                String request = RequestManager.APRI_DIALOGO_STORICO;
-                if(FC.processRequest(RequestManager.APRI_DIALOGO_STORICO)){
+                String request = RequestManager.OPEN_REGISTER_DIALOG;
+                if(FC.processRequest(RequestManager.OPEN_REGISTER_DIALOG)){
                     System.out.println("Finestra " + request + " aperta con successo.");
                 }
                 else{
@@ -789,11 +789,11 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
 			modalita = Modalita.modifica;               
                         txModalita.setText(modModifica);
                         txInfermiereSelezionato.setText(tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), 
-                                tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID)).toString());
+                                tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_ID_NAME)).toString());
 			//Recupero valori ID NOME COGNOME
-			Object id = tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_ID));
-			Object nome= tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_NOME));
-			Object cognome=tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.NOME_COLONNA_COGNOME));
+			Object id = tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_ID_NAME));
+			Object nome= tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_NAME_NAME));
+			Object cognome=tabellaInfermieri.getValueAt(tabellaInfermieri.getSelectedRow(), tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_SURNAME_NAME));
 
 			//Setta il modulo per l'inserimento
 			txNome.setText(String.valueOf(nome));

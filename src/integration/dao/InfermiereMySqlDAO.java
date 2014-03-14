@@ -31,51 +31,51 @@ import java.util.logging.Logger;
 */
 public class InfermiereMySqlDAO extends AbstractDAO{
 	
-        public static String NOME_TABELLA = "";
-	public static String NOME_COLONNA_ID = "";
-	public static String NOME_COLONNA_NOME = "";
-	public static String NOME_COLONNA_COGNOME = "";
+        public static String TABLE_NAME = "";
+	public static String COLUMN_ID_NAME = "";
+	public static String COLUMN_NAME_NAME = "";
+	public static String COLUMN_SURNAME_NAME = "";
         private static String filePath = "file/infermieri.txt";
                 
 	/**Costante protetta per i campi della query insert*/
 	protected final static String[] FIELDS_INSERT = {
-		NOME_COLONNA_NOME,
-		NOME_COLONNA_COGNOME
+		COLUMN_NAME_NAME,
+		COLUMN_SURNAME_NAME
 	};
 	//Se cambio il numero di FIELDS_INSERT, devo cambiare anche FIELDS_QUERY
 	/**Costante protetta per i campi della query select, include i campi della costante
 	 * {@link FIELDS_INSERT}*/
 	protected final static String[] FIELDS_QUERY = {
-		NOME_COLONNA_ID,
+		COLUMN_ID_NAME,
 		FIELDS_INSERT[0],
 		FIELDS_INSERT[1]
 	};
 	/**Costante per il nome della tabella degli infermieri*/
-	protected final static String TABLE = leggiNomeTabella();
+	protected final static String TABLE = readTableName();
 
 	//--------------------------------
 	private int id;
-	private String nome;
-	private String cognome;
+	private String name;
+	private String surname;
 	//--------------------------------
         
         /**Grazie a questo oggetto ottiene le query già ben formate pronte per essere
 	 * date in pasto al database*/
 	private MySqlDAOConfig mysqlConfig = new MySqlDAOConfig(FIELDS_INSERT, FIELDS_QUERY, TABLE);
         
-        private void caricaVariables(String[] nomeCampi){
-            NOME_TABELLA = nomeCampi[0];
-            NOME_COLONNA_ID = nomeCampi[1];
-            NOME_COLONNA_NOME = nomeCampi[2];
-            NOME_COLONNA_COGNOME = nomeCampi[3];
-            FIELDS_INSERT[0] = NOME_COLONNA_NOME + ", ";
-            FIELDS_INSERT[1] = NOME_COLONNA_COGNOME;
-            FIELDS_QUERY[0] = NOME_COLONNA_ID + ", ";
+        private void loadVariables(String[] nomeCampi){
+        	TABLE_NAME = nomeCampi[0];
+        	COLUMN_ID_NAME = nomeCampi[1];
+        	COLUMN_NAME_NAME = nomeCampi[2];
+        	COLUMN_SURNAME_NAME = nomeCampi[3];
+            FIELDS_INSERT[0] = COLUMN_NAME_NAME + ", ";
+            FIELDS_INSERT[1] = COLUMN_SURNAME_NAME;
+            FIELDS_QUERY[0] = COLUMN_ID_NAME + ", ";
             FIELDS_QUERY[1] = FIELDS_INSERT[0];
             FIELDS_QUERY[2] = FIELDS_INSERT[1];
         }
         	
-        private static String leggiNomeTabella(){
+        private static String readTableName(){
             try {
                 Scanner scanner = new Scanner(FileFactory.getFileContent(filePath));
                 return scanner.next();
@@ -89,7 +89,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
             
         }
         
-         public void leggiFiles() {
+         public void readFiles() {
             try {
    
                 Scanner scanner = new Scanner(FileFactory.getFileContent(filePath));
@@ -106,7 +106,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
                     nomeCampi = temp;
                     nomeCampi[nomeCampi.length - 1] = newCampo;
                 }
-                caricaVariables(nomeCampi);
+                loadVariables(nomeCampi);
                 scanner.close();
                 
             } catch (FileNotFoundException ex) {
@@ -141,7 +141,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 				linkDb.connect();
 			}
 		}
-                leggiFiles();
+		readFiles();
 	}
         
 	/**Numero massimo di caratteri consentiti dal database
@@ -160,8 +160,8 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 		InfermiereTO to = (InfermiereTO) interfaceTo;
 		
 		//---------------------------
-		nome = to.getNome();
-		cognome = to.getCognome();
+		name = to.getNome();
+		surname = to.getCognome();
 		
 		/*if(nome.length() > MAX_CHARS){
 			nome = to.getNome().substring(0, MAX_CHARS);
@@ -176,8 +176,8 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 			PreparedStatement stmt = linkDb.prepareStatement(mysqlConfig.getInsertSQL());
 			
 			//----------------------------
-			stmt.setString(1, nome);
-			stmt.setString(2, cognome);
+			stmt.setString(1, name);
+			stmt.setString(2, surname);
 			//---------------------------
 			
 			stmt.executeUpdate();
@@ -198,7 +198,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
         @Override
 	public ArrayList<TO> read() {
 		System.out.println("read()");
-		ArrayList<TO> infermieri = new ArrayList<TO>();//arraylist dei to da riempire;
+		ArrayList<TO> nurses = new ArrayList<TO>();//arraylist dei to da riempire;
 		try {
 			PreparedStatement stmt = linkDb.prepareStatement(mysqlConfig.getSelectSQL("true"));
 			ArrayList<String[]> dates = linkDb.select(stmt);//arraylist sui dati del database
@@ -210,17 +210,17 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 				InfermiereTO infTO = new InfermiereTO();//crea il nuovo TO con i dati prelevati
 				
 				id = Integer.parseInt(record[0]);
-				nome = record[1];
-				cognome = record[2];
+				name = record[1];
+				surname = record[2];
 				
 				//setta i valori del database --------------
 				infTO.setID(id);
-				infTO.setNome(nome);
-				infTO.setCognome(cognome);
+				infTO.setNome(name);
+				infTO.setCognome(surname);
 				//------------------------------------------
 				
 				//aggiunge il nuovo TO all'arraylist
-				infermieri.add(infTO);
+				nurses.add(infTO);
 			}
 			
 		} catch (SQLException e) {
@@ -231,7 +231,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 			e.printStackTrace();
 			return null;
 		}
-		return infermieri;
+		return nurses;
 	}
 
         @Override
@@ -240,7 +240,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
                 //leggiFiles();
                 try {
                     String query = mysqlConfig.getSelectSQL("true");
-                    return linkDb.getTabella(query);
+                    return linkDb.getTable(query);
 		} catch (NumberFormatException e){
 			System.err.println("Ops... Il database e la DAO non sono compatibili");
 			e.printStackTrace();
@@ -249,7 +249,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
                     
 	}
         
-	/*
+	/**
 	 * Aggiorna il record di un infermiere con i dati incapsulati nel transfer object {@link InfermiereTO}
 	 * quando la condizione <code>condition</code> &egrave <i>true</i>.<br>
 	 * 
@@ -263,17 +263,17 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 		InfermiereTO to = (InfermiereTO) interfaceTO;
 		
 		//------------------------------------------------
-		nome = to.getNome();
-		cognome = to.getCognome();
+		name = to.getNome();
+		surname = to.getCognome();
 		String[] fieldsValue = {
-			NOME_COLONNA_NOME + " = '" + nome + "', ",
-			NOME_COLONNA_COGNOME + " = '" + cognome + "'"
+				COLUMN_NAME_NAME + " = '" + name + "', ",
+				COLUMN_SURNAME_NAME + " = '" + surname + "'"
 		};
 		//------------------------------------------------
 		
 		try {
 			PreparedStatement stmt = linkDb.prepareStatement(mysqlConfig.getUpdateSQL(fieldsValue, 
-                                NOME_COLONNA_ID + " = " + to.getID()));
+					COLUMN_ID_NAME + " = " + to.getID()));
 			stmt.executeUpdate();
 			
 			return true;
@@ -297,24 +297,23 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 			return delete("true");
 		}
 		else{
-			return delete(NOME_COLONNA_ID + " = " + id);
+			return delete(COLUMN_ID_NAME + " = " + id);
 		}
 	}
 	
 
-        public boolean idEsistente(int ID)
-	{
+        public boolean existingID(int ID){
 		//Preparazione query
-		String stat= "SELECT COUNT(" + NOME_COLONNA_ID + ") FROM " + NOME_TABELLA +" WHERE "
-                        + NOME_COLONNA_ID + " = " + ID;
+		String stat= "SELECT COUNT(" + COLUMN_ID_NAME + ") FROM " + TABLE_NAME +" WHERE "
+                        + COLUMN_ID_NAME + " = " + ID;
 
 		//Esecuzione query
-		ResultSet tabConto = linkDb.getResultSet(stat);
+		ResultSet countTab = linkDb.getResultSet(stat);
 
 		try {
 			//Estrazione valore
-			tabConto.first();
-			if (tabConto.getInt(1)==1) return true;
+			countTab.first();
+			if (countTab.getInt(1)==1) return true;
 			else return false;
 
 		} catch (SQLException e) {
@@ -322,7 +321,7 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 			System.out.println("ERRORE RICERCA ID!!!");
 
 			//TRACE
-			System.out.println("Infermieri -> ERRORE NELLA RICERCA DELL'ID NELLA TABELLA " + NOME_TABELLA);
+			System.out.println("Infermieri -> ERRORE NELLA RICERCA DELL'ID NELLA TABELLA " + TABLE_NAME);
 
 			return false;
 		}
@@ -356,137 +355,91 @@ public class InfermiereMySqlDAO extends AbstractDAO{
 		}
 	}
 	
-	
-	
-	
-	
-	/*
-	public static void main(String args[]){
-		
-		//---------------- TEST InfermiereMySqlDAO ------------------------
-		try {
-			
-			InfermiereMySqlDAO infDAO = new InfermiereMySqlDAO();
-			
-			//testing della create
-			infDAO.create(new InfermiereTO("Ciccio", "Cappuccio"));
-			
-			
-			//testing della read
-			ArrayList<TO> infermieri = infDAO.read();
-			for(TO interfaceInf : infermieri){
-				InfermiereTO inf = (InfermiereTO) interfaceInf;
-				System.out.println(inf.getId()+"  "+inf.getNome()+"  "+inf.getCognome());
-			}
-			
-			//testing della update
-			infDAO.update(new InfermiereTO("Ciccino", "Cappuccino"), "id_infermiere=1");
-			infermieri = infDAO.read();
-			for(TO interfaceInf : infermieri){
-				InfermiereTO inf = (InfermiereTO) interfaceInf;
-				System.out.println(inf.getId()+"  "+inf.getNome()+"  "+inf.getCognome());
-			}
-			
-			//testing della delete
-//			infDAO.delete("nome=\"Ciccio\"");
-			infermieri = infDAO.read();
-			for(TO interfaceInf : infermieri){
-				InfermiereTO inf = (InfermiereTO) interfaceInf;
-				System.out.println(inf.getId()+"  "+inf.getNome()+"  "+inf.getCognome());
-			}
-			
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		} catch (MainException e) {
-			e.printStackTrace();
-		}
-	}*/
-	
-     public boolean alterTable(ArrayList<String> nomeCampi) {
+     public boolean alterTable(ArrayList<String> fieldsName) {
      boolean change = false;
      boolean ok = true;
-     String nomeTabella = nomeCampi.get(0);
-     String campo1 = nomeCampi.get(1);
-     String campo2 = nomeCampi.get(2);
-     String campo3 = nomeCampi.get(3);
-     View viste = null;
+     String tableName = fieldsName.get(0);
+     String field1 = fieldsName.get(1);
+     String field2 = fieldsName.get(2);
+     String field3 = fieldsName.get(3);
+     View views = null;
             try {
-                viste = new View();
+            	views = new View();
             } catch (MainException ex) {
                 Logger.getLogger(InfermiereMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-     if(!campo1.equals(NOME_COLONNA_ID)
-                || !campo2.equals(NOME_COLONNA_NOME) || !campo3.equals(NOME_COLONNA_COGNOME)) {
+     if(!field1.equals(COLUMN_ID_NAME)
+                || !field2.equals(COLUMN_NAME_NAME) || !field3.equals(COLUMN_SURNAME_NAME)) {
             change = true;
-            viste.destroyView();
-            if(!campo1.equals(NOME_COLONNA_ID)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
-                        + " ALTER COLUMN " + NOME_COLONNA_ID + " RENAME TO " + campo1);
+            views.destroyView();
+            if(!field1.equals(COLUMN_ID_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_ID_NAME + " RENAME TO " + field1);
             }
-            if(!campo2.equals(NOME_COLONNA_NOME)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
-                        + " ALTER COLUMN " + NOME_COLONNA_NOME + " RENAME TO " + campo2);
+            if(!field2.equals(COLUMN_NAME_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_NAME_NAME + " RENAME TO " + field2);
             }
-            if(!campo3.equals(NOME_COLONNA_COGNOME)){
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA 
-                        + " ALTER COLUMN " + NOME_COLONNA_COGNOME + " RENAME TO " + campo3);
+            if(!field3.equals(COLUMN_SURNAME_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_SURNAME_NAME + " RENAME TO " + field3);
             }
         }
-        if(!nomeTabella.equals(NOME_TABELLA)){
+        if(!tableName.equals(TABLE_NAME)){
             change = true;
-                viste.destroyView();
-                ok = linkDb.esegui("ALTER TABLE " + NOME_TABELLA
-                        + " RENAME TO " + nomeTabella + ";");
+            views.destroyView();
+                ok = linkDb.execute("ALTER TABLE " + TABLE_NAME
+                        + " RENAME TO " + tableName + ";");
         }
         if(change != false && ok == true){
             try {
                 FileFactory.setFileContent(new File(filePath), 
-                        nomeTabella + "\n"
-                        + campo1 + "\n"
-                        + campo2 + "\n"
-                        + campo3);
+                		tableName + "\n"
+                        + field1 + "\n"
+                        + field2 + "\n"
+                        + field3);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(InfermiereMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(InfermiereMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            leggiFiles();
+            readFiles();
         }
         if(change != false)
-            viste.createView();
+        	views.createView();
       return ok;
     }//fine metodo
 
     @Override
     public TO getSpecified(int id) {
         //Preparazione ed esecuzione query
-		String queryInt = "SELECT * FROM " + NOME_TABELLA + " WHERE " + NOME_COLONNA_ID + 
+		String queryInt = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID_NAME + 
                         "=" + id + ";";
-		ResultSet tabellaInfermiere = linkDb.getResultSet(queryInt);
+		ResultSet nurseTable = linkDb.getResultSet(queryInt);
 		try {		
 			//Posizionamento del cursore sull'unica riga
-			tabellaInfermiere.first();
+			nurseTable.first();
 
 			//Popolamento di un oggetto di tipo Infermiere;
-			InfermiereTO i= new InfermiereTO();
+			InfermiereTO i = new InfermiereTO();
 
 			i.setID(id);
-			i.setNome(tabellaInfermiere.getString(NOME_COLONNA_NOME));
-			i.setCognome(tabellaInfermiere.getString(NOME_COLONNA_COGNOME));
+			i.setNome(nurseTable.getString(COLUMN_NAME_NAME));
+			i.setCognome(nurseTable.getString(COLUMN_SURNAME_NAME));
 
 			//Restituzione dell'oggetto
 			return i;
 		} catch (SQLException e) {
 			//Notifica errore
-			String msgErrore ="Infermieri -> Errore: impossibile estrarre l'infermiere dal DB";
-			System.out.println(msgErrore);
+			String errorMessage ="Infermieri -> Errore: impossibile estrarre l'infermiere dal DB";
+			System.out.println(errorMessage);
 			e.printStackTrace();
 			return null;
 		}
     }
     
     public ADISysTableModel getTabellaInfoInfermieriConInterventi() {
-        return linkDb.getTabella("SELECT * FROM INTERV_INFERM");
+        return linkDb.getTable("SELECT * FROM INTERV_INFERM");
     }
     
 }

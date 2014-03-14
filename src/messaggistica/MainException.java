@@ -6,7 +6,7 @@ package messaggistica;
  * @author Gianmarco Divittorio
  * 
  * Eccezione di basso livello, può essere lanciata a qualsiasi livello, verrà
- * catturata al livello di gui
+ * catturata al livello di graphic user interface
 */
 public class MainException extends Exception{
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,5 @@ public class MainException extends Exception{
 	public MainException(String msg, Class<?> typeOfExc){
 		super(msg);
 		exception = typeOfExc;
-//		System.err.println(typeOfExc);
 	}
-	
 }

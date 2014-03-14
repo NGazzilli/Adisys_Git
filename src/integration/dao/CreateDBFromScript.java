@@ -38,8 +38,8 @@ public class CreateDBFromScript {
 	
 	private I_LinkingDb linkDB;
 	
-        public static void setResourceBundle(String path, Locale locale){
-            createDBFromScript = ResourceBundle.getBundle(path, locale);
+        public static void setResourceBundle(String path, Locale local){
+            createDBFromScript = ResourceBundle.getBundle(path, local);
         }
 	
 	/**
@@ -60,9 +60,9 @@ public class CreateDBFromScript {
 			
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
-                        String messaggio = createDBFromScript.getString("IMPOSSIBILE CREARE IL DATABASE, FILE DELLO SCRIPT NON DISPONIBILE");
-                        GMessage.message_error(messaggio);
-			throw new MainException(messaggio);
+                        String message = createDBFromScript.getString("IMPOSSIBILE CREARE IL DATABASE, FILE DELLO SCRIPT NON DISPONIBILE");
+                        GMessage.message_error(message);
+			throw new MainException(message);
 		}
 	}
 	
@@ -87,10 +87,10 @@ public class CreateDBFromScript {
 							stmtUntilSemicolon.replace('\n', ' '));
 					}
 					else{
-                                                String messaggio = createDBFromScript.getString("AGGIORNAMENTO FALLITO, RICONTROLLARE LA SINTASSI SQL: ") +
+                                                String message = createDBFromScript.getString("AGGIORNAMENTO FALLITO, RICONTROLLARE LA SINTASSI SQL: ") +
                                                         stmtUntilSemicolon.replace('\n', ' ');
-                                                GMessage.message_error(messaggio);
-						System.err.println(messaggio);
+                                                GMessage.message_error(message);
+						System.err.println(message);
 						allFine = false;
 					}
 //					System.out.println(stmtUntilSemicolon);
@@ -135,9 +135,5 @@ public class CreateDBFromScript {
 		isFinish = true;
 		
 		return stat;
-		
 	}
-
-	
-	
 }

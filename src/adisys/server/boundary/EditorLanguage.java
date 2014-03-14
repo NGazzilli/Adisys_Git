@@ -148,7 +148,7 @@ public class EditorLanguage extends javax.swing.JFrame implements Boundary {
     private void pulsanteAvantiActionPerformed(java.awt.event.ActionEvent evt) {                                               
     	 this.dispose();
          try {
-             request(RequestManager.APRI_PIANIFICATORE);
+             request(RequestManager.OPEN_PLANNER);
          } catch (MainException ex) {
              
          }

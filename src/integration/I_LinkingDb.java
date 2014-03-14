@@ -57,17 +57,18 @@ public interface I_LinkingDb {
 	public ArrayList<String[]> select(PreparedStatement stmt);
        
    
-	public ADISysTableModel getTabella(PreparedStatement stmt);
+	public ADISysTableModel getTable(PreparedStatement stmt);
         
-        public ADISysTableModel getTabella(String queryText);
+        public ADISysTableModel getTable(String queryText);
 	
         public String string2sqlstring(String stringaInput);
         
         public ResultSet getResultSet(String queryText);
         
-        public String getErrore();
+        public String getError();
 	
-	public boolean esegui(String query);
+	public boolean execute(String query);
+	
 	/**
 	 * Incapsula il comportamento del metodo Connection.prepareStatement(String).
 	 * @param sqlString un SQL statement che può contenere una o più '?' 

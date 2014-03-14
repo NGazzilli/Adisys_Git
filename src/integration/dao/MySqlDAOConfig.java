@@ -175,24 +175,4 @@ public class MySqlDAOConfig {
 		String delete = DELETE_SQL.replace("*TABLE", table);
 		return delete+condition;
 	}
-	
-	
-	
-	
-	
-	/*
-	public static void main(String args[]){
-		MySqlDAOConfig config = new MySqlDAOConfig(
-				InfermiereMySqlDAO.FIELDS_INSERT, InfermiereMySqlDAO.FIELDS_QUERY, InfermiereMySqlDAO.TABLE);
-
-		System.out.println(config.getSelectSQL("true"));
-		System.out.println(config.getSelectSQL("id_infermiere=3", "nome"));
-		
-		String fieldsValues [] = {"nome=ciccio, ", "cognome=cappuccio"};
-		System.out.println(config.getUpdateSQL(fieldsValues, "id_infermiere=1999"));
-		System.out.println();
-	}
-	*/
-
-	
 }

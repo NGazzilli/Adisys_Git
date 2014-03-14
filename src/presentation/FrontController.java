@@ -15,7 +15,7 @@ import adisys.server.strumenti.Record;
 public interface FrontController {
 	
 	/**
-	 * Gestisce le richieste proveniente da una finestra (classe boundary).<br>
+	 * Gestisce le richieste provenienti da una finestra (classe boundary).<br>
 	 * Il tipo di richiesta gestibile da questo metodo è
 	 * <ul><li>
 	 * 		<i>Richiesta di un servizio di business</i>.
