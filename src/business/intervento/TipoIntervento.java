@@ -11,26 +11,26 @@ import java.util.ResourceBundle;
  *
  */
 public class TipoIntervento{
-    private static ResourceBundle tipoIntervento = ResourceBundle.getBundle("adisys/server/property/TipoIntervento");
+    private static ResourceBundle interventionType = ResourceBundle.getBundle("adisys/server/property/TipoIntervento");
        
     private int ID;	
-    private String nome;
-    private String valoreRilevato;
-    private String tempoIntervento;
-    private String note;
-    private ArrayList<PatologiaTO> listaPatologie;
+    private String name;
+    private String observedValue;
+    private String interventionDuration;
+    private String notes;
+    private ArrayList<PatologiaTO> pathologiesList;
 	
-        public static void setResourceBundle(String path, Locale locale){
-            tipoIntervento = ResourceBundle.getBundle(path, locale);
+        public static void setResourceBundle(String path, Locale local){
+        	interventionType = ResourceBundle.getBundle(path, local);
         }
             
 	public TipoIntervento()
 	{
-		nome="";
-		valoreRilevato="";
-		tempoIntervento="";
-		note="";
-                listaPatologie = new ArrayList<PatologiaTO>();
+		name="";
+		observedValue="";
+		interventionDuration="";
+		notes="";
+		pathologiesList = new ArrayList<PatologiaTO>();
 	}
 	
         public void setID(int id){
@@ -41,70 +41,70 @@ public class TipoIntervento{
             return ID;
         }
         
-	public TipoIntervento(String newNome, String newNote, ArrayList<PatologiaTO> arrayPatologie)
+	public TipoIntervento(String newName, String newNotes, ArrayList<PatologiaTO> pathologiesArray)
 	{
-		nome=newNome;
-		valoreRilevato="";
-		tempoIntervento="";
-		note=newNote;
-                listaPatologie = arrayPatologie;
+		name=newName;
+		observedValue="";
+		interventionDuration="";
+		notes=newNotes;
+		pathologiesList = pathologiesArray;
 	}
 	
                 
 	public String getNome() {
-		return nome;
+		return name;
 	}
 	
 	public String getValoreRilevato() {
-		return valoreRilevato;
+		return observedValue;
 	}
 	
 	public String getTempoIntervento() {
-		return tempoIntervento;
+		return interventionDuration;
 	}
 	
 	public String getNote() {
-		return note;
+		return notes;
 	}
         
     public ArrayList<PatologiaTO> getListaPatologie(){
-    	return listaPatologie;
+    	return pathologiesList;
     }
     
-    public void setListaPatologie(ArrayList<PatologiaTO> listaPatologie){
-        this.listaPatologie = listaPatologie;
+    public void setListaPatologie(ArrayList<PatologiaTO> pathologiesList){
+        this.pathologiesList = pathologiesList;
     }
 	
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String name) {
+		this.name = name;
 	}
 	
-	public void setValoreRilevato(String valoreRilevato) {
-		this.valoreRilevato = valoreRilevato;
+	public void setValoreRilevato(String observedValue) {
+		this.observedValue = observedValue;
 	}
 	
-	public void setTempoIntervento(String tempoIntervento) {
-		this.tempoIntervento = tempoIntervento;
+	public void setTempoIntervento(String interventionDuration) {
+		this.interventionDuration = interventionDuration;
 	}
 	
 	public void setNote(String note) {
-		this.note = note;
+		this.notes = note;
 	}    
         
 	@Override
 	public String toString()
 	{
-		String stringaTipo = tipoIntervento.getString("TIPO INTERVENTO: ")+ getNome() + "\n";
-                for(PatologiaTO e : listaPatologie){
-                    stringaTipo += java.text.MessageFormat.format(tipoIntervento.getString("PATOLOGIA N. {0} -> {1}"), new Object[] {e.getCodice(), e.getNome()});
-                    stringaTipo += java.text.MessageFormat.format(tipoIntervento.getString("GRAVITA DELLA PATOLOGIA: {0}"), new Object[] {e.getGravita()});
+		String typeString = interventionType.getString("TIPO INTERVENTO: ")+ getNome() + "\n";
+                for(PatologiaTO e : pathologiesList){
+                	typeString += java.text.MessageFormat.format(interventionType.getString("PATOLOGIA N. {0} -> {1}"), new Object[] {e.getCodice(), e.getNome()});
+                    typeString += java.text.MessageFormat.format(interventionType.getString("GRAVITA DELLA PATOLOGIA: {0}"), new Object[] {e.getGravita()});
                 }
                 if(getValoreRilevato() != null)
-                    stringaTipo += tipoIntervento.getString("VALORE RILEVATO: ")+ getValoreRilevato(); 
+                	typeString += interventionType.getString("VALORE RILEVATO: ")+ getValoreRilevato(); 
                 if(getTempoIntervento() != null)
-                    stringaTipo += tipoIntervento.getString("TEMPO INTERVENTO: ")+ getTempoIntervento();
-                stringaTipo += tipoIntervento.getString("NOTE: ")+ getNote() + "\n";
+                	typeString += interventionType.getString("TEMPO INTERVENTO: ")+ getTempoIntervento();
+                typeString += interventionType.getString("NOTE: ")+ getNote() + "\n";
 		
-		return stringaTipo;
+		return typeString;
 	}
 }

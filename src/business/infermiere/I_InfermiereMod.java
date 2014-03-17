@@ -20,6 +20,6 @@ public interface I_InfermiereMod {
 
         public boolean reset();
         
-        public boolean alterTable(ArrayList<String> campi);
+        public boolean alterTable(ArrayList<String> fields);
         
 }

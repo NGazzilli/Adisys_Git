@@ -26,8 +26,8 @@ public interface I_InfermieriGet {
         
         public AbstractTableModel getInfermieriConInterventi();
         
-        public InfermiereTO getInfermiere(int idInfermiere);
+        public InfermiereTO getInfermiere(int idNurse);
 
-        public boolean exists(int idInfermiere);
+        public boolean exists(int idNurse);
         
 }

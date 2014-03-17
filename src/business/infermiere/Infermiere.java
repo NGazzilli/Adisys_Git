@@ -126,10 +126,10 @@ public class Infermiere implements I_InfermiereMod, I_InfermieriGet{
 
     @Override
     public ArrayList<ComboItem> getArrayInfermieri() {
-         FrontController FC = RequestManager.getFCInstance();
+         FrontController frontController = RequestManager.getFCInstance();
          ADISysTableModel v = null;
             try {
-                v = (ADISysTableModel) FC.processRequest("visualizzaInfermieri", null);
+                v = (ADISysTableModel) frontController.processRequest("visualizzaInfermieri", null);
             } catch (MainException ex) {
                 Logger.getLogger(Infermiere.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -137,25 +137,25 @@ public class Infermiere implements I_InfermiereMod, I_InfermieriGet{
         int numRows = v.getRowCount();
         int columnRows = v.getColumnCount();
         String id = "";
-        String labelInfermiere = "";
-        ArrayList<ComboItem> listInfermieri = new ArrayList<>();
+        String nurseLabel = "";
+        ArrayList<ComboItem> nursesList = new ArrayList<>();
         
         for(int i = 0; i < numRows; i++){
         	for(int k = 0; k < columnRows; k++){
         		if(k != colonnaID)
-        			labelInfermiere = labelInfermiere + v.getValueAt(i, k).toString() + " ";
+        			nurseLabel = nurseLabel + v.getValueAt(i, k).toString() + " ";
         		else 
         			id = v.getValueAt(i, k).toString();
         	}
-        	listInfermieri.add(new ComboItem(id, labelInfermiere));
-        	labelInfermiere = "";
+        	nursesList.add(new ComboItem(id, nurseLabel));
+        	nurseLabel = "";
         }
-		return listInfermieri;
+		return nursesList;
     }
 
     @Override
-    public InfermiereTO getInfermiere(int idInfermiere) {
-        return (InfermiereTO) daoInf.getSpecified(idInfermiere);
+    public InfermiereTO getInfermiere(int idNurse) {
+        return (InfermiereTO) daoInf.getSpecified(idNurse);
     }
 
     @Override
@@ -164,13 +164,13 @@ public class Infermiere implements I_InfermiereMod, I_InfermieriGet{
     }
 
     @Override
-    public boolean exists(int idInfermiere) {
-        return ((InfermiereMySqlDAO) daoInf).existingID(idInfermiere);
+    public boolean exists(int idNurse) {
+        return ((InfermiereMySqlDAO) daoInf).existingID(idNurse);
     }
 
     @Override
-    public boolean alterTable(ArrayList<String> campi) {
-        return ((InfermiereMySqlDAO) daoInf).alterTable(campi);
+    public boolean alterTable(ArrayList<String> fields) {
+        return ((InfermiereMySqlDAO) daoInf).alterTable(fields);
     }
 
 

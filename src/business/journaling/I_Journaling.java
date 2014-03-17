@@ -17,11 +17,11 @@ public interface I_Journaling {
     
       public String[] getListaJournaling();
         
-        public InterventoCompletoTO getIntervento(int idIntervento);
+        public InterventoCompletoTO getIntervento(int idIntervention);
         
         public ArrayList<InterventoCompletoTO> getListaInterventi();
         
-        public String caricaFile(String nomeFile);
+        public String caricaFile(String fileName);
            
         
 }

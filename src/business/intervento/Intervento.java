@@ -81,8 +81,8 @@ public class Intervento implements I_Intervento, I_InterventoSpecifico {
 	*/
 	
     @Override
-    public InterventoTO getSpecificIntervento(int id_intervento){
-        return (InterventoTO) daoFullInt.getSpecified(id_intervento);
+    public InterventoTO getSpecificIntervento(int id_intervention){
+        return (InterventoTO) daoFullInt.getSpecified(id_intervention);
     }
 
     @Override
@@ -107,43 +107,43 @@ public class Intervento implements I_Intervento, I_InterventoSpecifico {
     }
 
     @Override
-    public int verificaIntervento(int id, String dataInit, String ora) {
-        return ((InterventoMySqlDAO) daoFullInt).verificaOraIntervento(String.valueOf(id), dataInit, ora);
+    public int verificaIntervento(int id, String startDate, String time) {
+        return ((InterventoMySqlDAO) daoFullInt).verificaOraIntervento(String.valueOf(id), startDate, time);
     }
 
     @Override
-    public ArrayList<TipoIntervento> leggiTipiIntervento(int idIntervento) {
-        return ((InterventoMySqlDAO) daoFullInt).readInterventionsTypes(idIntervento);
+    public ArrayList<TipoIntervento> leggiTipiIntervento(int idIntervention) {
+        return ((InterventoMySqlDAO) daoFullInt).readInterventionsTypes(idIntervention);
     }
 
     @Override
-    public ArrayList<PatologiaTO> leggiPatologieIntervento(int idIntervento) {
-        return ((InterventoMySqlDAO) daoFullInt).leggiPatologieIntervento(idIntervento);
+    public ArrayList<PatologiaTO> leggiPatologieIntervento(int idIntervention) {
+        return ((InterventoMySqlDAO) daoFullInt).leggiPatologieIntervento(idIntervention);
     }
 
     @Override
-    public ArrayList<InterventoTO> getListaInterventiInfermiere(int idInfermiere) {
-        return ((InterventoMySqlDAO) daoFullInt).getListaInterventiInfermiere(idInfermiere);
+    public ArrayList<InterventoTO> getListaInterventiInfermiere(int idNurse) {
+        return ((InterventoMySqlDAO) daoFullInt).getListaInterventiInfermiere(idNurse);
     }
 
     @Override
-    public boolean alterTable(ArrayList<String> listaCampi) {
-        return ((InterventoMySqlDAO) daoFullInt).alterTableInterventi(listaCampi);
+    public boolean alterTable(ArrayList<String> fieldsList) {
+        return ((InterventoMySqlDAO) daoFullInt).alterTableInterventi(fieldsList);
     }
 
     @Override
-    public boolean alterTablePatologieIntervento(ArrayList<String> listaCampi) {
-        return ((InterventoMySqlDAO) daoFullInt).alterTablePatTipiInterventi(listaCampi);
+    public boolean alterTablePatologieIntervento(ArrayList<String> fieldsList) {
+        return ((InterventoMySqlDAO) daoFullInt).alterTablePatTipiInterventi(fieldsList);
     }
 
     @Override
-    public boolean alterTableTipiIntervento(ArrayList<String> listaCampi) {
-        return ((InterventoMySqlDAO) daoFullInt).alterTableTipiIntervento(listaCampi);
+    public boolean alterTableTipiIntervento(ArrayList<String> fieldsList) {
+        return ((InterventoMySqlDAO) daoFullInt).alterTableTipiIntervento(fieldsList);
     }
 
     @Override
-    public void addIntStorico(int idIntervento) {
-        ((InterventoMySqlDAO) daoFullInt).addIntStorico(idIntervento);
+    public void addIntStorico(int idIntervention) {
+        ((InterventoMySqlDAO) daoFullInt).addIntStorico(idIntervention);
     }
 
     @Override

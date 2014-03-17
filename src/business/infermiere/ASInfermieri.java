@@ -39,7 +39,7 @@ public class ASInfermieri extends business.ServiceHandler{
 	 * Istanza della entity dell'infermiere {@link Infermiere} su cui ASInfermieri lavora 
 	*/
 	private I_InfermieriGet inf;
-        private I_InfermiereMod infermiere;
+        private I_InfermiereMod nurse;
 	
 	/**
 	 * Restituisce una struttura dati dei to degli infermieri presenti nel database
@@ -75,8 +75,8 @@ public class ASInfermieri extends business.ServiceHandler{
         public boolean alterTable(ArrayList<String> listaCampi){
             
 		try {
-			infermiere = new Infermiere();
-			return infermiere.alterTable(listaCampi);
+			nurse = new Infermiere();
+			return nurse.alterTable(listaCampi);
 		} catch (MainException e) {
 			e.printStackTrace();
                         return false;
@@ -112,8 +112,8 @@ public class ASInfermieri extends business.ServiceHandler{
         public boolean creaInfermiere(InfermiereTO to){
             	try {
 			
-			infermiere = new Infermiere();
-			return infermiere.createInfermiere(to);
+            		nurse = new Infermiere();
+			return nurse.createInfermiere(to);
 			
 		} catch (MainException e) {
 			e.printStackTrace();
@@ -128,8 +128,8 @@ public class ASInfermieri extends business.ServiceHandler{
 	public boolean deleteInfermiere(InfermiereTO to){
 		
 		try {
-			infermiere = new Infermiere();
-			return infermiere.deleteInfermiere(to);
+			nurse = new Infermiere();
+			return nurse.deleteInfermiere(to);
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;
@@ -144,8 +144,8 @@ public class ASInfermieri extends business.ServiceHandler{
 	public boolean modificaInfermiere(InfermiereTO to){
 		
 		try {
-			infermiere = new Infermiere();
-			return infermiere.modificaInfermiere(to);
+			nurse = new Infermiere();
+			return nurse.modificaInfermiere(to);
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;
@@ -160,8 +160,8 @@ public class ASInfermieri extends business.ServiceHandler{
 	public boolean deleteAll(){
 		
 		try {
-			infermiere = new Infermiere();
-			return infermiere.reset();
+			nurse = new Infermiere();
+			return nurse.reset();
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;

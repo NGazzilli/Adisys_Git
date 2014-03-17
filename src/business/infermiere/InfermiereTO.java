@@ -15,15 +15,15 @@ import java.util.ResourceBundle;
 */
 public class InfermiereTO implements TO{
     
-        private static ResourceBundle infermiere = ResourceBundle.getBundle("adisys/server/property/Infermiere");
+        private static ResourceBundle nurse = ResourceBundle.getBundle("adisys/server/property/Infermiere");
     
-        public static void setResourceBundle(String path, Locale locale){
-            infermiere = ResourceBundle.getBundle(path, locale);
+        public static void setResourceBundle(String path, Locale local){
+        	nurse = ResourceBundle.getBundle(path, local);
         }
         
 	private int id;
-	private String nome;
-	private String cognome;
+	private String name;
+	private String surname;
 	
 	public InfermiereTO(){}
 	
@@ -32,50 +32,50 @@ public class InfermiereTO implements TO{
 		this.id = id;
 	}
 	
-	public InfermiereTO(int id, String nome, String cognome){
+	public InfermiereTO(int id, String name, String surname){
 		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
+		this.name = name;
+		this.surname = surname;
 	}
 	
-	public InfermiereTO(String nome, String cognome){
-		this.nome = nome;
-		this.cognome = cognome;
+	public InfermiereTO(String name, String surname){
+		this.name = name;
+		this.surname = surname;
 	}
 	
 	@Override
         public String toString(){
-            String stringaInfermiere= new String();
-            stringaInfermiere += java.text.MessageFormat.format(infermiere.getString("ID INFERMIERE: {0}"), new Object[] {getID()});
-            stringaInfermiere += java.text.MessageFormat.format(infermiere.getString("- NOME: {0}"), new Object[] {getNome()});
-            stringaInfermiere += java.text.MessageFormat.format(infermiere.getString("- COGNOME: {0}"), new Object[] {getCognome()});
+            String nurseString= new String();
+            nurseString += java.text.MessageFormat.format(nurse.getString("ID INFERMIERE: {0}"), new Object[] {getID()});
+            nurseString += java.text.MessageFormat.format(nurse.getString("- NOME: {0}"), new Object[] {getNome()});
+            nurseString += java.text.MessageFormat.format(nurse.getString("- COGNOME: {0}"), new Object[] {getCognome()});
 
-            return stringaInfermiere;
+            return nurseString;
         }
 	public int getID() {
 		return id;
 	}
-	public void setID(int id_infermiere) {
-		this.id = id_infermiere;
+	public void setID(int id_nurse) {
+		this.id = id_nurse;
 	}
 
 
 	
 	public String getNome() {
-		return nome;
+		return name;
 	}
-	public void setNome(String nome){
-		this.nome = nome;
+	public void setNome(String name){
+		this.name = name;
 	}
 
 	
 
 	public String getCognome() {
-		return cognome;
+		return surname;
 	}
 	
-	public void setCognome(String cognome){
-		this.cognome = cognome;
+	public void setCognome(String surname){
+		this.surname = surname;
 	}
 
 }

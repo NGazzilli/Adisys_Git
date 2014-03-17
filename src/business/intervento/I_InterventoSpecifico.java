@@ -17,5 +17,5 @@ public interface I_InterventoSpecifico {
 	 * @return il to dell'intervento con id = {@code id_intervento}, null se all'id 
 	 * specificato non corrisponde alcun intervento
 	*/
-	public InterventoTO getSpecificIntervento(int id_intervento);
+	public InterventoTO getSpecificIntervento(int id_intervention);
 }

@@ -94,8 +94,8 @@ public class Patologia implements I_PatologiaMod, I_PatologieGet{
 	}
 
     @Override
-    public ResultSet getTabellaPatologieAssociate(int idPatologia) {
-        return ((PatologiaMySqlDAO) daoPat).getTabellaPatologieAssociate(idPatologia);
+    public ResultSet getTabellaPatologieAssociate(int idPathology) {
+        return ((PatologiaMySqlDAO) daoPat).getTabellaPatologieAssociate(idPathology);
     }
 
     @Override
@@ -104,8 +104,8 @@ public class Patologia implements I_PatologiaMod, I_PatologieGet{
     }
 
    @Override
-    public boolean alterTable(ArrayList<String> campi) {
-        return ((PatologiaMySqlDAO) daoPat).alterTable(campi);
+    public boolean alterTable(ArrayList<String> fields) {
+        return ((PatologiaMySqlDAO) daoPat).alterTable(fields);
     }
 
 }

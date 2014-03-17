@@ -62,10 +62,10 @@ public class ASJournaling extends business.ServiceHandler {
             } 
         }
         
-        public String caricaFile(String nomeFile){
+        public String caricaFile(String fileName){
              try {
                 journ = new Journaling();
-                return journ.caricaFile(nomeFile);
+                return journ.caricaFile(fileName);
             } catch (MainException ex) {
                 Logger.getLogger(ASJournaling.class.getName()).log(Level.SEVERE, null, ex);
                 return null;

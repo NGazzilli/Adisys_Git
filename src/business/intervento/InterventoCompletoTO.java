@@ -13,63 +13,63 @@ import java.util.ResourceBundle;
  *
  */
 public class InterventoCompletoTO extends InterventoTO {
-    private static ResourceBundle interventoCompleto = ResourceBundle.getBundle("adisys/server/property/InterventoCompleto");
+    private static ResourceBundle completeIntervention = ResourceBundle.getBundle("adisys/server/property/InterventoCompleto");
     
-        public static void setResourceBundle(String path, Locale locale){
-            interventoCompleto = ResourceBundle.getBundle(path, locale);
+        public static void setResourceBundle(String path, Locale local){
+        	completeIntervention = ResourceBundle.getBundle(path, local);
         }
 	//Enumerazioni per verifiche
-	public enum StatoVerifica{nonVerificato, verificaOK, anomalia}
+	public enum StatoVerifica{notVerified, checkOK, anomaly}
 	
 	//Oggetti membro
-	private PazienteTO paziente;
-	private InfermiereTO infermiere;
+	private PazienteTO patient;
+	private InfermiereTO nurse;
 
-	private String misuraRilevata;
+	private String observedMeasure;
 	private ArrayList<Rilevazione> log;
-	private StatoVerifica statoVerificaGPS;
-	private StatoVerifica statoVerificaAccelerometro;
+	private StatoVerifica checkStatusGPS;
+	private StatoVerifica checkStatusAccelerometer;
 	
-	private String note;
+	private String notes;
 	
 	public InterventoCompletoTO() {
 
 		log = new ArrayList<Rilevazione>();
-		statoVerificaGPS=StatoVerifica.nonVerificato;
-		statoVerificaAccelerometro=StatoVerifica.nonVerificato;
+		checkStatusGPS=StatoVerifica.notVerified;
+		checkStatusAccelerometer=StatoVerifica.notVerified;
 	}
 
 	public PazienteTO getPaziente()
 	{
-		return paziente;
+		return patient;
 	}
 	
 	public InfermiereTO getInfermiere()
 	{
-		return infermiere;
+		return nurse;
 	}
 
-	public Rilevazione getLog(int indice)
+	public Rilevazione getLog(int index)
 	{
-		if ( indice >= 0 && indice < contaLog())
-			return log.get(indice);
+		if ( index >= 0 && index < contaLog())
+			return log.get(index);
 		else
 		{
-			System.out.println(interventoCompleto.getString("INTERVENTOCOMPLETO -> TENTATIVO DI PRELIEVO DI UNITALOG FUORI DAI LIMITI DELLA LISTA."));
+			System.out.println(completeIntervention.getString("INTERVENTOCOMPLETO -> TENTATIVO DI PRELIEVO DI UNITALOG FUORI DAI LIMITI DELLA LISTA."));
 			return null;
 		}
 	}
 
 	public String getMisuraRilevata() {
-		return misuraRilevata;
+		return observedMeasure;
 	}
 
 	public StatoVerifica getStatoVerificaGPS() {
-		return statoVerificaGPS;
+		return checkStatusGPS;
 	}
 
 	public StatoVerifica getStatoVerificaAccelerometro() {
-		return statoVerificaAccelerometro;
+		return checkStatusAccelerometer;
 	}
 
 	public boolean addLog(Rilevazione u)
@@ -82,58 +82,58 @@ public class InterventoCompletoTO extends InterventoTO {
 		return log.size();
 	}
 
-	public boolean setPaziente(PazienteTO newPaziente)
+	public boolean setPaziente(PazienteTO newPatient)
 	{
-		paziente=newPaziente;
+		patient=newPatient;
 		return true;
 	}
 
-	public boolean setInfermiere(InfermiereTO newInfermiere)
+	public boolean setInfermiere(InfermiereTO newNurse)
 	{
-		infermiere=newInfermiere;
+		nurse=newNurse;
 		return true;
 	}
 
-	public boolean setMisuraRilevata(String newMisuraRilevata)
+	public boolean setMisuraRilevata(String newObservedMeasure)
 	{
-		misuraRilevata=newMisuraRilevata;
+		observedMeasure=newObservedMeasure;
 		return true;
 	}
 
-	public void setStatoVerificaGPS(StatoVerifica statoVerificaGPS) {
-		this.statoVerificaGPS = statoVerificaGPS;
+	public void setStatoVerificaGPS(StatoVerifica checkStatusGPS) {
+		this.checkStatusGPS = checkStatusGPS;
 	}
 
-	public void setStatoVerificaAccelerometro(StatoVerifica statoVerificaAccelerometro) {
-		this.statoVerificaAccelerometro = statoVerificaAccelerometro;
+	public void setStatoVerificaAccelerometro(StatoVerifica checkStatusAccelerometer) {
+		this.checkStatusAccelerometer = checkStatusAccelerometer;
 	}
 
 	public String getNote() {
-		return note;
+		return notes;
 	}
 
-	public void setNote(String note) {
-		this.note = note;
+	public void setNote(String notes) {
+		this.notes = notes;
 	}
 	@Override
 	public String toString()
 	{
-		String stringaIntervento= java.text.MessageFormat.format(interventoCompleto.getString("INTERVENTO NUMERO {0}"), new Object[] {getID()});
-		stringaIntervento += java.text.MessageFormat.format(interventoCompleto.getString("INFERMIERE N.{0}"), new Object[] {getIDInfermiere()});
-		stringaIntervento += java.text.MessageFormat.format(interventoCompleto.getString("{0}"), new Object[] {getPaziente().toString()});
+		String interventionString= java.text.MessageFormat.format(completeIntervention.getString("INTERVENTO NUMERO {0}"), new Object[] {getID()});
+		interventionString += java.text.MessageFormat.format(completeIntervention.getString("INFERMIERE N.{0}"), new Object[] {getIDInfermiere()});
+		interventionString += java.text.MessageFormat.format(completeIntervention.getString("{0}"), new Object[] {getPaziente().toString()});
                 
-		stringaIntervento += interventoCompleto.getString("- DATA INTERVENTO: ") +getDataDaFormato(interventoCompleto.getString("DD/MM/YYYY"));
-		stringaIntervento += java.text.MessageFormat.format(interventoCompleto.getString("- ORA INIZIO INTERVENTO: {0}"), new Object[] {getOraInizioDaFormato("HH:mm")});
+		interventionString += completeIntervention.getString("- DATA INTERVENTO: ") +getDataDaFormato(completeIntervention.getString("DD/MM/YYYY"));
+		interventionString += java.text.MessageFormat.format(completeIntervention.getString("- ORA INIZIO INTERVENTO: {0}"), new Object[] {getOraInizioDaFormato("HH:mm")});
 		//stringaIntervento += "\n- Ora fine intervento: " + getOraFineDaFormato("HH:mm");
-		stringaIntervento += java.text.MessageFormat.format(interventoCompleto.getString("- INDIRIZZO : {0}"), new Object[] {getCivico()});
-		stringaIntervento += java.text.MessageFormat.format(interventoCompleto.getString("- CITTÀ: {0} - CAP {1}"), new Object[] {getCitta(), getCap()});
-		stringaIntervento += "\n";
-                stringaIntervento += interventoCompleto.getString("TIPI DI INTERVENTO: ") + "\n\n";
-		for(TipoIntervento t: tipiIntervento)
-			stringaIntervento += t.toString() + "\n";
+		interventionString += java.text.MessageFormat.format(completeIntervention.getString("- INDIRIZZO : {0}"), new Object[] {getCivico()});
+		interventionString += java.text.MessageFormat.format(completeIntervention.getString("- CITTÀ: {0} - CAP {1}"), new Object[] {getCitta(), getCap()});
+		interventionString += "\n";
+		interventionString += completeIntervention.getString("TIPI DI INTERVENTO: ") + "\n\n";
+		for(TipoIntervento t: interventionTypes)
+			interventionString += t.toString() + "\n";
                 if(getNote() != null)
-                stringaIntervento += java.text.MessageFormat.format(interventoCompleto.getString("NOTE RILEVAZIONI: {0}"), new Object[] {getNote()});
+                	interventionString += java.text.MessageFormat.format(completeIntervention.getString("NOTE RILEVAZIONI: {0}"), new Object[] {getNote()});
 		
-		return stringaIntervento;
+		return interventionString;
 	}
 }

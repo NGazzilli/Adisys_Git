@@ -15,31 +15,31 @@ import java.util.ResourceBundle;
 public class PatologiaTO implements TO{
     
     private int id;
-    private String codice;
-    private String nome;
-    private int gravita = 0;
+    private String code;
+    private String name;
+    private int severity = 0;
 
-    private static ResourceBundle patologia = ResourceBundle.getBundle("adisys/server/property/Patologia");
+    private static ResourceBundle pathology = ResourceBundle.getBundle("adisys/server/property/Patologia");
     
-    public static void setResourceBundle(String path, Locale locale){
-        patologia = ResourceBundle.getBundle(path, locale);
+    public static void setResourceBundle(String path, Locale local){
+    	pathology = ResourceBundle.getBundle(path, local);
     }
         
-    public PatologiaTO(String codice, String nome){
-    	this.codice = codice;
-    	this.nome = nome;
+    public PatologiaTO(String code, String name){
+    	this.code = code;
+    	this.name = name;
     }
     
-    public PatologiaTO(int id, String codice, String nome){
+    public PatologiaTO(int id, String code, String name){
     	this.id = id;
-        this.codice = codice;
-    	this.nome = nome;
+        this.code = code;
+    	this.name = name;
     }
     
-      public PatologiaTO(String codice, String nome, int gravita){
-    	this.codice = codice;
-    	this.nome = nome;
-    	this.gravita = gravita;
+      public PatologiaTO(String code, String name, int severity){
+    	this.code = code;
+    	this.name = name;
+    	this.severity = severity;
     }
     
     public PatologiaTO(){
@@ -57,65 +57,65 @@ public class PatologiaTO implements TO{
      * @return the Codice
      */
     public String getCodice() {
-        return codice;
+        return code;
     }
 
     /**
      * @return the nome
      */
     public String getNome() {
-        return nome;
+        return name;
     }
 
     /**
      * @return the gravita
      */
     public int getGravita() {
-        return gravita;
+        return severity;
     }
 
-    public String setCodice(String codice) {
+    public String setCodice(String code) {
 
-		String errore="";
+		String error="";
 
 		//Caso stringa vuota
-		if (codice.isEmpty()) errore+= patologia.getString("CODICE PATOLOGIA NON SPECIFICATO");
+		if (code.isEmpty()) error+= pathology.getString("CODICE PATOLOGIA NON SPECIFICATO");
 		else
 		{
-			this.codice = codice;
+			this.code = code;
 		}
 
 		//Restituzione stringa
-		return errore;
+		return error;
 	}
     
     /**
      * @param nome the nome to set
      */
     public void setNome(String nome) {
-        this.nome = nome;
+        this.name = nome;
     }
 
     /**
      * @param  the gravita to gravita
      */
-    public void setGravita(int gravita) {
-        this.gravita = gravita;
+    public void setGravita(int severity) {
+        this.severity = severity;
     }
     
-	public String setGravita(String newGravita) {
+	public String setGravita(String newSeverity) {
 
-		String errore="";
+		String error="";
 
 		//Caso stringa vuota
-		if (newGravita.isEmpty()) errore+= patologia.getString("GRAVITÀ DELLA PATOLOGIA NON SPECIFICATA");
+		if (newSeverity.isEmpty()) error+= pathology.getString("GRAVITÀ DELLA PATOLOGIA NON SPECIFICATA");
 		else
 		{
-			this.gravita = Integer.valueOf(newGravita);
+			this.severity = Integer.valueOf(newSeverity);
 		}
 
 		//Restituzione stringa
-		return errore;
+		return error;
 	}
 	
  
@@ -123,9 +123,9 @@ public class PatologiaTO implements TO{
     public String toString()
     {
     	String stringaPatologia = new String();
-    	stringaPatologia += java.text.MessageFormat.format(patologia.getString("CODICE PATOLOGIA: {0}"), new Object[] {getCodice()});
-    	stringaPatologia += java.text.MessageFormat.format(patologia.getString("- NOME: {0}"), new Object[] {getNome()});
-    	stringaPatologia += java.text.MessageFormat.format(patologia.getString("- GRAVITÀ: {0}"), new Object[] {getGravita()});
+    	stringaPatologia += java.text.MessageFormat.format(pathology.getString("CODICE PATOLOGIA: {0}"), new Object[] {getCodice()});
+    	stringaPatologia += java.text.MessageFormat.format(pathology.getString("- NOME: {0}"), new Object[] {getNome()});
+    	stringaPatologia += java.text.MessageFormat.format(pathology.getString("- GRAVITÀ: {0}"), new Object[] {getGravita()});
 
     	return stringaPatologia;
     }

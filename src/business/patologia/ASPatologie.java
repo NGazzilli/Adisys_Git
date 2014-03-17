@@ -38,7 +38,7 @@ public class ASPatologie extends business.ServiceHandler{
 	 * Istanza della entity dell'patologia {@link Patologia} su cui ASPatologie lavora 
 	*/
 	private I_PatologieGet pat;
-        private I_PatologiaMod patologia;
+        private I_PatologiaMod pathology;
 	
       	/**
 	 * Restituisce una struttura dati dei to degli patologie presenti nel database
@@ -81,11 +81,11 @@ public class ASPatologie extends business.ServiceHandler{
 		}
         }
         
-        public boolean alterTable(ArrayList<String> listaCampi){
+        public boolean alterTable(ArrayList<String> fieldsList){
             
 		try {
-			patologia = new Patologia();
-			return patologia.alterTable(listaCampi);
+			pathology = new Patologia();
+			return pathology.alterTable(fieldsList);
 		} catch (MainException e) {
 			e.printStackTrace();
                         return false;
@@ -94,8 +94,8 @@ public class ASPatologie extends business.ServiceHandler{
         public boolean creaPatologia(PatologiaTO to){
             	try {
 			
-			patologia = new Patologia();
-			return patologia.createPatologia(to);
+            		pathology = new Patologia();
+			return pathology.createPatologia(to);
 			
 		} catch (MainException e) {
 			e.printStackTrace();
@@ -110,8 +110,8 @@ public class ASPatologie extends business.ServiceHandler{
 	public boolean deletePatologia(PatologiaTO to){
 		
 		try {
-			patologia = new Patologia();
-			return patologia.deletePatologia(to);
+			pathology = new Patologia();
+			return pathology.deletePatologia(to);
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;
@@ -126,8 +126,8 @@ public class ASPatologie extends business.ServiceHandler{
 	public boolean modificaPatologia(PatologiaTO to){
 		
 		try {
-			patologia = new Patologia();
-			return patologia.modificaPatologia(to);
+			pathology = new Patologia();
+			return pathology.modificaPatologia(to);
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;
@@ -142,8 +142,8 @@ public class ASPatologie extends business.ServiceHandler{
 	public boolean deleteAll(){
 		
 		try {
-			patologia = new Patologia();
-			return patologia.reset();
+			pathology = new Patologia();
+			return pathology.reset();
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;

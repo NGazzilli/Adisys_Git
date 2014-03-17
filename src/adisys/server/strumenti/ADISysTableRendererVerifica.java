@@ -21,9 +21,9 @@ public class ADISysTableRendererVerifica extends DefaultTableCellRenderer  {
 	private static int IND_COLONNA_GPS;
 	private static int IND_COLONNA_ACC;
 
-	private static final String VALORE_OK = InterventoCompletoTO.StatoVerifica.verificaOK.toString();
-	private static final String VALORE_KO = InterventoCompletoTO.StatoVerifica.anomalia.toString();;
-	private static final String VALORE_NULL = InterventoCompletoTO.StatoVerifica.nonVerificato.toString();;
+	private static final String VALORE_OK = InterventoCompletoTO.StatoVerifica.checkOK.toString();
+	private static final String VALORE_KO = InterventoCompletoTO.StatoVerifica.anomaly.toString();;
+	private static final String VALORE_NULL = InterventoCompletoTO.StatoVerifica.notVerified.toString();;
 
     public ADISysTableRendererVerifica(int colonnaGPS, int colonnaACC) {
         IND_COLONNA_ACC =colonnaACC;

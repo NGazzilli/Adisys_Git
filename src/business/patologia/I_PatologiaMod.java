@@ -30,6 +30,6 @@ public interface I_PatologiaMod {
 	*/
 	public boolean reset();
         
-        public boolean alterTable(ArrayList<String> listaCampi);
+        public boolean alterTable(ArrayList<String> fieldsList);
         
 }

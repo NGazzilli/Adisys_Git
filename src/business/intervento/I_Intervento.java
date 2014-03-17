@@ -38,26 +38,26 @@ public interface I_Intervento {
         
         public AbstractTableModel getTabellaInterventiInfermiere(int id, String dataDal, String dataAl);
         
-        public ArrayList<InterventoTO> getListaInterventiInfermiere(int idInfermiere);
+        public ArrayList<InterventoTO> getListaInterventiInfermiere(int idNurse);
         
-        public int verificaIntervento(int id, String dataInit, String ora);
+        public int verificaIntervento(int id, String startDate, String time);
         
-        public ArrayList<TipoIntervento> leggiTipiIntervento(int idIntervento);
+        public ArrayList<TipoIntervento> leggiTipiIntervento(int idIntervention);
         
-        public ArrayList<PatologiaTO> leggiPatologieIntervento(int idIntervento);
+        public ArrayList<PatologiaTO> leggiPatologieIntervento(int idIntervention);
         
         /**
 	 * Svuota l'intera tabella degli infermieri, usata per la sostituzione
 	*/
 	public boolean reset();
         
-        public boolean alterTable(ArrayList<String> listaCampi);
+        public boolean alterTable(ArrayList<String> fieldsList);
         
-        public boolean alterTablePatologieIntervento(ArrayList<String> listaCampi);
+        public boolean alterTablePatologieIntervento(ArrayList<String> fieldsList);
         
-        public boolean alterTableTipiIntervento(ArrayList<String> listaCampi);
+        public boolean alterTableTipiIntervento(ArrayList<String> fieldsList);
         
-        public void addIntStorico(int idIntervento);
+        public void addIntStorico(int idIntervention);
 
         public AbstractTableModel getStorico(int id);
     

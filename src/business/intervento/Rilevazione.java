@@ -91,11 +91,11 @@ public class Rilevazione {
 		this.accZ = accZ;
 	}
 
-	public boolean setTimestampFromString(String newTimestamp, String formato)
+	public boolean setTimestampFromString(String newTimestamp, String format)
 	{
-		if (DateFormatConverter.parseable(newTimestamp, formato))
+		if (DateFormatConverter.parseable(newTimestamp, format))
 		{
-			timestamp.setTime(DateFormatConverter.dateString2long(newTimestamp, formato));
+			timestamp.setTime(DateFormatConverter.dateString2long(newTimestamp, format));
 			return true;
 		}
 		else

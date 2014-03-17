@@ -20,6 +20,6 @@ public interface I_PatologieGet {
     
         public AbstractTableModel getTabella();
         
-        public ResultSet getTabellaPatologieAssociate(int idPatologia);
+        public ResultSet getTabellaPatologieAssociate(int idPathology);
         	
 }

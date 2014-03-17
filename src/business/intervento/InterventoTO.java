@@ -27,37 +27,36 @@ import presentation.RequestManager;
 */
 public class InterventoTO implements TO {
     
-        private static final String formatoDataInput = "dd/MM/yyyy";
-	private static final String formatoOraInput = "HH.mm";
+        private static final String formatInputDate = "dd/MM/yyyy";
+	private static final String formatInputTime = "HH.mm";
         
-        private static ResourceBundle intervento = ResourceBundle.getBundle("adisys/server/property/Intervento");
+        private static ResourceBundle intervention = ResourceBundle.getBundle("adisys/server/property/Intervento");
     
-        public static void setResourceBundle(String path, Locale locale){
-            intervento = ResourceBundle.getBundle(path, locale);
+        public static void setResourceBundle(String path, Locale local){
+        	intervention = ResourceBundle.getBundle(path, local);
         }
         
         //Campi
 	private int ID;
-	private int IDPaziente;
-	private int IDInfermiere;
+	private int patientID;
+	private int nurseID;
 
-	private Date data;
-	private Time oraInizio;
-	private Time oraFine;
+	private Date date;
+	private Time startTime;
+	private Time endTime;
 
-	private String citta;
-	private String civico;
+	private String city;
+	private String address;
 	private String cap;
 
-	protected ArrayList<TipoIntervento> tipiIntervento;
+	protected ArrayList<TipoIntervento> interventionTypes;
 
 	public InterventoTO()
 	{
-		//TODO Verifica aggiornamento costruttore
-		data= new Date(0);
-		oraInizio = new Time(0);
-		oraFine = new Time(0); 
-		tipiIntervento = new ArrayList<>();
+		date= new Date(0);
+		startTime = new Time(0);
+		endTime = new Time(0); 
+		interventionTypes = new ArrayList<>();
 	}
 
 	public int getID() { 
@@ -65,33 +64,33 @@ public class InterventoTO implements TO {
 	}
 
 	public int getIDPaziente() {
-		return IDPaziente;
+		return patientID;
 	}
 
 	public int getIDInfermiere() {
-		return IDInfermiere;
+		return nurseID;
 	}
 
 	public String getData()
 	{
-		return data.toString();
+		return date.toString();
 	}
 
 	public String getOraInizio()
 	{
-		return oraInizio.toString();
+		return startTime.toString();
 	}
 	public String getOraFine()
 	{
-		return oraFine.toString();
+		return endTime.toString();
 	}
 
 	public String getCitta() {
-		return citta;
+		return city;
 	}
 
 	public String getCivico() {
-		return civico;
+		return address;
 	}
 
 	/**
@@ -110,17 +109,17 @@ public class InterventoTO implements TO {
 
 	public String setID(String ID) {
 
-		String errore="";
+		String error="";
 
 		//Caso stringa vuota
-		if (ID.isEmpty()) errore+= intervento.getString("ID INTERVENTO NON SPECIFICATO");
+		if (ID.isEmpty()) error+= intervention.getString("ID INTERVENTO NON SPECIFICATO");
 		else
 		{
 			this.ID = Integer.valueOf(ID);
 		}
 
 		//Restituzione stringa
-		return errore;
+		return error;
 	}
 
 	public void setID(int newID)
@@ -128,194 +127,161 @@ public class InterventoTO implements TO {
 		this.ID = newID;
 	}
 
-	public void setIDPaziente(int IDPaziente) {
-		this.IDPaziente = IDPaziente;
+	public void setIDPaziente(int patientID) {
+		this.patientID = patientID;
 	}
 
-	public String setIDPaziente(String newIDPaziente) {
+	public String setIDPaziente(String newpatientID) {
 
-		String errore="";
+		String error="";
 
 		//Caso stringa vuota
-		if (newIDPaziente.isEmpty()) errore+= intervento.getString("ID PAZIENTE NON SPECIFICATO");
+		if (newpatientID.isEmpty()) error+= intervention.getString("ID PAZIENTE NON SPECIFICATO");
 		else
 		{
-			this.IDPaziente = Integer.valueOf(newIDPaziente);
+			this.patientID = Integer.valueOf(newpatientID);
 		}
 
 		//Restituzione stringa
-		return errore;
+		return error;
 	}
 
-	public void setIDInfermiere(int IDInfermiere) {
-		this.IDInfermiere = IDInfermiere;
+	public void setIDInfermiere(int nurseID) {
+		this.nurseID = nurseID;
 	}
 
-	public String setIDInfermiere(String newIDInfermiere) {
+	public String setIDInfermiere(String newnurseID) {
 
-		String errore="";
+		String error="";
 
 		//Caso stringa vuota
-		if (newIDInfermiere.isEmpty()) errore+= intervento.getString("ID INFERMIERE NON SPECIFICATO");
+		if (newnurseID.isEmpty()) error+= intervention.getString("ID INFERMIERE NON SPECIFICATO");
 		else
 		{
-			this.IDInfermiere = Integer.valueOf(newIDInfermiere);
+			this.nurseID = Integer.valueOf(newnurseID);
 		}
 
 		//Restituzione stringa
-		return errore;
+		return error;
 	}
 
-	public boolean setData(String nuovaData) {
+	public boolean setData(String newDate) {
 		try {
 			//Tentativo di parsing
-			SimpleDateFormat sdf = new SimpleDateFormat(formatoDataInput);
-			data.setTime(sdf.parse(nuovaData).getTime());
+			SimpleDateFormat sdf = new SimpleDateFormat(formatInputDate);
+			date.setTime(sdf.parse(newDate).getTime());
 			return true;
 		} catch (ParseException e) {
 
 			//Caso fallimento parsing
 			e.printStackTrace();
-			System.out.println(intervento.getString("PARSING DATA FALLITO"));
+			System.out.println(intervention.getString("PARSING DATA FALLITO"));
 			return false;
 
 		}
 	}
 
-	public boolean setOraInizio(String nuovaOraInizio) {
+	public boolean setOraInizio(String newStartTime) {
 		try {
 			//Tentativo di parsing
-			SimpleDateFormat sdf = new SimpleDateFormat(formatoOraInput);
-			oraInizio.setTime(sdf.parse(nuovaOraInizio).getTime());
+			SimpleDateFormat sdf = new SimpleDateFormat(formatInputTime);
+			startTime.setTime(sdf.parse(newStartTime).getTime());
 			return true;
 		} catch (ParseException e) {
 
 			//Caso fallimento parsing
 			e.printStackTrace();
-			System.out.println(intervento.getString("PARSING ORA INIZIO INTERVENTO FALLITO"));
+			System.out.println(intervention.getString("PARSING ORA INIZIO INTERVENTO FALLITO"));
 			return false;
 
 		}
 	}
-	public boolean setOraFine(String nuovaOraFine) {
+	public boolean setOraFine(String newEndTime) {
 		try {
 			//Tentativo di parsing
-			SimpleDateFormat sdf = new SimpleDateFormat(formatoOraInput);
-			oraInizio.setTime(sdf.parse(nuovaOraFine).getTime());
+			SimpleDateFormat sdf = new SimpleDateFormat(formatInputTime);
+			startTime.setTime(sdf.parse(newEndTime).getTime());
 			return true;
 		} catch (ParseException e) {
 
 			//Caso fallimento parsing
 			e.printStackTrace();
-			System.out.println(intervento.getString("PARSING ORA INIZIO INTERVENTO FALLITO"));
+			System.out.println(intervention.getString("PARSING ORA INIZIO INTERVENTO FALLITO"));
 			return false;
 
 		}
 	}
-	public void setDataFmt(String strData, String formatoIngresso)
+	public void setDataFmt(String strData, String inputFormat)
 	{
-		data.setTime(DateFormatConverter.dateString2long(strData, formatoIngresso) );
+		date.setTime(DateFormatConverter.dateString2long(strData, inputFormat) );
 	}
 
-	public void setOraInizioFmt(String strOra, String formatoIngresso)
+	public void setOraInizioFmt(String strOra, String inputFormat)
 	{
-		oraInizio.setTime(DateFormatConverter.dateString2long(strOra, formatoIngresso) );
+		startTime.setTime(DateFormatConverter.dateString2long(strOra, inputFormat) );
 	}
 
-	public void setOraFineFmt(String strOra, String formatoIngresso)
+	public void setOraFineFmt(String strOra, String inputFormat)
 	{
-		oraFine.setTime(DateFormatConverter.dateString2long(strOra, formatoIngresso) );
+		endTime.setTime(DateFormatConverter.dateString2long(strOra, inputFormat) );
 	}
 
 
 
-	public void setCitta(String citta) {
-		this.citta = citta;
+	public void setCitta(String city) {
+		this.city = city;
 	}
 
-	public void setCivico(String civico) {
-		this.civico = civico;
+	public void setCivico(String address) {
+		this.address = address;
 	}
-
-	/*
-	public String setTimestampDaStringhe(String data, String ora)
-	{
-		String errore="";
-		//Controllo stringhe vuote
-		if (data.isEmpty()) errore+="Data vuota";
-		if (ora.isEmpty()) errore+=",Ora vuota";
-
-		//Se non ci sono stati errori tenta il parsing e la scrittura del timestamp
-		if (errore.isEmpty())
-		{
-
-			try {
-				//Tentativo di parsing
-				String stringaTimeStamp = data + " " + ora;
-				SimpleDateFormat sdf = new SimpleDateFormat(formatoDataOraInput);
-				dataOra.setTime(sdf.parse(stringaTimeStamp).getTime() );
-
-			} catch (ParseException e) {
-
-				//Caso fallimento parsing
-				e.printStackTrace();
-
-				//Aggiunge informazioni alla stringa di errore
-				errore+="Parsing data fallito. Formato data non valido.";
-				return errore;
-			}
-
-		}
-		return null;
-	}
-	 */
 	
 	/**Restituisce data dell'intervento in un formato specifico (es. "dd/MM/yyyy")
 	 *
 	 */
-	public String getDataDaFormato(String formatoData) {
-		return DateFormatConverter.long2dateString(data.getTime(), formatoData);
+	public String getDataDaFormato(String dateFormat) {
+		return DateFormatConverter.long2dateString(date.getTime(), dateFormat);
 	}
 
 	/**Restituisce l'ora di inizio dell'intervento in un formato specifico (es. "hh:mm:ss")
 	 *
 	 */
-	public String getOraInizioDaFormato(String formatoOra) {
-		return DateFormatConverter.long2dateString(oraInizio.getTime(), formatoOra);
+	public String getOraInizioDaFormato(String timeFormat) {
+		return DateFormatConverter.long2dateString(startTime.getTime(), timeFormat);
 	}
 
 	/**Restituisce l'ora di fine dell'intervento in un formato specifico (es. "hh:mm:ss")
 	 *
 	 */
-	public String getOraFineDaFormato(String formatoOra) {
-		return DateFormatConverter.long2dateString(oraFine.getTime(), formatoOra);
+	public String getOraFineDaFormato(String timeFormat) {
+		return DateFormatConverter.long2dateString(endTime.getTime(), timeFormat);
 	}
 
 
-	public void addTipoIntervento (TipoIntervento nuovoTipoIntervento)
+	public void addTipoIntervento (TipoIntervento newinterventionTypes)
 	{
-		tipiIntervento.add(nuovoTipoIntervento);
+		interventionTypes.add(newinterventionTypes);
 	}
 
-	public void removeTipoIntervento(int indice)
+	public void removeTipoIntervento(int index)
 	{
-		tipiIntervento.remove(indice);
+		interventionTypes.remove(index);
 	}
 
 	public void cancellaTipiIntervento()
 	{
-		tipiIntervento.clear();
+		interventionTypes.clear();
 	}
 
 	public int countTipInterventi()
 	{
-		return tipiIntervento.size();
+		return interventionTypes.size();
 	}
 
 	public TipoIntervento getTipoIntervento(int n)
 	{
 		try{
-			return tipiIntervento.get(n);
+			return interventionTypes.get(n);
 		}
 		catch (Exception e) {
 			return null;
@@ -325,18 +291,18 @@ public class InterventoTO implements TO {
 	@Override
 	public String toString()
 	{
-		String stringaIntervento= java.text.MessageFormat.format(intervento.getString("INTERVENTO NUMERO {0}"), new Object[] {getID()});
-                stringaIntervento += java.text.MessageFormat.format(intervento.getString("- INFERMIERE ASSEGNATO N.{0}"), new Object[] {getIDInfermiere()});
-                stringaIntervento += java.text.MessageFormat.format(intervento.getString("- PAZIENTE N.{0}"), new Object[] {getIDPaziente()});
-		stringaIntervento += intervento.getString("- DATA INTERVENTO: ") +getDataDaFormato(intervento.getString("DD/MM/YYYY"));
-		stringaIntervento += java.text.MessageFormat.format(intervento.getString("- ORA INIZIO INTERVENTO: {0}"), new Object[] {getOraInizioDaFormato("HH:mm")});
+		String interventionString= java.text.MessageFormat.format(intervention.getString("INTERVENTO NUMERO {0}"), new Object[] {getID()});
+		interventionString += java.text.MessageFormat.format(intervention.getString("- INFERMIERE ASSEGNATO N.{0}"), new Object[] {getIDInfermiere()});
+		interventionString += java.text.MessageFormat.format(intervention.getString("- PAZIENTE N.{0}"), new Object[] {getIDPaziente()});
+                interventionString += intervention.getString("- DATA INTERVENTO: ") +getDataDaFormato(intervention.getString("DD/MM/YYYY"));
+		interventionString += java.text.MessageFormat.format(intervention.getString("- ORA INIZIO INTERVENTO: {0}"), new Object[] {getOraInizioDaFormato("HH:mm")});
 		//stringaIntervento += "\n- Ora fine intervento: " + getOraFineDaFormato("HH:mm");
-		stringaIntervento += java.text.MessageFormat.format(intervento.getString("- INDIRIZZO : {0}"), new Object[] {getCivico()});
-		stringaIntervento += java.text.MessageFormat.format(intervento.getString("- CITTÀ: {0} - CAP {1}"), new Object[] {getCitta(), getCap()});
-		stringaIntervento += intervento.getString("TIPI DI INTERVENTO: ");
-		stringaIntervento += intervento.getString("");
-		for(TipoIntervento t: tipiIntervento)
-			stringaIntervento += java.text.MessageFormat.format(intervento.getString("{0}"), new Object[] {t.toString()});
-		return stringaIntervento;
+		interventionString += java.text.MessageFormat.format(intervention.getString("- INDIRIZZO : {0}"), new Object[] {getCivico()});
+		interventionString += java.text.MessageFormat.format(intervention.getString("- CITTÀ: {0} - CAP {1}"), new Object[] {getCitta(), getCap()});
+		interventionString += intervention.getString("TIPI DI INTERVENTO: ");
+		interventionString += intervention.getString("");
+		for(TipoIntervento t: interventionTypes)
+			interventionString += java.text.MessageFormat.format(intervention.getString("{0}"), new Object[] {t.toString()});
+		return interventionString;
 	}
 }
