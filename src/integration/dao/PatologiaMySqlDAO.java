@@ -297,8 +297,8 @@ public class PatologiaMySqlDAO extends AbstractDAO{
                     
                     ADISysTableModel tabella = getTabella();
 			delete(NOME_COLONNA_ID + " NOT IN "
-                        + " (SELECT " + InterventoMySqlDAO.NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI
-                        + " FROM " + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI + " )");
+                        + " (SELECT " + InterventoMySqlDAO.COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME
+                        + " FROM " + InterventoMySqlDAO.PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME + " )");
                     if(tabella.getRowCount() != getTabella().getRowCount())
                         return true;
                     else
@@ -389,8 +389,8 @@ public class PatologiaMySqlDAO extends AbstractDAO{
     }
     
     public ResultSet getTabellaPatologieAssociate(int idPatologia) {
-        return linkDb.getResultSet("SELECT * FROM " + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI
-                        + " WHERE " + InterventoMySqlDAO.NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI + " = "
+        return linkDb.getResultSet("SELECT * FROM " + InterventoMySqlDAO.PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME
+                        + " WHERE " + InterventoMySqlDAO.COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME + " = "
                         + idPatologia);
     }
 

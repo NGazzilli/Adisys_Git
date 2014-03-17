@@ -960,7 +960,7 @@ public class EditorPatologieTipoIntervento extends javax.swing.JDialog implement
 
             NOME_COLONNA_CODICE = PatologiaMySqlDAO.NOME_COLONNA_CODICE;
                 NOME_COLONNA_NOME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
-                NOME_COLONNA_GRAVITA = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
+                NOME_COLONNA_GRAVITA = InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME;
             if(modello.getColumnCount() == 0){
                 modello.addColumn("");
                 String[] msg = {editorPatologieTipoIntervento.getString("NON È STATA TROVATA ALCUNA PATOLOGIA REGISTRATA NEL")
@@ -1035,7 +1035,7 @@ public class EditorPatologieTipoIntervento extends javax.swing.JDialog implement
                 for(int i = 0; i < tabellaPatologie.getColumnCount(); i++){
                     tabellaEditorPatologie.addColumn(tabellaPatologie.getColumnName(i));
                 }
-                tabellaEditorPatologie.addColumn(InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI);
+                tabellaEditorPatologie.addColumn(InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME);
                 tabellaEditorPatologie.setRowCount(tabellaPatologie.getRowCount());
                 for(int i = 0; i < tabellaEditorPatologie.getRowCount(); i++){
                     for(int k = 0; k < tabellaEditorPatologie.getColumnCount() - 1; k++){

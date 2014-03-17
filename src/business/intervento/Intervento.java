@@ -113,7 +113,7 @@ public class Intervento implements I_Intervento, I_InterventoSpecifico {
 
     @Override
     public ArrayList<TipoIntervento> leggiTipiIntervento(int idIntervento) {
-        return ((InterventoMySqlDAO) daoFullInt).leggiTipiIntervento(idIntervento);
+        return ((InterventoMySqlDAO) daoFullInt).readInterventionsTypes(idIntervento);
     }
 
     @Override

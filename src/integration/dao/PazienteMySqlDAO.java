@@ -640,18 +640,18 @@ public class PazienteMySqlDAO extends AbstractDAO{
                                 + PatologiaMySqlDAO.NOME_TABELLA + "." + PatologiaMySqlDAO.NOME_COLONNA_NOME
                                 + " FROM " 
                                 + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + " JOIN " 
-                                + InterventoMySqlDAO.NOME_TABELLA_TIPI_INTERVENTI + " ON " 
+                                + InterventoMySqlDAO.INTERVENTIONS_TYPES_TABLE_NAME + " ON " 
                                 + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + NOME_COLONNA_ID 
-                                + " = " +  InterventoMySqlDAO.NOME_TABELLA_TIPI_INTERVENTI + "."
-                                + InterventoMySqlDAO.NOME_COLONNA_IDINT_TIPO + " JOIN " 
-                                + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI 
-                                + " ON " + InterventoMySqlDAO.NOME_TABELLA_TIPI_INTERVENTI + "."
-                                + InterventoMySqlDAO.NOME_COLONNA_ID_TIPO_INTERVENTO + " = " 
-                                + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI 
-                                + "." + InterventoMySqlDAO.NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI 
+                                + " = " +  InterventoMySqlDAO.INTERVENTIONS_TYPES_TABLE_NAME + "."
+                                + InterventoMySqlDAO.COLUMN_IDINT_TYPE_NAME + " JOIN " 
+                                + InterventoMySqlDAO.PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME 
+                                + " ON " + InterventoMySqlDAO.INTERVENTIONS_TYPES_TABLE_NAME + "."
+                                + InterventoMySqlDAO.COLUMN_INTERVENTION_TYPE_ID_NAME + " = " 
+                                + InterventoMySqlDAO.PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME 
+                                + "." + InterventoMySqlDAO.COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME 
                                 + " JOIN " + PatologiaMySqlDAO.NOME_TABELLA + " ON " 
-                                + InterventoMySqlDAO.NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI 
-                                + "." + InterventoMySqlDAO.NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI + " = " + 
+                                + InterventoMySqlDAO.PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME 
+                                + "." + InterventoMySqlDAO.COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME + " = " + 
                                 PatologiaMySqlDAO.NOME_TABELLA + "." + PatologiaMySqlDAO.NOME_COLONNA_ID + " WHERE " +
                                 InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.PATIENT_COLUMN_ID_NAME + " = " + id;
 			//Restituzione oggetto

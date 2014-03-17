@@ -1336,13 +1336,13 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
                     }	
                     switch(permesso) {
 			
-                        case InterventoMySqlDAO.intTrascorso: 
+                        case InterventoMySqlDAO.intBygone: 
                             errLog += editorInterventi.getString("IMPOSSIBILE CREARE UN INTERVENTO IN DATA E ORA") + 
                                 dataInit + java.text.MessageFormat.format(editorInterventi.getString("{0} INFERIORE ALLA DATA E ORA CORRENTE {1}"), 
                                     new Object[] {ora, DateFormatConverter.long2dateString(DateFormatConverter.oggi(), DateFormatConverter.Dateformat())});
                             errori++;
                             break;
-                        case InterventoMySqlDAO.intNonModificabile: 
+                        case InterventoMySqlDAO.intNotChangeable: 
                             int id = Integer.parseInt(idInfermiere);
                             InfermiereTO toInf = new InfermiereTO();
                             toInf.setID(id);
@@ -1531,7 +1531,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
             VariableTableModel tabellaPatologieVuota = new VariableTableModel();
             tabellaPatologieVuota.addColumn(PatologiaMySqlDAO.NOME_COLONNA_CODICE);
             tabellaPatologieVuota.addColumn(PatologiaMySqlDAO.NOME_COLONNA_NOME);
-            tabellaPatologieVuota.addColumn(InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI);
+            tabellaPatologieVuota.addColumn(InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME);
            
             //Creazione modello
             return tabellaPatologieVuota;
@@ -1776,11 +1776,11 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
         } else {
             boolean passato = false;
             String data = tabellaInterventi.getValueAt(tabellaInterventi.getSelectedRow(), 
-                    tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_DATA)).toString();
+                    tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_DATE_NAME)).toString();
             String dateFormat = DateFormatConverter.cambiaFormato(data, 
                     FORMATO_DATA_TABELLA, FORMATO_DATA_INPUT);
             String ora = tabellaInterventi.getValueAt(tabellaInterventi.getSelectedRow(), 
-                    tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ORA_INIZIO)).toString();
+                    tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_START_TIME_NAME)).toString();
             String oraFormat = DateFormatConverter.cambiaFormato(ora, 
                     FORMATO_ORA_TABELLA, FORMATO_ORA_INPUT);
             String dataOra = dateFormat + java.text.MessageFormat.format(
@@ -1972,7 +1972,7 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
         FC = RequestManager.getFCInstance();
         NOME_COLONNA_CODICE = PatologiaMySqlDAO.NOME_COLONNA_CODICE;
         NOME_COLONNA_NOME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
-        NOME_COLONNA_GRAVITA = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
+        NOME_COLONNA_GRAVITA = InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME;
         aggiornaInterventi();
         aggiornaInfermieri();
         aggiornaPazienti();
@@ -2213,12 +2213,12 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
             int colonnaIDPaziente = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.PATIENT_COLUMN_ID_NAME);
             int colonnaIDInfermiere = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NURSE_COLUMN_ID_NAME);
 
-            int colonnaData = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_DATA);
-            int colonnaOraInizio = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_ORA_INIZIO);
+            int colonnaData = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_DATE_NAME);
+            int colonnaOraInizio = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_START_TIME_NAME);
 
             int colonnaCitta = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_CITY_NAME);
-            int colonnaCivico = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_CIVICO);
-            int colonnaCAP = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.NOME_COLONNA_CAP);
+            int colonnaCivico = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_HOUSE_NUMBER_NAME);
+            int colonnaCAP = tabellaInterventi.getColumnModel().getColumnIndex(InterventoMySqlDAO.COLUMN_POSTCODE_NAME);
 
             //Elaborazione data-ora 
             //Cambiamento formato data e ora
@@ -2245,9 +2245,9 @@ public class EditorInterventi extends javax.swing.JDialog implements Boundary {
                         Logger.getLogger(EditorInterventi.class.getName()).log(Level.SEVERE, null, ex);
              }
             //VERIFICA COERENZA ORARIO DI MODIFICA CON ORARIO DELLA PRIMA ATTIVITA DELL'INFERMIERE (ME1)
-            if (flgMod == InterventoMySqlDAO.intTrascorso) {
+            if (flgMod == InterventoMySqlDAO.intBygone) {
                 GMessage.message_error(editorInterventi.getString("ERRORE: IMPOSSIBILE MODIFICARE UN INTERVENTO PASSATO"));
-            } else if (flgMod == InterventoMySqlDAO.intNonModificabile) {
+            } else if (flgMod == InterventoMySqlDAO.intNotChangeable) {
                 InfermiereTO toInf = new InfermiereTO();
                 toInf.setID(idInf);
                 params.clear();

@@ -220,7 +220,7 @@ public class EditorGravita extends javax.swing.JDialog implements Boundary {
                   String[] colonne = tmp.columnModelTabellaPatologieTipoIntervento();
                   int colonnaGravita = -1;
                   for(int i = 0; i < colonne.length; i++){
-                      if(colonne[i].equals(InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI))
+                      if(colonne[i].equals(InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME))
                           colonnaGravita = i;
                   }
                   int numTipiIntervento = tmp.getTabellaTipiIntervento().getRowCount();

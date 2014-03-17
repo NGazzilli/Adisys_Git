@@ -47,8 +47,8 @@ public class View {
                 + InfermiereMySqlDAO.TABLE_NAME + "." + InfermiereMySqlDAO.COLUMN_ID_NAME 
                 + " = " + InterventoMySqlDAO.INTERVENTION_TABLE_NAME 
                 + "." + InterventoMySqlDAO.NURSE_COLUMN_ID_NAME + " WHERE "
-                + InterventoMySqlDAO.NOME_COLONNA_DATA + " >= CURDATE() AND "  
-                + InterventoMySqlDAO.NOME_COLONNA_ORA_INIZIO + " >= CURTIME() GROUP BY "
+                + InterventoMySqlDAO.COLUMN_DATE_NAME + " >= CURDATE() AND "  
+                + InterventoMySqlDAO.COLUMN_START_TIME_NAME + " >= CURTIME() GROUP BY "
                 + InfermiereMySqlDAO.TABLE_NAME + "." + InfermiereMySqlDAO.COLUMN_ID_NAME + " ORDER BY "
                 + InfermiereMySqlDAO.TABLE_NAME + "." + InfermiereMySqlDAO.COLUMN_ID_NAME + ")"); 
                 
@@ -69,11 +69,11 @@ public class View {
                 + InfermiereMySqlDAO.COLUMN_SURNAME_NAME + " AS "
                 + "INFERMIERE, " + PazienteMySqlDAO.NOME_TABELLA + "." + PazienteMySqlDAO.NOME_COLONNA_NOME + ", "
                 + PazienteMySqlDAO.NOME_TABELLA + "." + PazienteMySqlDAO.NOME_COLONNA_COGNOME + ", "
-                + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.NOME_COLONNA_DATA
-                + ", " +  InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.NOME_COLONNA_ORA_INIZIO
-                + ", " + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.NOME_COLONNA_ORA_FINE + ", "
+                + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.COLUMN_DATE_NAME
+                + ", " +  InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.COLUMN_START_TIME_NAME
+                + ", " + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.COLUMN_END_TIME_NAME + ", "
                 + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.COLUMN_CITY_NAME + ", "
-                + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.NOME_COLONNA_CIVICO + " FROM "
+                + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "." + InterventoMySqlDAO.COLUMN_HOUSE_NUMBER_NAME + " FROM "
                 + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + ", " 
                 + InfermiereMySqlDAO.TABLE_NAME + ", " + PazienteMySqlDAO.NOME_TABELLA + " WHERE "
                 + InterventoMySqlDAO.INTERVENTION_TABLE_NAME + "."

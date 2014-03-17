@@ -46,50 +46,50 @@ public class InterventoMySqlDAO extends AbstractDAO{
 	public static String NURSE_COLUMN_ID_NAME = "";
 
 	public static String COLUMN_CITY_NAME = "";
-	public static String NOME_COLONNA_CIVICO = "";
-	public static String NOME_COLONNA_CAP = "";
+	public static String COLUMN_HOUSE_NUMBER_NAME = "";
+	public static String COLUMN_POSTCODE_NAME = "";
 
-	public static String NOME_COLONNA_DATA = "";
-	public static String NOME_COLONNA_ORA_INIZIO = "";
-	public static String NOME_COLONNA_ORA_FINE = "";
-        public static String NOME_COLONNA_STORICO = "";
+	public static String COLUMN_DATE_NAME = "";
+	public static String COLUMN_START_TIME_NAME = "";
+	public static String COLUMN_END_TIME_NAME = "";
+        public static String COLUMN_REGISTER_NAME = "";
 
-	public static String NOME_TABELLA_TIPI_INTERVENTI = "";
+	public static String INTERVENTIONS_TYPES_TABLE_NAME = "";
         
-	public static String NOME_COLONNA_ID_TIPO_INTERVENTO ="";
-	public static String NOME_COLONNA_IDINT_TIPO = "";
-	public static String NOME_COLONNA_NOME_TIPO = "";
-	public static String NOME_COLONNA_VALORE_RILEVATO = "";
-	public static String NOME_COLONNA_TEMPO_INTERVENTO = "";
-	public static String NOME_COLONNA_NOTE_TIPO = "";
+	public static String COLUMN_INTERVENTION_TYPE_ID_NAME ="";
+	public static String COLUMN_IDINT_TYPE_NAME = "";
+	public static String TYPE_NAME_COLUMN_NAME = "";
+	public static String COLUMN_OBSERVED_VALUE_NAME = "";
+	public static String COLUMN_INTERVENTION_DURATION_NAME = "";
+	public static String COLUMN_TYPE_NOTES_NAME = "";
          
-	public static String NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI = "";
-	public static String NOME_COLONNA_ID_PAT_INTERVENTO = "";
-        public static String NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI = "";
-	public static String NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI = "";
-        public static String NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI = "";
+	public static String PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME = "";
+	public static String COLUMN_ID_INTERVENTION_PATHOLOGY_NAME = "";
+        public static String COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME = "";
+	public static String COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME = "";
+        public static String COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME = "";
         
         //COSTANTI DI FORMATO
-	private static final String FORMATO_DATA_SQL = "yyyy-MM-dd";
-	private static final String FORMATO_ORA_SQL = "HH:mm:ss";
+	private static final String SQL_DATE_FORMAT = "yyyy-MM-dd";
+	private static final String SQL_TIME_FORMAT = "HH:mm:ss";
         public final static int diffMax = 120;
-	public static final int intTrascorso = -1;
-	public static final int intNonModificabile = 0;
-	public static final int intModificabile = 1;
+	public static final int intBygone = -1;
+	public static final int intNotChangeable = 0;
+	public static final int intChangeable = 1;
         
         private static String filePath = "file/interventi.txt";
-        private static String filePathTipi = "file/tipiInterventi.txt";
-        private static String filePathPatologie = "file/patTipiInterventi.txt";
+        private static String filePathTypes = "file/tipiInterventi.txt";
+        private static String filePathPathologies = "file/patTipiInterventi.txt";
         
 	/**Costante protetta per i campi della query insert*/
 	protected final static String[] FIELDS_INSERT = {
 		PATIENT_COLUMN_ID_NAME,
 		NURSE_COLUMN_ID_NAME,
 		COLUMN_CITY_NAME,
-                NOME_COLONNA_CIVICO,
-                NOME_COLONNA_CAP,
-                NOME_COLONNA_DATA,
-                NOME_COLONNA_ORA_INIZIO
+		COLUMN_HOUSE_NUMBER_NAME,
+		COLUMN_POSTCODE_NAME,
+		COLUMN_DATE_NAME,
+		COLUMN_START_TIME_NAME
 	};
 	//Se cambio il numero di FIELDS_INSERT, devo cambiare anche FIELDS_QUERY
 	/**Costante protetta per i campi della query select, include i campi della costante
@@ -105,14 +105,14 @@ public class InterventoMySqlDAO extends AbstractDAO{
                 FIELDS_INSERT[6]
 	};
 	/**Costante per il nome della tabella degli infermieri*/
-	protected final static String TABLE = leggiNomeTabella();
+	protected final static String TABLE = readTableName();
         
                
 	/**Grazie a questo oggetto ottiene le query già ben formate pronte per essere
 	 * date in pasto al database*/
 	private MySqlDAOConfig mysqlConfig = new MySqlDAOConfig(FIELDS_INSERT, FIELDS_QUERY, TABLE);
 	
-        private static String leggiNomeTabella(){
+        private static String readTableName(){
             try {
                 Scanner scanner = new Scanner(FileFactory.getFileContent(filePath));
                 return scanner.next();
@@ -126,27 +126,27 @@ public class InterventoMySqlDAO extends AbstractDAO{
             
         }
        
-        private void caricaVariables(String[] nomeCampi){
+        private void loadVariables(String[] fieldsName){
             
-        	INTERVENTION_TABLE_NAME = nomeCampi[0];
-        	COLUMN_ID_NAME = nomeCampi[1];
-        	PATIENT_COLUMN_ID_NAME = nomeCampi[2];
-        	NURSE_COLUMN_ID_NAME = nomeCampi[3];
-        	COLUMN_CITY_NAME = nomeCampi[4];
-            NOME_COLONNA_CIVICO = nomeCampi[5];
-            NOME_COLONNA_CAP = nomeCampi[6];
-            NOME_COLONNA_DATA = nomeCampi[7];
-            NOME_COLONNA_ORA_INIZIO = nomeCampi[8];
-            NOME_COLONNA_ORA_FINE = nomeCampi[9];
-            NOME_COLONNA_STORICO = nomeCampi[10];
+        	INTERVENTION_TABLE_NAME = fieldsName[0];
+        	COLUMN_ID_NAME = fieldsName[1];
+        	PATIENT_COLUMN_ID_NAME = fieldsName[2];
+        	NURSE_COLUMN_ID_NAME = fieldsName[3];
+        	COLUMN_CITY_NAME = fieldsName[4];
+        	COLUMN_HOUSE_NUMBER_NAME = fieldsName[5];
+        	COLUMN_POSTCODE_NAME = fieldsName[6];
+        	COLUMN_DATE_NAME = fieldsName[7];
+        	COLUMN_START_TIME_NAME = fieldsName[8];
+        	COLUMN_END_TIME_NAME = fieldsName[9];
+        	COLUMN_REGISTER_NAME = fieldsName[10];
             
             FIELDS_INSERT[0] = PATIENT_COLUMN_ID_NAME + ", ";
             FIELDS_INSERT[1] = NURSE_COLUMN_ID_NAME + ", ";
             FIELDS_INSERT[2] = COLUMN_CITY_NAME + ", ";
-            FIELDS_INSERT[3] = NOME_COLONNA_CIVICO + ", ";
-            FIELDS_INSERT[4] = NOME_COLONNA_CAP + ", ";
-            FIELDS_INSERT[5] = NOME_COLONNA_DATA + ", ";
-            FIELDS_INSERT[6] = NOME_COLONNA_ORA_INIZIO;
+            FIELDS_INSERT[3] = COLUMN_HOUSE_NUMBER_NAME + ", ";
+            FIELDS_INSERT[4] = COLUMN_POSTCODE_NAME + ", ";
+            FIELDS_INSERT[5] = COLUMN_DATE_NAME + ", ";
+            FIELDS_INSERT[6] = COLUMN_START_TIME_NAME;
             FIELDS_QUERY[0] = COLUMN_ID_NAME + ", ";
             FIELDS_QUERY[1] = FIELDS_INSERT[0];
             FIELDS_QUERY[2] = FIELDS_INSERT[1];
@@ -157,23 +157,23 @@ public class InterventoMySqlDAO extends AbstractDAO{
             FIELDS_QUERY[7] = FIELDS_INSERT[6];
         }
         
-        public void leggiFiles() {
+        public void readFiles() {
             try {
                 Scanner scanner = new Scanner(FileFactory.getFileContent(filePath));
 
                 int i = 0;
-                String[] nomeCampi = new String[0];
+                String[] fieldsName = new String[0];
                 while(scanner.hasNext()){
                     String newCampo = scanner.next();
                     //System.out.println(newCampo);
                    
-                    String[] temp = new String[nomeCampi.length + 1];
-                    for (i = 0; i < nomeCampi.length; i++) 
-                        temp[i] = nomeCampi[i];
-                    nomeCampi = temp;
-                    nomeCampi[nomeCampi.length - 1] = newCampo;
+                    String[] temp = new String[fieldsName.length + 1];
+                    for (i = 0; i < fieldsName.length; i++) 
+                        temp[i] = fieldsName[i];
+                    fieldsName = temp;
+                    fieldsName[fieldsName.length - 1] = newCampo;
                 }
-                caricaVariables(nomeCampi);
+                loadVariables(fieldsName);
                 scanner.close();
                 
             } catch (FileNotFoundException ex) {
@@ -181,37 +181,37 @@ public class InterventoMySqlDAO extends AbstractDAO{
             } catch (IOException ex) {
                 Logger.getLogger(InterventoMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            leggiFilesTipiInterventi();
-            leggiFilesPatTipiInterventi();
+            readFilesInterventionsTypes();
+            readFilesPatInterventionsTypes();
         }
         
-        private void caricaVariablesTipiInterventi(String[] nomeCampi){
-            NOME_TABELLA_TIPI_INTERVENTI = nomeCampi[0];
-            NOME_COLONNA_ID_TIPO_INTERVENTO = nomeCampi[1];
-            NOME_COLONNA_IDINT_TIPO = nomeCampi[2];
-            NOME_COLONNA_NOME_TIPO = nomeCampi[3];
-            NOME_COLONNA_VALORE_RILEVATO = nomeCampi[4];
-            NOME_COLONNA_TEMPO_INTERVENTO = nomeCampi[5];
-            NOME_COLONNA_NOTE_TIPO = nomeCampi[6];
+        private void loadVariablesInterventionsTypes(String[] fieldsName){
+        	INTERVENTIONS_TYPES_TABLE_NAME = fieldsName[0];
+        	COLUMN_INTERVENTION_TYPE_ID_NAME = fieldsName[1];
+        	COLUMN_IDINT_TYPE_NAME = fieldsName[2];
+        	TYPE_NAME_COLUMN_NAME = fieldsName[3];
+        	COLUMN_OBSERVED_VALUE_NAME = fieldsName[4];
+        	COLUMN_INTERVENTION_DURATION_NAME = fieldsName[5];
+        	COLUMN_TYPE_NOTES_NAME = fieldsName[6];
         }
         
-        public void leggiFilesTipiInterventi() {
+        public void readFilesInterventionsTypes() {
             try {
-                Scanner scanner = new Scanner(FileFactory.getFileContent(filePathTipi));
+                Scanner scanner = new Scanner(FileFactory.getFileContent(filePathTypes));
 
                 int i = 0;
-                String[] nomeCampi = new String[0];
+                String[] fieldsName = new String[0];
                 while(scanner.hasNext()){
                     String newCampo = scanner.next();
                     //System.out.println(newCampo);
                    
-                    String[] temp = new String[nomeCampi.length + 1];
-                    for (i = 0; i < nomeCampi.length; i++) 
-                        temp[i] = nomeCampi[i];
-                    nomeCampi = temp;
-                    nomeCampi[nomeCampi.length - 1] = newCampo;
+                    String[] temp = new String[fieldsName.length + 1];
+                    for (i = 0; i < fieldsName.length; i++) 
+                        temp[i] = fieldsName[i];
+                    fieldsName = temp;
+                    fieldsName[fieldsName.length - 1] = newCampo;
                 }
-                caricaVariablesTipiInterventi(nomeCampi);
+                loadVariablesInterventionsTypes(fieldsName);
                 scanner.close();
                 
             } catch (FileNotFoundException ex) {
@@ -222,32 +222,32 @@ public class InterventoMySqlDAO extends AbstractDAO{
             
         }
 
-        private void caricaVariablesPatTipiInterventi(String[] nomeCampi){
-            NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI = nomeCampi[0];
-            NOME_COLONNA_ID_PAT_INTERVENTO = nomeCampi[1];
-            NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI = nomeCampi[2];
-            NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI = nomeCampi[3];
-            NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI = nomeCampi[4];
+        private void loadVariablesPatInterventionsTypes(String[] fieldsName){
+        	PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME = fieldsName[0];
+        	COLUMN_ID_INTERVENTION_PATHOLOGY_NAME = fieldsName[1];
+        	COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME = fieldsName[2];
+        	COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME = fieldsName[3];
+        	COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME = fieldsName[4];
         }
         
-        public void leggiFilesPatTipiInterventi() {
+        public void readFilesPatInterventionsTypes() {
             try {
                                     //JOptionPane.showMessageDialog(null, FileFactory.getFileContent(name));
-                Scanner scanner = new Scanner(FileFactory.getFileContent(filePathPatologie));
+                Scanner scanner = new Scanner(FileFactory.getFileContent(filePathPathologies));
 
                 int i = 0;
-                String[] nomeCampi = new String[0];
+                String[] fieldsName = new String[0];
                 while(scanner.hasNext()){
                     String newCampo = scanner.next();
                     //System.out.println(newCampo);
                    
-                    String[] temp = new String[nomeCampi.length + 1];
-                    for (i = 0; i < nomeCampi.length; i++) 
-                        temp[i] = nomeCampi[i];
-                    nomeCampi = temp;
-                    nomeCampi[nomeCampi.length - 1] = newCampo;
+                    String[] temp = new String[fieldsName.length + 1];
+                    for (i = 0; i < fieldsName.length; i++) 
+                        temp[i] = fieldsName[i];
+                    fieldsName = temp;
+                    fieldsName[fieldsName.length - 1] = newCampo;
                 }
-                caricaVariablesPatTipiInterventi(nomeCampi);
+                loadVariablesPatInterventionsTypes(fieldsName);
                 scanner.close();
                 
             } catch (FileNotFoundException ex) {
@@ -283,7 +283,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				linkDb.connect();
 			}
 		}
-                leggiFiles();
+		readFiles();
 	}
         
 	/**Numero massimo di caratteri consentiti dal database
@@ -313,11 +313,11 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				PATIENT_COLUMN_ID_NAME,
 
 				COLUMN_CITY_NAME,
-				NOME_COLONNA_CIVICO,
-				NOME_COLONNA_CAP,
+				COLUMN_HOUSE_NUMBER_NAME,
+				COLUMN_POSTCODE_NAME,
 
-				NOME_COLONNA_DATA,
-				NOME_COLONNA_ORA_INIZIO
+				COLUMN_DATE_NAME,
+				COLUMN_START_TIME_NAME
 				).toString();
 
 
@@ -329,8 +329,8 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				linkDb.string2sqlstring(to.getCivico()),
 				linkDb.string2sqlstring(to.getCap()),
 
-				to.getDataDaFormato(FORMATO_DATA_SQL),
-				to.getOraInizioDaFormato(FORMATO_ORA_SQL)
+				to.getDataDaFormato(SQL_DATE_FORMAT),
+				to.getOraInizioDaFormato(SQL_TIME_FORMAT)
 
 				).toString();
 
@@ -382,11 +382,11 @@ public class InterventoMySqlDAO extends AbstractDAO{
 			for(int i=0; i < to.countTipInterventi(); i++ )
 			{
 				//Esecuzione predicato con incremento indice in caso di successo.
-				if(inserisciTipoIntervento(newID, to.getTipoIntervento(i).getNome(), to.getTipoIntervento(i).getNote()))
+				if(insertInterventionType(newID, to.getTipoIntervento(i).getNome(), to.getTipoIntervento(i).getNote()))
 				{
 					
 					ResultSet idTipoIntervento = linkDb.getResultSet("SELECT MAX(" 
-                                                + NOME_COLONNA_ID_TIPO_INTERVENTO + ") FROM " + NOME_TABELLA_TIPI_INTERVENTI);
+                                                + COLUMN_INTERVENTION_TYPE_ID_NAME + ") FROM " + INTERVENTIONS_TYPES_TABLE_NAME);
 
 					int lastInsertId; //ID del nuovo intervento
 
@@ -413,7 +413,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
                                     
                                     
                                     for(int k = 0; k < patologieTipoIntervento.size(); k++)
-                                        if(inserisciPatologieTipoIntervento(lastInsertId, patologieTipoIntervento.get(k).getCodice(), 
+                                        if(insertPathologiesInterventionType(lastInsertId, patologieTipoIntervento.get(k).getCodice(), 
                                                 patologieTipoIntervento.get(k).getGravita())){
                                             //Trace
 					System.out.println("InterventoMySqlDAO -> Patologia tipo intervento <<"+ to.getTipoIntervento(i).getNome() +">> inserite con successo");
@@ -458,16 +458,16 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		}
 	}
         
-        private boolean inserisciTipoIntervento(int idIntervento, String nomeTipo, String noteTipo) 
+        private boolean insertInterventionType(int idIntervento, String nomeTipo, String noteTipo) 
 	{
 		//TODO Inserimento del tipo di intervento:
 
 		//Composizione colonne
-		String colonna1 = NOME_COLONNA_IDINT_TIPO;
-		String colonna2 = NOME_COLONNA_NOME_TIPO;
-		String colonna3 = NOME_COLONNA_NOTE_TIPO;
-		String colonna4 = NOME_COLONNA_TEMPO_INTERVENTO;
-		String colonna5 = NOME_COLONNA_VALORE_RILEVATO;
+		String colonna1 = COLUMN_IDINT_TYPE_NAME;
+		String colonna2 = TYPE_NAME_COLUMN_NAME;
+		String colonna3 = COLUMN_TYPE_NOTES_NAME;
+		String colonna4 = COLUMN_INTERVENTION_DURATION_NAME;
+		String colonna5 = COLUMN_OBSERVED_VALUE_NAME;
 
 
 		String elencoColonneTipi = "("+ colonna1 +"," + colonna2 +"," + colonna3 + "," + colonna4 +"," + colonna5 + ")";
@@ -482,7 +482,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		String elencoValoriTipi = "("+ valore1 +"," + valore2 +"," + valore3 +"," + valore4 +"," + valore5 +")";
 
 		//Composizione predicato SQL
-		String predicatoInserimentoTipo= "INSERT INTO " + NOME_TABELLA_TIPI_INTERVENTI + elencoColonneTipi +" VALUES " + elencoValoriTipi + ";";
+		String predicatoInserimentoTipo= "INSERT INTO " + INTERVENTIONS_TYPES_TABLE_NAME + elencoColonneTipi +" VALUES " + elencoValoriTipi + ";";
 
 		//Trace
 		System.out.println("SQL: " + predicatoInserimentoTipo);
@@ -503,14 +503,14 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		}
 	}
         
-        private boolean inserisciPatologieTipoIntervento(int idIntervento, String codicePatologia, int gravita) 
+        private boolean insertPathologiesInterventionType(int idIntervento, String codicePatologia, int gravita) 
 	{
 		//TODO Inserimento del tipo di intervento:
 
 		//Composizione colonne
-		String colonna1 = NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI;
-		String colonna2 = NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI;
-                String colonna3 = NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
+		String colonna1 = COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME;
+		String colonna2 = COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME;
+                String colonna3 = COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME;
 
 		String elencoColonneTipi = "(" + colonna1 +"," + colonna2 +"," + colonna3+ ")";
 
@@ -544,7 +544,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		String elencoValoriTipi = "("+ valore1 +"," + valore2 + "," + valore3 + ")";
 
 		//Composizione predicato SQL
-		String predicatoInserimentoTipo= "INSERT INTO " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI 
+		String predicatoInserimentoTipo= "INSERT INTO " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME 
                         + elencoColonneTipi +" VALUES " + elencoValoriTipi + ";";
 
 		//Trace
@@ -578,11 +578,11 @@ public class InterventoMySqlDAO extends AbstractDAO{
                                 PATIENT_COLUMN_ID_NAME,
 
                                 COLUMN_CITY_NAME,
-				NOME_COLONNA_CIVICO,
-				NOME_COLONNA_CAP,
+                                COLUMN_HOUSE_NUMBER_NAME,
+                                COLUMN_POSTCODE_NAME,
 
-				NOME_COLONNA_DATA,
-				NOME_COLONNA_ORA_INIZIO
+                                COLUMN_DATE_NAME,
+                                COLUMN_START_TIME_NAME
 				).toString();
 		//Recupero dati sugli interventi dell'infermiere
 		String queryText= "SELECT " + elencoColonne + " FROM " + INTERVENTION_TABLE_NAME; 
@@ -597,19 +597,19 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				queryText = queryText + " AND ";
 			if(!dataDal.equals("") && dataAl.equals("")){
 				String testoData = DateFormatConverter.cambiaFormato(dataDal.toString(), 
-                                        DateFormatConverter.getFormatData(),  FORMATO_DATA_SQL);
-				queryText = queryText + NOME_COLONNA_DATA + " >= '" + testoData + "'";
+                                        DateFormatConverter.getFormatData(),  SQL_DATE_FORMAT);
+				queryText = queryText + COLUMN_DATE_NAME + " >= '" + testoData + "'";
 			}
 			else if(dataDal.equals("") && !dataAl.equals("")){
 				String testoData = DateFormatConverter.cambiaFormato(dataAl.toString(), 
-                                        DateFormatConverter.getFormatData(),  FORMATO_DATA_SQL);
-				queryText = queryText + NOME_COLONNA_DATA + " <= '" + testoData + "'";
+                                        DateFormatConverter.getFormatData(),  SQL_DATE_FORMAT);
+				queryText = queryText + COLUMN_DATE_NAME + " <= '" + testoData + "'";
 			}
 			else {
 				String testoDataDal = DateFormatConverter.cambiaFormato(dataDal.toString(), 
-                                        DateFormatConverter.getFormatData(),  FORMATO_DATA_SQL);
+                                        DateFormatConverter.getFormatData(),  SQL_DATE_FORMAT);
 				String testoDataAl = DateFormatConverter.cambiaFormato(dataAl.toString(), 
-                                        DateFormatConverter.getFormatData(),  FORMATO_DATA_SQL);
+                                        DateFormatConverter.getFormatData(),  SQL_DATE_FORMAT);
 				
 				long mllsDataDal = DateFormatConverter.dateString2long(dataDal, DateFormatConverter.getFormatData());
 				long mllsDataAl = DateFormatConverter.dateString2long(dataAl, DateFormatConverter.getFormatData());
@@ -618,7 +618,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				boolean maggDataAl = true;
 				if(diff < 0)
 					maggDataAl = false;
-				queryText = queryText + NOME_COLONNA_DATA + 
+				queryText = queryText + COLUMN_DATE_NAME + 
 						" BETWEEN '";
 				if(maggDataAl == true){
 					queryText = queryText + testoDataDal + "'" +
@@ -626,13 +626,13 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				} else {
 					queryText = queryText + testoDataAl + "'" +
 							" AND '" + testoDataDal + "'";
-                                        queryText = queryText + " ORDER BY " + NOME_COLONNA_DATA + " DESC";
+                                        queryText = queryText + " ORDER BY " + COLUMN_DATE_NAME + " DESC";
                                         return linkDb.getTable(queryText);
 				}
 				
 			}
 		}	
-		queryText = queryText + " ORDER BY " + NOME_COLONNA_DATA;	
+		queryText = queryText + " ORDER BY " + COLUMN_DATE_NAME;	
 		return linkDb.getTable(queryText);
 
 	}        
@@ -721,11 +721,11 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				PATIENT_COLUMN_ID_NAME, String.valueOf(to.getIDPaziente()),
 
 				COLUMN_CITY_NAME, linkDb.string2sqlstring(to.getCitta()),
-				NOME_COLONNA_CIVICO, linkDb.string2sqlstring(to.getCivico()),
-				NOME_COLONNA_CAP, to.getCap(),
+				COLUMN_HOUSE_NUMBER_NAME, linkDb.string2sqlstring(to.getCivico()),
+				COLUMN_POSTCODE_NAME, to.getCap(),
 
-				NOME_COLONNA_DATA, to.getDataDaFormato(FORMATO_DATA_SQL),
-				NOME_COLONNA_ORA_INIZIO, to.getOraInizioDaFormato(FORMATO_ORA_SQL)
+				COLUMN_DATE_NAME, to.getDataDaFormato(SQL_DATE_FORMAT),
+				COLUMN_START_TIME_NAME, to.getOraInizioDaFormato(SQL_TIME_FORMAT)
 				).toString();
 
 
@@ -771,12 +771,12 @@ public class InterventoMySqlDAO extends AbstractDAO{
 			for(int i=0; i < to.countTipInterventi(); i++ )
 			{
 				//Esecuzione predicato con incremento indice in caso di successo.
-				if( inserisciTipoIntervento(to.getID(), to.getTipoIntervento(i).getNome(), 
+				if( insertInterventionType(to.getID(), to.getTipoIntervento(i).getNome(), 
                                         to.getTipoIntervento(i).getNote()))
 				{
 					
 					ResultSet idTipoIntervento = linkDb.getResultSet("SELECT MAX("
-                                                + NOME_COLONNA_ID_TIPO_INTERVENTO + ") FROM " + NOME_TABELLA_TIPI_INTERVENTI);
+                                                + COLUMN_INTERVENTION_TYPE_ID_NAME + ") FROM " + INTERVENTIONS_TYPES_TABLE_NAME);
 
 					int lastInsertId; //ID del nuovo intervento
 
@@ -803,7 +803,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
                                     
                                     
                                     for(int k = 0; k < patologieTipoIntervento.size(); k++)
-                                        if(inserisciPatologieTipoIntervento(lastInsertId, patologieTipoIntervento.get(k).getCodice(),
+                                        if(insertPathologiesInterventionType(lastInsertId, patologieTipoIntervento.get(k).getCodice(),
                                                 patologieTipoIntervento.get(k).getGravita())){
                                                 
                                             //Trace
@@ -858,8 +858,8 @@ public class InterventoMySqlDAO extends AbstractDAO{
 	{
 		//Preparazione predicato
 		String predicato= "DELETE FROM " 
-                        + NOME_TABELLA_TIPI_INTERVENTI + " WHERE " 
-                        + NOME_COLONNA_IDINT_TIPO + "=" + String.valueOf(IDIntervento)+";";
+                        + INTERVENTIONS_TYPES_TABLE_NAME + " WHERE " 
+                        + COLUMN_IDINT_TYPE_NAME + "=" + String.valueOf(IDIntervento)+";";
 
 		//Esecuzione
 		return linkDb.execute(predicato); 
@@ -868,8 +868,8 @@ public class InterventoMySqlDAO extends AbstractDAO{
         private boolean cancellaPatologieTipoIntervento(int IDTipoIntervento)
 	{
 		//Preparazione predicato
-		String predicato= "DELETE FROM " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI + 
-                        " WHERE " + NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI + "=" 
+		String predicato= "DELETE FROM " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME + 
+                        " WHERE " + COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME + "=" 
                         + String.valueOf(IDTipoIntervento)+";";
 
 		//Esecuzione
@@ -917,10 +917,10 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		}
 	}
 	
-        public ArrayList<TipoIntervento> leggiTipiIntervento(int IDIntervento)
+        public ArrayList<TipoIntervento> readInterventionsTypes(int IDIntervento)
 	{
 		//Preparazione query
-		String query= "SELECT * FROM " + NOME_TABELLA_TIPI_INTERVENTI + " WHERE " + NOME_COLONNA_IDINT_TIPO +"=" + String.valueOf(IDIntervento) + ";";
+		String query= "SELECT * FROM " + INTERVENTIONS_TYPES_TABLE_NAME + " WHERE " + COLUMN_IDINT_TYPE_NAME +"=" + String.valueOf(IDIntervento) + ";";
 
 		//Esecuzione query
 		ResultSet tabella= linkDb.getResultSet(query);
@@ -936,20 +936,20 @@ public class InterventoMySqlDAO extends AbstractDAO{
 				{
 					//Creazione e popolamento nuovo tipo
 					TipoIntervento nuovoTipo= new TipoIntervento();
-					int idTipoIntervento = tabella.getInt(NOME_COLONNA_ID_TIPO_INTERVENTO);
+					int idTipoIntervento = tabella.getInt(COLUMN_INTERVENTION_TYPE_ID_NAME);
                                         nuovoTipo.setID(idTipoIntervento);
-					nuovoTipo.setNome(tabella.getString(NOME_COLONNA_NOME_TIPO));
-					nuovoTipo.setValoreRilevato(tabella.getString(NOME_COLONNA_VALORE_RILEVATO));
-					nuovoTipo.setTempoIntervento(tabella.getString(NOME_COLONNA_TEMPO_INTERVENTO));
-					nuovoTipo.setNote(tabella.getString(NOME_COLONNA_NOTE_TIPO));
+					nuovoTipo.setNome(tabella.getString(TYPE_NAME_COLUMN_NAME));
+					nuovoTipo.setValoreRilevato(tabella.getString(COLUMN_OBSERVED_VALUE_NAME));
+					nuovoTipo.setTempoIntervento(tabella.getString(COLUMN_INTERVENTION_DURATION_NAME));
+					nuovoTipo.setNote(tabella.getString(COLUMN_TYPE_NOTES_NAME));
 					
 					//Preparazione query
-					query = "SELECT * FROM " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI +
+					query = "SELECT * FROM " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME +
 							" JOIN " + PatologiaMySqlDAO.NOME_TABELLA + " ON " +
-							NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI + "." 
-							+ NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI + " = " +
+							PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME + "." 
+							+ COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME + " = " +
 							PatologiaMySqlDAO.NOME_TABELLA + "." + PatologiaMySqlDAO.NOME_COLONNA_ID +
-							" WHERE " + NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI 
+							" WHERE " + COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME 
 							+"=" + idTipoIntervento + ";";
 
 					//Esecuzione query
@@ -965,7 +965,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
                                                         {
                                                             arrayPatologie.add(new PatologiaTO(tabellaPatologie.getString(PatologiaMySqlDAO.NOME_COLONNA_CODICE),
                                                                     tabellaPatologie.getString(PatologiaMySqlDAO.NOME_COLONNA_NOME),
-                                                                    tabellaPatologie.getInt(NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI)));
+                                                                    tabellaPatologie.getInt(COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME)));
 							}
 						}
 					} catch (SQLException e) {
@@ -1011,7 +1011,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		
 		if(mllsInt - today < 0){
 			System.out.println("Impossibile creare/modificare un intervento passato");
-			return intTrascorso;
+			return intBygone;
 		} else {
 		
 		String testoToday = DateFormatConverter.long2dateString(today, DateFormatConverter.getFormatData());
@@ -1030,10 +1030,10 @@ public class InterventoMySqlDAO extends AbstractDAO{
 			 				" WHERE q1.diff >= '02:00'"; */
 			 
 			 String query = 
-			 		"SELECT MIN( " + NOME_COLONNA_ORA_INIZIO + 
+			 		"SELECT MIN( " + COLUMN_START_TIME_NAME + 
 			 		" ) AS ORARIO FROM " + INTERVENTION_TABLE_NAME + " " +
 			 		" WHERE " + NURSE_COLUMN_ID_NAME + " = " + idInfermiere +
-			 		" AND " + NOME_COLONNA_DATA + " = CURDATE() ";
+			 		" AND " + COLUMN_DATE_NAME + " = CURDATE() ";
 			 
 			 ResultSet risultato = linkDb.getResultSet(query);
 			 
@@ -1047,7 +1047,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 						 DateFormatConverter.getFormatOra());*/
 				 
 				 long longOra = DateFormatConverter.dateString2long(data + " " + orarioMin, 
-						 DateFormatConverter.getFormatData() + " " + FORMATO_ORA_SQL);
+						 DateFormatConverter.getFormatData() + " " + SQL_TIME_FORMAT);
 					
 					//differenza tra ora dell'intervento e ora corrente in millisecondi
 					long longDiff = (longOra - today);
@@ -1055,14 +1055,14 @@ public class InterventoMySqlDAO extends AbstractDAO{
 					int minuti = (int) ((longDiff / 3600000) * 60) + (int) (longDiff / 60000 % 60);
 					if(minuti < diffMax) {
 						System.out.println("Intervento non modificabile a meno di due ore");
-						return intNonModificabile;
+						return intNotChangeable;
 					} else {
 						String testoDiff = (int) (longDiff / 3600000) + " ora/e e " +
 								(int) (longDiff / 60000 % 60) + " minuto/i";
 						System.out.println("Ora inizio primo intervento odierno: " + orarioMin);
 						System.out.println("Mancano " + testoDiff + " dall'inizio del primo intervento odierno " +
 								"dell'infermiere" + idInfermiere + ": intervento modificabile");
-						return intModificabile;
+						return intChangeable;
 					} //else su orario inferiore alle 2 ore
 				}//if su risultato.first()
 	        } catch (SQLException ex) {
@@ -1072,22 +1072,22 @@ public class InterventoMySqlDAO extends AbstractDAO{
 	        }
 		}
 		}//else su intervento già passato
-		return intModificabile;
+		return intChangeable;
 	}
         
       public ArrayList<PatologiaTO> leggiPatologieIntervento(int IDIntervento)
 	{
 		//Preparazione query
 		String query = "SELECT DISTINCT P. " + PatologiaMySqlDAO.NOME_COLONNA_CODICE + ", P."
-                       + PatologiaMySqlDAO.NOME_COLONNA_NOME + ", PT." + NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI
-                       + " FROM " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI + " PT "
-                       + "JOIN " + NOME_TABELLA_TIPI_INTERVENTI + " T ON PT." 
-                       + NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI
-                       + " = T." + NOME_COLONNA_ID_TIPO_INTERVENTO  
+                       + PatologiaMySqlDAO.NOME_COLONNA_NOME + ", PT." + COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME
+                       + " FROM " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME + " PT "
+                       + "JOIN " + INTERVENTIONS_TYPES_TABLE_NAME + " T ON PT." 
+                       + COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME
+                       + " = T." + COLUMN_INTERVENTION_TYPE_ID_NAME  
                        + " JOIN " + PatologiaMySqlDAO.NOME_TABELLA + " P "
-                       + " ON PT." + NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI + " = P."
+                       + " ON PT." + COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME + " = P."
                        + PatologiaMySqlDAO.NOME_COLONNA_ID
-                       + " WHERE " + NOME_COLONNA_IDINT_TIPO +"=" + String.valueOf(IDIntervento) + ";";
+                       + " WHERE " + COLUMN_IDINT_TYPE_NAME +"=" + String.valueOf(IDIntervento) + ";";
 
 		//Esecuzione query
 		ResultSet tabella= linkDb.getResultSet(query);
@@ -1105,7 +1105,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 					listaPatologie.add(new PatologiaTO(
                                                 tabella.getString(PatologiaMySqlDAO.NOME_COLONNA_CODICE), 
                                                 tabella.getString(PatologiaMySqlDAO.NOME_COLONNA_NOME), 
-                                                tabella.getInt(NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI)));
+                                                tabella.getInt(COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME)));
 				}
 			}
 		} catch (SQLException e) {
@@ -1125,7 +1125,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
 		String queryText= "SELECT * FROM " + INTERVENTION_TABLE_NAME; 
 		if(id != -1)
 			queryText = queryText + " WHERE " + NURSE_COLUMN_ID_NAME + "=" + id
-                                + " AND " + NOME_COLONNA_DATA + " >= CURDATE()";
+                                + " AND " + COLUMN_DATE_NAME + " >= CURDATE()";
 		ResultSet tabella = linkDb.getResultSet(queryText);
 
 		//**Scaricamento dei dati in una lista di interventi**
@@ -1151,15 +1151,15 @@ public class InterventoMySqlDAO extends AbstractDAO{
 					i.setIDPaziente(tabella.getString(PATIENT_COLUMN_ID_NAME));
 
 					i.setCitta(tabella.getString(COLUMN_CITY_NAME));
-					i.setCivico(tabella.getString(NOME_COLONNA_CIVICO));
-					i.setCap(tabella.getString(NOME_COLONNA_CAP));
+					i.setCivico(tabella.getString(COLUMN_HOUSE_NUMBER_NAME));
+					i.setCap(tabella.getString(COLUMN_POSTCODE_NAME));
 
 					//TODO Controllare FORMATTAZIONE - Saltato, filtro impostato nella gui.
-					i.setDataFmt(tabella.getString(NOME_COLONNA_DATA), FORMATO_DATA_SQL);
-					i.setOraInizioFmt(tabella.getString(NOME_COLONNA_ORA_INIZIO), FORMATO_ORA_SQL);
+					i.setDataFmt(tabella.getString(COLUMN_DATE_NAME), SQL_DATE_FORMAT);
+					i.setOraInizioFmt(tabella.getString(COLUMN_START_TIME_NAME), SQL_TIME_FORMAT);
 
 					//Creazione array dei tipi dell'intervento corrente dal database
-					ArrayList<TipoIntervento> listaInterventi = leggiTipiIntervento(i.getID());
+					ArrayList<TipoIntervento> listaInterventi = readInterventionsTypes(i.getID());
 					
 					//Aggiunta dei tipi di intervento all'intervento corrente
 					for(TipoIntervento t:listaInterventi) i.addTipoIntervento(t);
@@ -1199,14 +1199,14 @@ public class InterventoMySqlDAO extends AbstractDAO{
                 i.setID(risultato.getInt(COLUMN_ID_NAME));
                 i.setIDInfermiere(risultato.getInt(NURSE_COLUMN_ID_NAME));
                 i.setIDPaziente(risultato.getInt(PATIENT_COLUMN_ID_NAME));
-                i.setDataFmt(risultato.getString(NOME_COLONNA_DATA), FORMATO_DATA_SQL);
-                i.setOraInizioFmt(risultato.getString(NOME_COLONNA_ORA_INIZIO),FORMATO_ORA_SQL);
+                i.setDataFmt(risultato.getString(COLUMN_DATE_NAME), SQL_DATE_FORMAT);
+                i.setOraInizioFmt(risultato.getString(COLUMN_START_TIME_NAME),SQL_TIME_FORMAT);
                 //i.setOraFineFmt(risultato.getString(NOME_COLONNA_ORA_FINE),FORMATO_ORA_SQL);
                 i.setCitta(risultato.getString(COLUMN_CITY_NAME));
-                i.setCivico(risultato.getString(NOME_COLONNA_CIVICO));
-                i.setCap(risultato.getString(NOME_COLONNA_CAP));
+                i.setCivico(risultato.getString(COLUMN_HOUSE_NUMBER_NAME));
+                i.setCap(risultato.getString(COLUMN_POSTCODE_NAME));
                 
-                for(TipoIntervento t:leggiTipiIntervento(id))
+                for(TipoIntervento t:readInterventionsTypes(id))
                     i.addTipoIntervento(t);
                 
                 return i;
@@ -1232,45 +1232,45 @@ public class InterventoMySqlDAO extends AbstractDAO{
         String campo4 = nomeCampi.get(4);
         String campo5 = nomeCampi.get(5);
         String campo6 = nomeCampi.get(6);
-        if(!campo1.equals(NOME_COLONNA_ID_TIPO_INTERVENTO)
-                || !campo2.equals(NOME_COLONNA_IDINT_TIPO) || !campo3.equals(NOME_COLONNA_NOME_TIPO)
-                || !campo4.equals(NOME_COLONNA_VALORE_RILEVATO) 
-                || !campo5.equals(NOME_COLONNA_TEMPO_INTERVENTO)
-                || !campo6.equals(NOME_COLONNA_NOTE_TIPO)) {
+        if(!campo1.equals(COLUMN_INTERVENTION_TYPE_ID_NAME)
+                || !campo2.equals(COLUMN_IDINT_TYPE_NAME) || !campo3.equals(TYPE_NAME_COLUMN_NAME)
+                || !campo4.equals(COLUMN_OBSERVED_VALUE_NAME) 
+                || !campo5.equals(COLUMN_INTERVENTION_DURATION_NAME)
+                || !campo6.equals(COLUMN_TYPE_NOTES_NAME)) {
             change = true;
-            if(!campo1.equals(NOME_COLONNA_ID_TIPO_INTERVENTO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI 
-                        + " ALTER COLUMN " + NOME_COLONNA_ID_TIPO_INTERVENTO + " RENAME TO " + campo1);
+            if(!campo1.equals(COLUMN_INTERVENTION_TYPE_ID_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_INTERVENTION_TYPE_ID_NAME + " RENAME TO " + campo1);
             }
-            if(!campo2.equals(NOME_COLONNA_IDINT_TIPO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI 
-                        + " ALTER COLUMN " + NOME_COLONNA_IDINT_TIPO + " RENAME TO " + campo2);
+            if(!campo2.equals(COLUMN_IDINT_TYPE_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_IDINT_TYPE_NAME + " RENAME TO " + campo2);
             }
-            if(!campo3.equals(NOME_COLONNA_NOME_TIPO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI 
-                        + " ALTER COLUMN " + NOME_COLONNA_NOME_TIPO + " RENAME TO " + campo3);
+            if(!campo3.equals(TYPE_NAME_COLUMN_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME 
+                        + " ALTER COLUMN " + TYPE_NAME_COLUMN_NAME + " RENAME TO " + campo3);
             }
-            if(!campo4.equals(NOME_COLONNA_VALORE_RILEVATO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI 
-                        + " ALTER COLUMN " + NOME_COLONNA_VALORE_RILEVATO + " RENAME TO " + campo4);
+            if(!campo4.equals(COLUMN_OBSERVED_VALUE_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_OBSERVED_VALUE_NAME + " RENAME TO " + campo4);
             }
-            if(!campo5.equals(NOME_COLONNA_TEMPO_INTERVENTO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI 
-                        + " ALTER COLUMN " + NOME_COLONNA_TEMPO_INTERVENTO + " RENAME TO " + campo5);
+            if(!campo5.equals(COLUMN_INTERVENTION_DURATION_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_INTERVENTION_DURATION_NAME + " RENAME TO " + campo5);
             }
-            if(!campo6.equals(NOME_COLONNA_NOTE_TIPO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI 
-                        + " ALTER COLUMN " + NOME_COLONNA_NOTE_TIPO + " RENAME TO " + campo6);
+            if(!campo6.equals(COLUMN_TYPE_NOTES_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME 
+                        + " ALTER COLUMN " + COLUMN_TYPE_NOTES_NAME + " RENAME TO " + campo6);
             }
         }
-        if(!nomeTabella.equals(NOME_TABELLA_TIPI_INTERVENTI)){
+        if(!nomeTabella.equals(INTERVENTIONS_TYPES_TABLE_NAME)){
             change = true;
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_TIPI_INTERVENTI
+                ok = linkDb.execute("ALTER TABLE " + INTERVENTIONS_TYPES_TABLE_NAME
                         + " RENAME TO " + nomeTabella + ";");
         }
         if(change != false && ok == true){
             try {
-                FileFactory.setFileContent(new File(filePathTipi), 
+                FileFactory.setFileContent(new File(filePathTypes), 
                         nomeTabella + "\n"
                         + campo1 + "\n"
                         + campo2 + "\n"
@@ -1283,7 +1283,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
             } catch (IOException ex) {
                 Logger.getLogger(InterventoMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            leggiFilesTipiInterventi();
+            readFilesInterventionsTypes();
         }
         return ok;
     }
@@ -1311,10 +1311,10 @@ public class InterventoMySqlDAO extends AbstractDAO{
            
             if(!campo1.equals(COLUMN_ID_NAME)
                 || !campo2.equals(PATIENT_COLUMN_ID_NAME) || !campo3.equals(NURSE_COLUMN_ID_NAME)
-                || !campo4.equals(COLUMN_CITY_NAME) || !campo5.equals(NOME_COLONNA_CIVICO)
-                || !campo6.equals(NOME_COLONNA_CAP) || !campo7.equals(NOME_COLONNA_DATA)
-                || !campo8.equals(NOME_COLONNA_ORA_INIZIO) || !campo9.equals(NOME_COLONNA_ORA_FINE)
-                || !campo10.equals(NOME_COLONNA_STORICO)) {
+                || !campo4.equals(COLUMN_CITY_NAME) || !campo5.equals(COLUMN_HOUSE_NUMBER_NAME)
+                || !campo6.equals(COLUMN_POSTCODE_NAME) || !campo7.equals(COLUMN_DATE_NAME)
+                || !campo8.equals(COLUMN_START_TIME_NAME) || !campo9.equals(COLUMN_END_TIME_NAME)
+                || !campo10.equals(COLUMN_REGISTER_NAME)) {
             change = true;
             viste.destroyView();
             if(!campo1.equals(COLUMN_ID_NAME)){
@@ -1333,29 +1333,29 @@ public class InterventoMySqlDAO extends AbstractDAO{
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
                         + " ALTER COLUMN " + COLUMN_CITY_NAME + " RENAME TO " + campo4);
             }
-            if(!campo5.equals(NOME_COLONNA_CIVICO)){
+            if(!campo5.equals(COLUMN_HOUSE_NUMBER_NAME)){
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
-                        + " ALTER COLUMN " + NOME_COLONNA_CIVICO + " RENAME TO " + campo5);
+                        + " ALTER COLUMN " + COLUMN_HOUSE_NUMBER_NAME + " RENAME TO " + campo5);
             }
-            if(!campo6.equals(NOME_COLONNA_CAP)){
+            if(!campo6.equals(COLUMN_POSTCODE_NAME)){
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
-                        + " ALTER COLUMN " + NOME_COLONNA_CAP + " RENAME TO " + campo6);
+                        + " ALTER COLUMN " + COLUMN_POSTCODE_NAME + " RENAME TO " + campo6);
             }
-            if(!campo7.equals(NOME_COLONNA_DATA)){
+            if(!campo7.equals(COLUMN_DATE_NAME)){
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
-                        + " ALTER COLUMN " + NOME_COLONNA_DATA + " RENAME TO " + campo7);
+                        + " ALTER COLUMN " + COLUMN_DATE_NAME + " RENAME TO " + campo7);
             }
-            if(!campo8.equals(NOME_COLONNA_ORA_INIZIO)){
+            if(!campo8.equals(COLUMN_START_TIME_NAME)){
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
-                        + " ALTER COLUMN " + NOME_COLONNA_ORA_INIZIO + " RENAME TO " + campo8);
+                        + " ALTER COLUMN " + COLUMN_START_TIME_NAME + " RENAME TO " + campo8);
             }
-            if(!campo9.equals(NOME_COLONNA_ORA_FINE)){
+            if(!campo9.equals(COLUMN_END_TIME_NAME)){
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
-                        + " ALTER COLUMN " + NOME_COLONNA_ORA_FINE + " RENAME TO " + campo9);
+                        + " ALTER COLUMN " + COLUMN_END_TIME_NAME + " RENAME TO " + campo9);
             }
-            if(!campo10.equals(NOME_COLONNA_STORICO)){
+            if(!campo10.equals(COLUMN_REGISTER_NAME)){
                 ok = linkDb.execute("ALTER TABLE " + INTERVENTION_TABLE_NAME 
-                        + " ALTER COLUMN " + NOME_COLONNA_STORICO + " RENAME TO " + campo10);
+                        + " ALTER COLUMN " + COLUMN_REGISTER_NAME + " RENAME TO " + campo10);
             }
         }
         if(!nomeTabella.equals(INTERVENTION_TABLE_NAME)){
@@ -1384,7 +1384,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
             } catch (IOException ex) {
                 Logger.getLogger(InterventoMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            leggiFiles();
+            readFiles();
              
         }
         if(change != false)
@@ -1400,41 +1400,41 @@ public class InterventoMySqlDAO extends AbstractDAO{
         String campo2 = nomeCampi.get(2);
         String campo3 = nomeCampi.get(3);
         String campo4 = nomeCampi.get(4);
-        if(!campo1.equals(NOME_COLONNA_ID_PAT_INTERVENTO)
-                || !campo2.equals(NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI) 
-                || !campo3.equals(NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI)
-                || !campo4.equals(NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI) ) {
+        if(!campo1.equals(COLUMN_ID_INTERVENTION_PATHOLOGY_NAME)
+                || !campo2.equals(COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME) 
+                || !campo3.equals(COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME)
+                || !campo4.equals(COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME) ) {
             change = true;
-            if(!campo1.equals(NOME_COLONNA_ID_PAT_INTERVENTO)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI
-                        + " ALTER COLUMN " + NOME_COLONNA_ID_PAT_INTERVENTO + " RENAME TO " + campo1);
+            if(!campo1.equals(COLUMN_ID_INTERVENTION_PATHOLOGY_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME
+                        + " ALTER COLUMN " + COLUMN_ID_INTERVENTION_PATHOLOGY_NAME + " RENAME TO " + campo1);
             }
-            if(!campo2.equals(NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI
-                        + " ALTER COLUMN " + NOME_COLONNA_ID_TIPO_INTERVENTO_PATOLOGIE_TIPI_INTERVENTI 
+            if(!campo2.equals(COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME
+                        + " ALTER COLUMN " + COLUMN_ID_INTERVENTION_TYPE_PATHOLOGIES_INTERVENTIONS_TYPES_NAME 
                         + " RENAME TO " + campo2);
             }
-            if(!campo3.equals(NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI
-                        + " ALTER COLUMN " + NOME_COLONNA_ID_PATOLOGIA_PATOLOGIE_TIPI_INTERVENTI 
+            if(!campo3.equals(COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME
+                        + " ALTER COLUMN " + COLUMN_PATHOLOGY_ID_PATHOLOGIES_INTERVENTIONS_TYPES_NAME 
                         + " RENAME TO " + campo3);
             }
-            if(!campo4.equals(NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI)){
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI
-                        + " ALTER COLUMN " + NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI 
+            if(!campo4.equals(COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME)){
+                ok = linkDb.execute("ALTER TABLE " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME
+                        + " ALTER COLUMN " + COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME 
                         + " RENAME TO " + campo4);
             }
 
         }
-        if(!nomeTabella.equals(NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI)){
+        if(!nomeTabella.equals(PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME)){
             change = true;
-                ok = linkDb.execute("ALTER TABLE " + NOME_TABELLA_PATOLOGIE_TIPI_INTERVENTI
+                ok = linkDb.execute("ALTER TABLE " + PATHOLOGIES_INTERVENTIONS_TYPES_TABLE_NAME
                         + " RENAME TO " + nomeTabella + ";");
         }
         if(change != false && ok == true){
 
             try {
-                FileFactory.setFileContent(new File(filePathPatologie), 
+                FileFactory.setFileContent(new File(filePathPathologies), 
                         nomeTabella + "\n"
                         + campo1 + "\n"
                         + campo2 + "\n"
@@ -1445,7 +1445,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
             } catch (IOException ex) {
                 Logger.getLogger(InterventoMySqlDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            leggiFilesPatTipiInterventi();
+            readFilesPatInterventionsTypes();
         }
         return ok;
     }
@@ -1454,7 +1454,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
         System.out.println("update()");
 	//------------------------------------------------
 	String[] fieldsValue = {
-			NOME_COLONNA_STORICO + " = 1"
+			COLUMN_REGISTER_NAME + " = 1"
 		};	
 	try {
             PreparedStatement stmt = linkDb.prepareStatement(mysqlConfig.getUpdateSQL(fieldsValue, 
@@ -1471,7 +1471,7 @@ public class InterventoMySqlDAO extends AbstractDAO{
         System.out.println("read()");
         try {
             String query = mysqlConfig.getSelectSQL(NURSE_COLUMN_ID_NAME + " = " + id,
-                    NOME_COLONNA_STORICO + " = 1");
+            		COLUMN_REGISTER_NAME + " = 1");
             return linkDb.getTable(query);
         } catch (NumberFormatException e){
             System.err.println("Ops... Il database e la DAO non sono compatibili");
@@ -1484,15 +1484,15 @@ public class InterventoMySqlDAO extends AbstractDAO{
             try {
                 ResultSet risultato = linkDb.getResultSet("SELECT *"
                         + " FROM " + INTERVENTION_TABLE_NAME +
-                        " WHERE " + NOME_COLONNA_DATA + " >= CURDATE() AND "
+                        " WHERE " + COLUMN_DATE_NAME + " >= CURDATE() AND "
                         + NURSE_COLUMN_ID_NAME + " = " + id); 
                int cont = 0;
                 if(risultato.first()){
                    for(;!(risultato.isAfterLast()); risultato.next()){
-                       String oraInizio = risultato.getString(NOME_COLONNA_ORA_INIZIO);
+                       String oraInizio = risultato.getString(COLUMN_START_TIME_NAME);
                        oraInizio = DateFormatConverter.cambiaFormato(oraInizio, 
                                "HH:mm:ss", DateFormatConverter.getFormatOra());
-                       String data = risultato.getString(NOME_COLONNA_DATA);
+                       String data = risultato.getString(COLUMN_DATE_NAME);
                        data = DateFormatConverter.cambiaFormato(data, 
                                "yyyy-MM-dd", DateFormatConverter.getFormatData());
                        String dataOra = data + " " + oraInizio;

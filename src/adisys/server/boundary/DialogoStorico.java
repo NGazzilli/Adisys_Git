@@ -371,7 +371,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
 		VariableTableModel emptyPathologiesTable = new VariableTableModel();
 		emptyPathologiesTable.addColumn(PatologiaMySqlDAO.NOME_COLONNA_CODICE);
 		emptyPathologiesTable.addColumn(PatologiaMySqlDAO.NOME_COLONNA_NOME);
-		emptyPathologiesTable.addColumn(InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI);
+		emptyPathologiesTable.addColumn(InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME);
 
 		//Creazione modello
 		return emptyPathologiesTable;
@@ -475,7 +475,7 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
 
 		COLUMN_CODE_NAME = PatologiaMySqlDAO.NOME_COLONNA_CODICE;
 		COLUMN_NAME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
-		SEVERITY_COLUMN_NAME = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
+		SEVERITY_COLUMN_NAME = InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME;
 		interventionsTable.setModel(tmp.getTabellaTipi());
 
 	}

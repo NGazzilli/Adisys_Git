@@ -560,7 +560,7 @@ public class EditorInfermieri extends javax.swing.JDialog implements Boundary {
         try {
             NOME_COLONNA_CODICE = PatologiaMySqlDAO.NOME_COLONNA_CODICE;
             NOME_COLONNA_NOME = PatologiaMySqlDAO.NOME_COLONNA_NOME;
-            NOME_COLONNA_GRAVITA = InterventoMySqlDAO.NOME_COLONNA_GRAVITA_PATOLOGIE_TIPI_INTERVENTI;
+            NOME_COLONNA_GRAVITA = InterventoMySqlDAO.COLUMN_PATHOLOGIES_SEVERITY_INTERVENTIONS_TYPES_NAME;
             String dataDal = "01/01/1970";
             int colonnaID = tabellaInfermieri.getColumnModel().getColumnIndex(InfermiereMySqlDAO.COLUMN_ID_NAME);
             int id = Integer.parseInt(tabellaInfermieri.getValueAt(
