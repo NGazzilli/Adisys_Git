@@ -20,42 +20,42 @@ import java.util.ResourceBundle;
 public class PazienteTO implements TO{
     	
     private int ID;
-    private String nome;
-    private String cognome;
-    private Date dataNascita;
-    private ArrayList<String> cellulari;    //Modifica Ver 2: sostituisce "cellulare"
+    private String name;
+    private String surname;
+    private Date birthDay;
+    private ArrayList<String> cellulars;    //Modifica Ver 2: sostituisce "cellulare"
     
-    private static ResourceBundle paziente = ResourceBundle.getBundle("adisys/server/property/Paziente");
+    private static ResourceBundle patient = ResourceBundle.getBundle("adisys/server/property/Paziente");
 	
-    public static void setResourceBundle(String path, Locale locale){
-            paziente = ResourceBundle.getBundle(path, locale);
+    public static void setResourceBundle(String path, Locale local){
+    	patient = ResourceBundle.getBundle(path, local);
     }
 
     public PazienteTO()
     {
-    	cellulari=new ArrayList<String>();
+    	cellulars=new ArrayList<String>();
     }
     
-    public PazienteTO(String nome, String cognome, String dataNascita, Object[] cellulari)
+    public PazienteTO(String name, String surname, String birthDay, Object[] cellulars)
     {
-    	this.nome = nome;
-        this.cognome = cognome;
-        this.dataNascita = new Date(DateFormatConverter.dateString2long(dataNascita, DateFormatConverter.getFormatData()));
-        this.cellulari=new ArrayList<String>();
-        for(int i = 0; i < cellulari.length; i++){
-            addCellulare(cellulari[i].toString());
+    	this.name = name;
+        this.surname = surname;
+        this.birthDay = new Date(DateFormatConverter.dateString2long(birthDay, DateFormatConverter.getFormatData()));
+        this.cellulars=new ArrayList<String>();
+        for(int i = 0; i < cellulars.length; i++){
+            addCellulare(cellulars[i].toString());
         }
     }
     
-    public PazienteTO(int id, String nome, String cognome, String dataNascita, Object[] cellulari)
+    public PazienteTO(int id, String name, String surname, String birthDay, Object[] cellulars)
     {
         this.ID = id;
-    	this.nome = nome;
-        this.cognome = cognome;
-        this.dataNascita = new Date(DateFormatConverter.dateString2long(dataNascita, DateFormatConverter.getFormatData()));
-        this.cellulari=new ArrayList<String>();
-        for(int i = 0; i < cellulari.length; i++){
-            addCellulare(cellulari[i].toString());
+    	this.name = name;
+        this.surname = surname;
+        this.birthDay = new Date(DateFormatConverter.dateString2long(birthDay, DateFormatConverter.getFormatData()));
+        this.cellulars=new ArrayList<String>();
+        for(int i = 0; i < cellulars.length; i++){
+            addCellulare(cellulars[i].toString());
         }
     }
     
@@ -70,19 +70,19 @@ public class PazienteTO implements TO{
      * @return Il nome del paziente
      */
     public String getNome() {
-        return nome;
+        return name;
     }
 
     /**
      * @return il cognome del paziente
      */
     public String getCognome() {
-        return cognome;
+        return surname;
     }
 
-    public String getDataNascita(String formato) {
-		if (dataNascita!=null)
-			return DateFormatConverter.long2dateString(dataNascita.getTime(), formato);
+    public String getDataNascita(String format) {
+		if (birthDay!=null)
+			return DateFormatConverter.long2dateString(birthDay.getTime(), format);
 		else return "";
 	}
 
@@ -91,7 +91,7 @@ public class PazienteTO implements TO{
      * @return il numero di cellulare del paziente
      */
     public Object[] getCellulari() {
-        return (cellulari.toArray());
+        return (cellulars.toArray());
     }
 
     /**Aggiunta in versione 2: Cancellazione numeri di telefono del paziente
@@ -99,7 +99,7 @@ public class PazienteTO implements TO{
      */
     public void clearCellulari()
     {
-    	cellulari.clear();
+    	cellulars.clear();
     }
     
     /**
@@ -112,57 +112,57 @@ public class PazienteTO implements TO{
     /**
      * @param nome the nome to set
      */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String name) {
+        this.name = name;
     }
 
     /**
      * @param cognome the cognome to set
      */
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
+    public void setCognome(String surname) {
+        this.surname = surname;
     }
 
     /**Aggiunta numero cellulare (sostituisce setCellulare nella vers.2)
      * @param cellulare the cellulare to set
      */
-    public void addCellulare(String cellulare) {
-        this.cellulari.add(cellulare);
+    public void addCellulare(String cellular) {
+        this.cellulars.add(cellular);
     }
 
-    public void setDataNascita(String newDataNascita , String formato) {
+    public void setDataNascita(String newBirthDay , String format) {
 
-        dataNascita = new Date(DateFormatConverter.dateString2long(newDataNascita, formato));
+    	birthDay = new Date(DateFormatConverter.dateString2long(newBirthDay, format));
     }
 
     public String calcolaAnniMesi()
     {
     	GregorianCalendar today = new GregorianCalendar();
-    	GregorianCalendar nascita = new GregorianCalendar();
-    	nascita.setTimeInMillis(dataNascita.getTime());
+    	GregorianCalendar birth = new GregorianCalendar();
+    	birth.setTimeInMillis(birthDay.getTime());
     	
-    	int yearDiff  = today.get(Calendar.YEAR) - nascita.get(Calendar.YEAR); 
-		int monthDiff = (yearDiff * 12 + today.get(Calendar.MONTH) - nascita.get(Calendar.MONTH)) %12;
+    	int yearDiff  = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR); 
+		int monthDiff = (yearDiff * 12 + today.get(Calendar.MONTH) - birth.get(Calendar.MONTH)) %12;
     	
     	String formatoprovvisorio = "%02D/%02D";
     	Formatter formatter = new Formatter();
     	formatter.format(formatoprovvisorio, yearDiff,monthDiff);
     	
-    	System.out.println(java.text.MessageFormat.format(paziente.getString("PAZINTE -> ELABORAZIONE ANNI/MESI: {0}"), new Object[] {formatter.toString()}));
+    	System.out.println(java.text.MessageFormat.format(patient.getString("PAZINTE -> ELABORAZIONE ANNI/MESI: {0}"), new Object[] {formatter.toString()}));
     	return formatter.toString();
 
     }
     @Override
     public String toString()
     {
-    	String stringaPaziente= new String();
-    	stringaPaziente += java.text.MessageFormat.format(paziente.getString("ID PAZIENTE: {0}"), new Object[] {getID()});
-    	stringaPaziente += java.text.MessageFormat.format(paziente.getString("- NOME: {0}"), new Object[] {getNome()});
-    	stringaPaziente += java.text.MessageFormat.format(paziente.getString("- COGNOME: {0}"), new Object[] {getCognome()});
-    	stringaPaziente += java.text.MessageFormat.format(paziente.getString("- DATA DI NASCITA: {0}"), new Object[] {getDataNascita("dd/MM/yyyy")});
-    	for(String c:cellulari)
-    		stringaPaziente += java.text.MessageFormat.format(paziente.getString("- NUMERO DI CELLULARE: {0}"), new Object[] {c});
-    	return stringaPaziente;
+    	String patientString= new String();
+    	patientString += java.text.MessageFormat.format(patient.getString("ID PAZIENTE: {0}"), new Object[] {getID()});
+    	patientString += java.text.MessageFormat.format(patient.getString("- NOME: {0}"), new Object[] {getNome()});
+    	patientString += java.text.MessageFormat.format(patient.getString("- COGNOME: {0}"), new Object[] {getCognome()});
+    	patientString += java.text.MessageFormat.format(patient.getString("- DATA DI NASCITA: {0}"), new Object[] {getDataNascita("dd/MM/yyyy")});
+    	for(String c:cellulars)
+    		patientString += java.text.MessageFormat.format(patient.getString("- NUMERO DI CELLULARE: {0}"), new Object[] {c});
+    	return patientString;
     }
     
 }

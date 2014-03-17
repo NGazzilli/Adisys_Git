@@ -40,7 +40,7 @@ public class ASPazienti extends business.ServiceHandler{
 	 * Istanza della entity dell'paziente {@link Paziente} su cui ASPazienti lavora 
 	*/
 	private I_PazienteGet paz;
-        private I_PazienteMod paziente;
+        private I_PazienteMod patient;
 	
         /**
 	 * Restituisce una struttura dati dei to degli pazienti presenti nel database
@@ -60,8 +60,8 @@ public class ASPazienti extends business.ServiceHandler{
         public boolean alterTable(ArrayList<String> listaCampi){
             
 		try {
-			paziente = new Paziente();
-			return paziente.alterTable(listaCampi);
+			patient = new Paziente();
+			return patient.alterTable(listaCampi);
 		} catch (MainException e) {
 			e.printStackTrace();
                         return false;
@@ -71,8 +71,8 @@ public class ASPazienti extends business.ServiceHandler{
         public boolean alterTableCellulari(ArrayList<String> listaCampi){
             
 		try {
-			paziente = new Paziente();
-			return paziente.alterTableCellulari(listaCampi);
+			patient = new Paziente();
+			return patient.alterTableCellulari(listaCampi);
 		} catch (MainException e) {
 			e.printStackTrace();
                         return false;
@@ -83,8 +83,8 @@ public class ASPazienti extends business.ServiceHandler{
         public boolean creaPaziente(PazienteTO to){
             	try {
 			
-			paziente = new Paziente();
-			return paziente.createPaziente(to);
+            		patient = new Paziente();
+			return patient.createPaziente(to);
 			
 		} catch (MainException e) {
 			e.printStackTrace();
@@ -99,8 +99,8 @@ public class ASPazienti extends business.ServiceHandler{
 	public boolean deletePaziente(PazienteTO to){
 		
 		try {
-			paziente = new Paziente();
-			return paziente.deletePaziente(to);
+			patient = new Paziente();
+			return patient.deletePaziente(to);
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;
@@ -115,8 +115,8 @@ public class ASPazienti extends business.ServiceHandler{
 	public boolean modificaPaziente(PazienteTO to){
 		
 		try {
-			paziente = new Paziente();
-			return paziente.modificaPaziente(to);
+			patient = new Paziente();
+			return patient.modificaPaziente(to);
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;
@@ -131,8 +131,8 @@ public class ASPazienti extends business.ServiceHandler{
 	public boolean deleteAll(){
 		
 		try {
-			paziente = new Paziente();
-			return paziente.reset();
+			patient = new Paziente();
+			return patient.reset();
 		} catch (MainException e) {
 			e.printStackTrace();
 			return false;

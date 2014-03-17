@@ -14,10 +14,10 @@ public interface I_PazienteGet {
 	        
         public AbstractTableModel getTabella();
 	
-        public DefaultListModel<String> getCellulari(int idPaziente);
+        public DefaultListModel<String> getCellulari(int idPatient);
 
-        public String getPaziente(int idPaziente);
+        public String getPaziente(int idPatient);
         
-        public boolean exists(String nome, String cognome, Object[] cellulari);
+        public boolean exists(String name, String surname, Object[] cellulars);
         
 }

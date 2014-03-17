@@ -37,7 +37,7 @@ public interface I_PazienteMod {
 	*/
 	public boolean reset();
         
-        public boolean alterTable(ArrayList<String> listaCampi);
+        public boolean alterTable(ArrayList<String> fieldsList);
         
-        public boolean alterTableCellulari(ArrayList<String> listaCampi);
+        public boolean alterTableCellulari(ArrayList<String> fieldsList);
 }

@@ -97,28 +97,28 @@ public class Paziente implements I_PazienteMod, I_PazienteGet{
 	}
         
         @Override
-        public DefaultListModel<String> getCellulari(int idPaziente) {
-                return ((PazienteMySqlDAO) daoPaz).getCellulari(idPaziente);
+        public DefaultListModel<String> getCellulari(int idPatient) {
+                return ((PazienteMySqlDAO) daoPaz).getCellulari(idPatient);
         }
 	
         @Override
-        public String getPaziente(int idPaziente) {
-            return ((PazienteMySqlDAO) daoPaz).getSpecifiedWithPat(idPaziente);
+        public String getPaziente(int idPatient) {
+            return ((PazienteMySqlDAO) daoPaz).getSpecifiedWithPat(idPatient);
         }
 
     @Override
-    public boolean alterTable(ArrayList<String> listaCampi) {
-        return ((PazienteMySqlDAO) daoPaz).alterTable(listaCampi);
+    public boolean alterTable(ArrayList<String> fieldsList) {
+        return ((PazienteMySqlDAO) daoPaz).alterTable(fieldsList);
     }
     
     @Override
-    public boolean alterTableCellulari(ArrayList<String> listaCampi) {
-        return ((PazienteMySqlDAO) daoPaz).alterTableCellulari(listaCampi);
+    public boolean alterTableCellulari(ArrayList<String> fieldsList) {
+        return ((PazienteMySqlDAO) daoPaz).alterTableCellulari(fieldsList);
     }
 
     @Override
-    public boolean exists(String nome, String cognome, Object[] cellulari) {
-        return ((PazienteMySqlDAO) daoPaz).idEsistente(nome, cognome, cellulari);
+    public boolean exists(String name, String surname, Object[] cellulars) {
+        return ((PazienteMySqlDAO) daoPaz).idEsistente(name, surname, cellulars);
     }
 
 }
