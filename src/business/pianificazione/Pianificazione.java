@@ -20,22 +20,15 @@ import java.util.logging.Logger;
  */
 public class Pianificazione {
     
-   	private static final String FORMATO_NOME_FILE = "codoper_data_device.xml"; //Modificato vers. 2
-	private static final String FILE_SCHEMA_XSD_ESP = "SchemaXSD/XSDEsp.xsd";
-	private static final String SEGNAPOSTO_CODICE_OPERATORE = "codoper";
-	private static final String SEGNAPOSTO_DATA = "data";
-	private static final String SEGNAPOSTO_DEVICE = "device";
-        
-        /*public static String NOME_TABELLA_ATTIVITA = "ATTIVITA";
-        public static String NOME_COLONNA_ID_INTERVENTO_ATTIVITA = "IDINTERVENTO";
-        public static String NOME_COLONNA_DATA_ORA_INIZIO_ATTIVITA = "DATAORAINIZIO";
-        public static String NOME_COLONNA_DATA_ORA_FINE_ATTIVITA = "DATAORAFINE";
-        public static String NOME_COLONNA_MISURA_RILEVATA_ATTIVITA = "MISURARILEVATA";
-        public static String NOME_COLONNA_LOG_FILE_ATTIVITA = "LOGFILE";*/
+   	private static final String FILE_NAME_FORMAT = "codoper_data_device.xml"; //Modificato vers. 2
+	private static final String XSD_ESP_FILE_SCHEME = "SchemaXSD/XSDEsp.xsd";
+	private static final String OPERATOR_CODE_LABEL = "codoper";
+	private static final String DATE_LABEL = "data";
+	private static final String DEVICE_LABEL = "device";
 	
 	private static final String DEVICE = "s"; //Modificato vers. 2
-	private static final String CARTELLA_ESP_FILE = "Esportazione";
-	private static final String FORMATO_DATA = "yyyy-MM-dd";
+	private static final String ESP_FILE_FOLDER = "Esportazione";
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
 	/**
 	 * Costruttore, recupera la {@link integration.dao.MySqlDAOFactory}
 	/**
@@ -55,14 +48,14 @@ public class Pianificazione {
 	 * @return il nome del file appena creato, null se non riesce a creare nulla
 	*/
 	public String esportaPianificazione(InfermiereTO infTO, 
-			ArrayList<InterventoTO> listaInterventi) throws MainException{
+			ArrayList<InterventoTO> interventionList) throws MainException{
             		
 				//ESPORTAZIONE DELLA PIANIFICAZIONE DEGLI INTERVENTI
             //Creazione struttura di interscambio
             StrutturaInterscambio s = new StrutturaInterscambio();
 			
             //Per ogni intervento aggiunge i dati del paziente alla lista
-            for(InterventoTO i:listaInterventi) {
+            for(InterventoTO i:interventionList) {
                 //Recupero dati paziente
                 PazienteTO p = null;
                 try {
@@ -74,16 +67,16 @@ public class Pianificazione {
             }
 		
             //Preparazione percorso e nome file
-            String nomeFile = FORMATO_NOME_FILE;
-            nomeFile = nomeFile.replace(SEGNAPOSTO_CODICE_OPERATORE, StrutturaInterscambio.int2string6(infTO.getID()));
-            nomeFile = nomeFile.replace(SEGNAPOSTO_DATA, DateFormatConverter.long2dateString(DateFormatConverter.oggi(), FORMATO_DATA));
-            nomeFile = nomeFile.replace(SEGNAPOSTO_DEVICE, DEVICE);
+            String fileName = FILE_NAME_FORMAT;
+            fileName = fileName.replace(OPERATOR_CODE_LABEL, StrutturaInterscambio.int2string6(infTO.getID()));
+            fileName = fileName.replace(DATE_LABEL, DateFormatConverter.long2dateString(DateFormatConverter.oggi(), DATE_FORMAT));
+            fileName = fileName.replace(DEVICE_LABEL, DEVICE);
 			
             //Trace
-            System.out.println("\nPianificazione -> Preparato nome del file : " + nomeFile);
+            System.out.println("\nPianificazione -> Preparato nome del file : " + fileName);
 			
             //Esportazione del file e restituzione di una stringa con il risultato di scrittura e validazione 
-            return s.salvaSuFileXML(CARTELLA_ESP_FILE, nomeFile, FILE_SCHEMA_XSD_ESP);
+            return s.salvaSuFileXML(ESP_FILE_FOLDER, fileName, XSD_ESP_FILE_SCHEME);
 	}
 	
 }

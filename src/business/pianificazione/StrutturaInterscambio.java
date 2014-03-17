@@ -31,31 +31,31 @@ import java.util.ResourceBundle;
  *
  */
 public class StrutturaInterscambio {
-    private static ResourceBundle strutturaInterscambio = ResourceBundle.getBundle("adisys/server/property/StrutturaInterscambio");
-	private final String FORMATO_DATA_XML = "yyyy-MM-dd";
-	private final String FORMATO_ORA_XML = "HH:mm:ss";
+    private static ResourceBundle interchangeStructure = ResourceBundle.getBundle("adisys/server/property/StrutturaInterscambio");
+	private final String XML_DATE_FORMAT = "yyyy-MM-dd";
+	private final String XML_TIME_FORMAT = "HH:mm:ss";
 
-    public static void setResourceBundle(String path, Locale locale){
-            strutturaInterscambio = ResourceBundle.getBundle(path, locale);
+    public static void setResourceBundle(String path, Locale local){
+    	interchangeStructure = ResourceBundle.getBundle(path, local);
     }
-	Element interventi;
+	Element interventions;
 
 	public StrutturaInterscambio()
 	{
-		interventi= new Element("interventi");
+		interventions= new Element("interventi");
 	}
 
 	public void addIntervento(InterventoTO datiIntervento, PazienteTO datiPaziente)
 	{
 		//crea il nuovo oggetto Element intervento
-		Element nuovoIntervento = new Element("intervento");
+		Element newIntervention = new Element("intervento");
 
 		//trasferisce i dati dall'oggetto intervento all'element
 		//Creazione e inserimento ID intervento
 		Attribute id = new Attribute("id", int2string6(datiIntervento.getID()));
 
 		//Attributo orafine non vengono inseriti (a carico di ADISysMobile)
-		Attribute oraInizio = new Attribute("orainizio", datiIntervento.getOraInizioDaFormato(FORMATO_ORA_XML));
+		Attribute oraInizio = new Attribute("orainizio", datiIntervento.getOraInizioDaFormato(XML_TIME_FORMAT));
 		//Attribute oraFine = new Attribute("orainizio", datiIntervento.getOraInizioDaFormato(FORMATO_ORA_XML));
 
 
@@ -66,7 +66,7 @@ public class StrutturaInterscambio {
 
 		//Elemento data
 		Element data = new Element("data");
-		data.setText(datiIntervento.getDataDaFormato(FORMATO_DATA_XML));
+		data.setText(datiIntervento.getDataDaFormato(XML_DATE_FORMAT));
 
 		//Elemento luogo
 		Element luogo = new Element("luogo");
@@ -165,29 +165,29 @@ public class StrutturaInterscambio {
 
 		//TODO aggiunge l'element a "interventi
 		//ID
-		nuovoIntervento.setAttribute(oraInizio);
-		nuovoIntervento.setAttribute(id);
+		newIntervention.setAttribute(oraInizio);
+		newIntervention.setAttribute(id);
 		//Operatore intervento
-		nuovoIntervento.addContent(operatoreIntervento);
+		newIntervention.addContent(operatoreIntervento);
 		//Data
-		nuovoIntervento.addContent(data);
+		newIntervention.addContent(data);
 		//Luogo
-		nuovoIntervento.addContent(luogo);
+		newIntervention.addContent(luogo);
 		//Paziente
-		nuovoIntervento.addContent(paziente);
+		newIntervention.addContent(paziente);
 		//TipiInterventi
-		nuovoIntervento.addContent(tipiInterventi);
+		newIntervention.addContent(tipiInterventi);
 		//Log
-		nuovoIntervento.addContent(log);
+		newIntervention.addContent(log);
 
-		interventi.addContent(nuovoIntervento);
+		interventions.addContent(newIntervention);
 	}
 
 	public String salvaSuFileXML(String cartella, String nomeFile, String percorsoXSD)
 	{
 		//Creazione e preparazione Document XML
 		Document fileXMLInterscambio = new Document();
-		fileXMLInterscambio.setRootElement(interventi);
+		fileXMLInterscambio.setRootElement(interventions);
 
 		//TODO Controllo esistenza file/percorso
 		File fCartella= new File(cartella);
@@ -197,23 +197,23 @@ public class StrutturaInterscambio {
 		//Creazione cartella se non esistente
 		if(!(fCartella.exists())) fCartella.mkdir();
 
-		String errLog=strutturaInterscambio.getString("REPORT SALVATAGGIO XML:");
+		String errLog=interchangeStructure.getString("REPORT SALVATAGGIO XML:");
 
 		//Controllo esistenza file
 		org.jdom2.output.XMLOutputter estrattore = new XMLOutputter();
 		try 
 		{
 			estrattore.output(fileXMLInterscambio, new FileWriter(fileXML));
-			System.out.println(strutturaInterscambio.getString("XML: SCRITTURA OK!"));
-			errLog += strutturaInterscambio.getString("-SCRITTURA FILE XML OK.");
+			System.out.println(interchangeStructure.getString("XML: SCRITTURA OK!"));
+			errLog += interchangeStructure.getString("-SCRITTURA FILE XML OK.");
 			
-			errLog += java.text.MessageFormat.format(strutturaInterscambio.getString("{0}"), new Object[] {validaXML(fileXML, fileXSD)});
+			errLog += java.text.MessageFormat.format(interchangeStructure.getString("{0}"), new Object[] {validaXML(fileXML, fileXSD)});
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println(strutturaInterscambio.getString("XML: SCRITTURA FALLITA!"));
-			errLog += strutturaInterscambio.getString("-SCRITTURA FILE XML FALLITA.");
+			System.out.println(interchangeStructure.getString("XML: SCRITTURA FALLITA!"));
+			errLog += interchangeStructure.getString("-SCRITTURA FILE XML FALLITA.");
 		}
 
 		
@@ -229,24 +229,24 @@ public class StrutturaInterscambio {
 		File XSD= new File(schemaXsdImp);
 		
 		//Controllo esistenza file XSD
-		if(!XSD.exists()) errLog += java.text.MessageFormat.format(strutturaInterscambio.getString("-ERRORE: FILE {0}NON ESISTENTE."), new Object[] {XSD.getName()}); 
+		if(!XSD.exists()) errLog += java.text.MessageFormat.format(interchangeStructure.getString("-ERRORE: FILE {0}NON ESISTENTE."), new Object[] {XSD.getName()}); 
 			
 		//Validazione
-		errLog += java.text.MessageFormat.format(strutturaInterscambio.getString("- {0}"), new Object[] {validaXML(XML, XSD)});
+		errLog += java.text.MessageFormat.format(interchangeStructure.getString("- {0}"), new Object[] {validaXML(XML, XSD)});
 		
 		//Tentativo caricamento
         try {
         	SAXBuilder sax = new SAXBuilder();
             Document doc = sax.build(XML);
-            interventi = doc.getRootElement();
-            errLog+=java.text.MessageFormat.format(strutturaInterscambio.getString("- FILE {0} CARICATO CON SUCCESSO."), new Object[] {XML.getName()});
+            interventions = doc.getRootElement();
+            errLog+=java.text.MessageFormat.format(interchangeStructure.getString("- FILE {0} CARICATO CON SUCCESSO."), new Object[] {XML.getName()});
 		} catch (JDOMException e) {
 			// Auto-generated catch block
-			errLog+=java.text.MessageFormat.format(strutturaInterscambio.getString("- ERRORE: IMPOSSIBILE ESEGUIRE IL PARSING DEL FILE {0}"), new Object[] {XML.getName()});
+			errLog+=java.text.MessageFormat.format(interchangeStructure.getString("- ERRORE: IMPOSSIBILE ESEGUIRE IL PARSING DEL FILE {0}"), new Object[] {XML.getName()});
 			e.printStackTrace();
 		} catch (IOException e) {
 			// Auto-generated catch block
-			errLog+=java.text.MessageFormat.format(strutturaInterscambio.getString("- ERRORE: IMPOSSIBILE LEGGERE IL FILE {0}"), new Object[] {XML.getName()});
+			errLog+=java.text.MessageFormat.format(interchangeStructure.getString("- ERRORE: IMPOSSIBILE LEGGERE IL FILE {0}"), new Object[] {XML.getName()});
 			e.printStackTrace();
 		}
 		
@@ -258,7 +258,7 @@ public class StrutturaInterscambio {
 		//Creazione Lista
 		ArrayList<InterventoCompletoTO> listaInterventi= new ArrayList<>();
 		
-		for (Element intervento:interventi.getChildren())
+		for (Element intervento:interventions.getChildren())
 		{
 			//Creazione oggetto intervento
 			InterventoCompletoTO i = new InterventoCompletoTO();
@@ -266,12 +266,12 @@ public class StrutturaInterscambio {
 			//Trasferimento dati
 			i.setID(intervento.getAttributeValue("id"));
 			
-			i.setOraInizioFmt(intervento.getAttributeValue("orainizio"), FORMATO_ORA_XML );
-			i.setOraFineFmt(intervento.getAttributeValue("orafine"), FORMATO_ORA_XML );
+			i.setOraInizioFmt(intervento.getAttributeValue("orainizio"), XML_TIME_FORMAT );
+			i.setOraFineFmt(intervento.getAttributeValue("orafine"), XML_TIME_FORMAT );
 			
 			i.setIDInfermiere(intervento.getChild("operatoreIntervento").getAttributeValue("id"));
 			
-			i.setDataFmt(intervento.getChildText("data") , FORMATO_DATA_XML);
+			i.setDataFmt(intervento.getChildText("data") , XML_DATE_FORMAT);
 			
 			i.setCitta(intervento.getChild("luogo").getAttributeValue("citta"));
 			i.setCivico(intervento.getChild("luogo").getAttributeValue("indirizzo"));
@@ -324,8 +324,8 @@ public class StrutturaInterscambio {
 				//Lettura e inserimento Timestamp
 				String data = rilevazione.getChild("timestamp").getAttributeValue("data");
 				String ora = rilevazione.getChild("timestamp").getAttributeValue("ora");
-				String timestamp = data + java.text.MessageFormat.format(strutturaInterscambio.getString(" {0}"), new Object[] {ora});
-				String formatoTimestamp = FORMATO_DATA_XML + java.text.MessageFormat.format(strutturaInterscambio.getString(" {0}"), new Object[] {FORMATO_ORA_XML});
+				String timestamp = data + java.text.MessageFormat.format(interchangeStructure.getString(" {0}"), new Object[] {ora});
+				String formatoTimestamp = XML_DATE_FORMAT + java.text.MessageFormat.format(interchangeStructure.getString(" {0}"), new Object[] {XML_TIME_FORMAT});
 				r.setTimestampFromString(timestamp, formatoTimestamp);
 				
 				//GPS
@@ -361,8 +361,8 @@ public class StrutturaInterscambio {
 		Source xmlFile = new StreamSource(XML);
 		Source schemaFile = new StreamSource(XSD);
 
-		if(!XSD.exists()) return java.text.MessageFormat.format(strutturaInterscambio.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XSD.getName()});
-		if(!XML.exists()) return java.text.MessageFormat.format(strutturaInterscambio.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XML.getName()});
+		if(!XSD.exists()) return java.text.MessageFormat.format(interchangeStructure.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XSD.getName()});
+		if(!XML.exists()) return java.text.MessageFormat.format(interchangeStructure.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XML.getName()});
 		
 		try 
 		{
@@ -372,15 +372,15 @@ public class StrutturaInterscambio {
 			Validator validator = schema.newValidator();
 			validator.validate(xmlFile);
 
-			return (XML.getName() + strutturaInterscambio.getString(" È VALIDO"));
+			return (XML.getName() + interchangeStructure.getString(" È VALIDO"));
 		} 
 		catch (SAXException e) 
 		{
-			return (java.text.MessageFormat.format(strutturaInterscambio.getString("IL FILE {0} NON È VALIDO ({1})"), new Object[] {XML.getName(), e.getLocalizedMessage()}));
+			return (java.text.MessageFormat.format(interchangeStructure.getString("IL FILE {0} NON È VALIDO ({1})"), new Object[] {XML.getName(), e.getLocalizedMessage()}));
 		} 
 		catch (IOException e) 
 		{
-			return strutturaInterscambio.getString("ERRORE: FILE NON TROVATO");
+			return interchangeStructure.getString("ERRORE: FILE NON TROVATO");
 		}
 
 	}

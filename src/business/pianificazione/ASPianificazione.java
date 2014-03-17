@@ -25,7 +25,7 @@ public class ASPianificazione extends business.ServiceHandler{
 		map.put("esportaPianificazione", "esporta");
 	}
 	
-        private Pianificazione pian;
+        private Pianificazione plan;
         
         /**
 	 * Esportazione della pianificazione in un file. Usa {@link Pianificazione}
@@ -33,8 +33,8 @@ public class ASPianificazione extends business.ServiceHandler{
 	*/
 	public String esporta(InfermiereTO infTO, ArrayList<InterventoTO> intTOs) {
             try {
-                pian = new Pianificazione();
-                return pian.esportaPianificazione(infTO, intTOs);
+            	plan = new Pianificazione();
+                return plan.esportaPianificazione(infTO, intTOs);
             } catch (MainException ex) {
                 Logger.getLogger(ASPianificazione.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
