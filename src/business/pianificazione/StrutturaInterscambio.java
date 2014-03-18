@@ -114,7 +114,7 @@ public class StrutturaInterscambio {
 		{
 			Element tipoIntervento = new Element("tipoIntervento");
 			//Aggiunta attributo nome
-			tipoIntervento.setAttribute("nome", datiIntervento.getTipoIntervento(cont).getNome());
+			tipoIntervento.setAttribute("nome", datiIntervento.getTipoIntervento(cont).getNome()); 
                         
                         /*INSERIRE LE PATOLOGIE DA QUI*/
                         Element patologie = new Element("patologie");
@@ -361,7 +361,7 @@ public class StrutturaInterscambio {
 		Source xmlFile = new StreamSource(XML);
 		Source schemaFile = new StreamSource(XSD);
 
-		if(!XSD.exists()) return java.text.MessageFormat.format(interchangeStructure.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XSD.getName()});
+		//if(!XSD.exists()) return java.text.MessageFormat.format(interchangeStructure.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XSD.getName()});
 		if(!XML.exists()) return java.text.MessageFormat.format(interchangeStructure.getString("ERRORE: FILE {0} NON TROVATO."), new Object[] {XML.getName()});
 		
 		try 

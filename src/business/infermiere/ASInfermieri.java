@@ -39,7 +39,7 @@ public class ASInfermieri extends business.ServiceHandler{
 	 * Istanza della entity dell'infermiere {@link Infermiere} su cui ASInfermieri lavora 
 	*/
 	private I_InfermieriGet inf;
-        private I_InfermiereMod nurse;
+    private I_InfermiereMod nurse;
 	
 	/**
 	 * Restituisce una struttura dati dei to degli infermieri presenti nel database
@@ -72,11 +72,11 @@ public class ASInfermieri extends business.ServiceHandler{
 		}	
 	}
         
-        public boolean alterTable(ArrayList<String> listaCampi){
+        public boolean alterTable(ArrayList<String> fieldList){
             
 		try {
 			nurse = new Infermiere();
-			return nurse.alterTable(listaCampi);
+			return nurse.alterTable(fieldList);
 		} catch (MainException e) {
 			e.printStackTrace();
                         return false;
