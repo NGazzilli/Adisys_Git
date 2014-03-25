@@ -361,8 +361,8 @@ public class DialogoStorico extends javax.swing.JDialog implements Boundary {
 		}
 	}                                             
 
-	public void setModelPathologiesTable(DefaultTableModel modello){
-		pathologiesTable.setModel(modello);
+	public void setModelPathologiesTable(DefaultTableModel model){
+		pathologiesTable.setModel(model);
 	}
 
 

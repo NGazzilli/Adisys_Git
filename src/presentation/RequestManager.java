@@ -29,7 +29,6 @@ public class RequestManager implements FrontController{
 	private static RequestManager obj = null;
         
         public static final String OPEN_LANGUAGE_EDITOR = "EditorLanguage";
-        public static final String OPEN_DATABASE_EDITOR = "EditorDatabase";
         public static final String OPEN_PLANNER = "Pianificazione";
         public static final String OPEN_INTERVENTIONS_EDITOR = "EditorInterventi";
         public static final String OPEN_NURSES_EDITOR = "EditorInfemieri";

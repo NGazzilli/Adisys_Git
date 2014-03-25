@@ -38,7 +38,7 @@ public class SplashScreen extends javax.swing.JFrame {
 		setUndecorated(true);
 		setResizable(false);
 
-		jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/111SplashScreen.png"))); // NOI18N
+		jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adisys/server/img/111SplashScreen"))); // NOI18N
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
